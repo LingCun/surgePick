@@ -1,0 +1,49 @@
+name: Daily data scan
+
+on:
+  schedule:
+    # KST 16:30 = UTC 07:30, Mon-Fri (after KOSPI close)
+    - cron: '30 7 * * 1-5'
+    # ET 16:30 ≈ UTC 21:30 (EDT) / 22:30 (EST) — use both to cover DST.
+    # Mon-Fri in ET corresponds to UTC weekday close enough; idempotent scanner is safe to over-run.
+    - cron: '30 21 * * 1-5'
+    - cron: '30 22 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run scanners
+        run: npm run scan
+        env:
+          NODE_OPTIONS: --max-old-space-size=2048
+
+      - name: Commit data changes (if any)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            STAMP=$(date -u +%Y-%m-%d_%H%MZ)
+            git commit -m "data: scheduled scan ${STAMP}"
+            git push
+          fi

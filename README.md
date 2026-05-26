@@ -26,7 +26,18 @@ npm run dev          # http://localhost:4321
 
 Vercel 정적. `main` 브랜치 push 시 자동 재빌드.
 
-데이터 갱신: 로컬에서 `npm run scan` → JSON 커밋 → push.
+수동 데이터 갱신: 로컬에서 `npm run scan` → JSON 커밋 → push.
+
+## 자동 갱신 (GitHub Actions)
+
+`.github/workflows/scan.yml` cron:
+- KST 16:30 (KOSPI 마감 후)
+- ET 16:30 (NYSE 마감 후, EDT/EST 둘 다 커버)
+- 수동 트리거: GitHub Actions 탭 → Daily data scan → Run workflow
+
+실행 흐름: `npm ci` → `npm run scan` → `src/data/*.json` 변경 있으면 자동 커밋 + push → Vercel 재배포.
+
+GitHub repo에 push 후 Actions 자동 활성화 (public repo 기준). private repo는 Settings → Actions 권한 확인.
 
 ## 면책
 
