@@ -10,8 +10,10 @@ import ThemeCarousel from '../components/ThemeCarousel.astro';
 import picksData from '../data/picks.json';
 import regimeData from '../data/regime.json';
 import themesData from '../data/themes.json';
+import historyData from '../data/picks-history.json';
 
 const { kr: krPick = null, us: usPick = null, asOf: picksAsOf } = picksData;
+const historyCount = Array.isArray(historyData) ? historyData.length : 0;
 const { fearGauge, markets = [], overall, asOf: regimeAsOf } = regimeData;
 const { kr: krThemes = { popular: [], value: [] }, us: usThemes = { popular: [], value: [] }, asOf: themesAsOf } = themesData;
 const asOf = themesAsOf ?? regimeAsOf ?? picksAsOf;
@@ -39,6 +41,10 @@ const asOf = themesAsOf ?? regimeAsOf ?? picksAsOf;
         <p class="text-sm text-slate-400 text-center py-4">오늘은 조건 충족 종목 없음. 내일 다시 확인.</p>
       )}
     </div>
+    <a href="/history/" class="block rounded-2xl bg-slate-900 border border-slate-800 p-4 flex items-center justify-between hover:bg-slate-800 transition-colors">
+      <span class="flex items-center gap-2 text-base font-semibold"><span aria-hidden="true">📊</span>히스토리 보기</span>
+      <span class="text-xs text-slate-400">{historyCount}건 →</span>
+    </a>
   </section>
 
   <section id="section-mood" hidden class="space-y-4">

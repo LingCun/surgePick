@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import HistoryRow from '../components/HistoryRow.astro';
+import history from '../data/picks-history.json';
+
+// Latest buyDate first
+const sorted = [...history].sort((a, b) => b.buyDate.localeCompare(a.buyDate));
+const holdingCount = sorted.filter((e) => e.status === 'holding').length;
+const soldCount = sorted.filter((e) => e.status === 'sold').length;
+
+const shortCount = sorted.filter((e) => e.horizon === '단기').length;
+const midCount   = sorted.filter((e) => e.horizon === '중기').length;
+const longCount  = sorted.filter((e) => e.horizon === '장기').length;
+---
+<Base title="픽 히스토리 — surgePick">
+  <div class="mb-4">
+    <a href="/" class="text-sm text-slate-400 hover:text-slate-200">← 홈</a>
+  </div>
+  <h1 class="text-xl font-bold mb-1">픽 히스토리</h1>
+  <p class="text-xs text-slate-400 mb-4">총 {sorted.length}건 · 보유중 {holdingCount} · 매도완료 {soldCount}</p>
+
+  <div class="flex gap-1 mb-3 text-xs flex-wrap">
+    <span class="px-2 py-1 rounded-full bg-horizon-short/20 text-horizon-short font-semibold">단기 {shortCount}</span>
+    <span class="px-2 py-1 rounded-full bg-horizon-mid/20 text-horizon-mid font-semibold">중기 {midCount}</span>
+    <span class="px-2 py-1 rounded-full bg-horizon-long/20 text-horizon-long font-semibold">장기 {longCount}</span>
+  </div>
+
+  {sorted.length === 0 ? (
+    <p class="text-sm text-slate-400 text-center py-8">아직 적재된 픽 없음. <code>npm run scan:picks</code> 한 번 실행.</p>
+  ) : (
+    <div class="space-y-3">
+      {sorted.map((entry) => <HistoryRow entry={entry} />)}
+    </div>
+  )}
+</Base>

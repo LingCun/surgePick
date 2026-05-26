@@ -1,15 +1,32 @@
-{
-  "asOf": "2026-05-26T05:38:55.491Z",
-  "kr": null,
-  "us": {
+[
+  {
     "id": "us-2026-05-26-ADI",
+    "market": "US",
     "ticker": "ADI",
     "name": "Analog Devices",
-    "market": "US",
-    "score": 38,
+    "buyDate": "2026-05-26",
+    "buyPrice": 397.07000732421875,
     "horizon": "중기",
     "holdDays": 90,
-    "closes30": [
+    "matureDate": "2026-08-24",
+    "reason": "완만하게 우상향(일평균 +0.59%) + 거래량 증가세.",
+    "score": 38,
+    "metricsAtEntry": {
+      "slope": 0.005900729954471523,
+      "maxDailyReturn": 0.058885193918471454,
+      "spikeCount": 1,
+      "volRatio": 1.3836188303311683,
+      "volSlope": 0.023897328506899674,
+      "pricePosition": 0.5905720720822656,
+      "obvSlope": 18975.63959955505,
+      "obvSlopeNormalized": 0.004882491277309737
+    },
+    "scoresAtEntry": {
+      "A": 0.75,
+      "B": 0.3836188303311683,
+      "C": 0.001999028286745338
+    },
+    "closes30AtEntry": [
       350.010009765625,
       348.6000061035156,
       347.94000244140625,
@@ -41,6 +58,11 @@
       384.2099914550781,
       397.07000732421875
     ],
-    "reason": "완만하게 우상향(일평균 +0.59%) + 거래량 증가세."
+    "currentPrice": 397.07000732421875,
+    "currentDate": "2026-05-26",
+    "returnPct": 0,
+    "status": "holding",
+    "sellDate": null,
+    "sellPrice": null
   }
-}
+]

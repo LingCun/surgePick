@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sparkline from '../../components/Sparkline.astro';
+import history from '../../data/picks-history.json';
+
+export function getStaticPaths() {
+  return history.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+const horizonColor =
+  entry.horizon === '단기' ? 'bg-horizon-short/20 text-horizon-short'
+  : entry.horizon === '중기' ? 'bg-horizon-mid/20 text-horizon-mid'
+  : 'bg-horizon-long/20 text-horizon-long';
+
+const flagEmoji = entry.market === 'KR' ? '🇰🇷' : '🇺🇸';
+const currency = entry.market === 'KR' ? '원' : '$';
+const fmtPrice = (p) => entry.market === 'KR'
+  ? p.toLocaleString('ko-KR') + currency
+  : currency + p.toFixed(2);
+
+const returnColor = entry.returnPct >= 0 ? 'text-emerald-400' : 'text-red-400';
+const returnText = (entry.returnPct >= 0 ? '+' : '') + entry.returnPct.toFixed(2) + '%';
+
+const matureTime = new Date(entry.matureDate + 'T00:00:00Z').getTime();
+const daysLeft = Math.max(0, Math.ceil((matureTime - Date.now()) / (1000 * 60 * 60 * 24)));
+
+const m = entry.metricsAtEntry ?? {};
+const dailyPct = m.slope != null ? (m.slope * 100).toFixed(2) : '—';
+const volRatio = m.volRatio != null ? m.volRatio.toFixed(2) : '—';
+const pricePos = m.pricePosition != null ? (m.pricePosition * 100).toFixed(0) : '—';
+const maxDR = m.maxDailyReturn != null ? (m.maxDailyReturn * 100).toFixed(1) : '—';
+
+const horizonExplain = {
+  '단기': '추세·모멘텀 점수 강함 → 단기 차익 실현 권장.',
+  '중기': '균형 잡힌 점수. 적당히 보유 후 회수.',
+  '장기': '저점 매집 + 변동성 낮음 → 길게 들고 가도 OK.',
+}[entry.horizon] ?? '';
+---
+<Base title={`${entry.name} — surgePick`}>
+  <div class="mb-4">
+    <a href="/history/" class="text-sm text-slate-400 hover:text-slate-200">← 히스토리</a>
+  </div>
+
+  <header class="mb-4">
+    <h1 class="text-2xl font-bold flex items-center gap-2"><span aria-hidden="true">{flagEmoji}</span>{entry.name}</h1>
+    <p class="text-sm text-slate-400">{entry.ticker} · {entry.market}</p>
+    <div class="mt-2">
+      <span class={`text-xs font-semibold px-2 py-1 rounded-full ${horizonColor}`}>
+        {entry.horizon} · {entry.holdDays}일 보유
+      </span>
+    </div>
+  </header>
+
+  <article class="rounded-2xl bg-slate-900 border border-slate-800 p-4 space-y-3 mb-4">
+    <h2 class="text-sm uppercase tracking-wider text-slate-400">매수 시점 30일 차트</h2>
+    {entry.closes30AtEntry && entry.closes30AtEntry.length > 0 ? (
+      <Sparkline values={entry.closes30AtEntry} color="#60a5fa" height={100} />
+    ) : (
+      <p class="text-sm text-slate-400 text-center py-4">차트 데이터 없음.</p>
+    )}
+    <p class="text-xs text-slate-500 text-center">매수 시점 기준 직전 30거래일</p>
+  </article>
+
+  {entry.status === 'sold' ? (
+    <article class="rounded-2xl bg-slate-900 border border-slate-800 p-5 space-y-3 mb-4">
+      <h2 class="text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2"><span>✅</span>매도완료 · 확정 수익률</h2>
+      <p class={`text-4xl font-bold ${returnColor}`}>{returnText}</p>
+      <dl class="space-y-2 pt-3 border-t border-slate-800 text-sm">
+        <div class="flex justify-between"><dt class="text-slate-400">매수일</dt><dd class="font-medium">{entry.buyDate}</dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">매수가</dt><dd class="font-medium">{fmtPrice(entry.buyPrice)}</dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">매도일</dt><dd class="font-medium">{entry.sellDate} (만기)</dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">매도가</dt><dd class="font-medium">{fmtPrice(entry.sellPrice)}</dd></div>
+      </dl>
+    </article>
+  ) : (
+    <article class="rounded-2xl bg-slate-900 border border-slate-800 p-5 space-y-3 mb-4">
+      <h2 class="text-sm uppercase tracking-wider text-slate-400">현재 수익률</h2>
+      <p class={`text-4xl font-bold ${returnColor}`}>{returnText}</p>
+      <dl class="space-y-2 pt-3 border-t border-slate-800 text-sm">
+        <div class="flex justify-between"><dt class="text-slate-400">매수일</dt><dd class="font-medium">{entry.buyDate}</dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">매수가</dt><dd class="font-medium">{fmtPrice(entry.buyPrice)}</dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">현재가</dt><dd class="font-medium">{fmtPrice(entry.currentPrice)} <span class="text-xs text-slate-500">({entry.currentDate})</span></dd></div>
+        <div class="flex justify-between"><dt class="text-slate-400">만기일</dt><dd class="font-medium">{entry.matureDate} <span class={`text-xs ${horizonColor.split(' ')[1]}`}>(D-{daysLeft})</span></dd></div>
+      </dl>
+    </article>
+  )}
+
+  <article class="rounded-2xl bg-slate-900 border border-slate-800 p-5 space-y-3">
+    <h2 class="text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2"><span>💡</span>이 종목을 추천한 이유</h2>
+    <p class="text-base font-medium text-slate-100 leading-relaxed">"{entry.reason}"</p>
+
+    <div class="pt-3 border-t border-slate-800 space-y-3 text-sm text-slate-300">
+      <div>
+        <p class="font-semibold text-slate-200 mb-1">📈 추세</p>
+        <p class="text-slate-400">일평균 +{dailyPct}% 우상향, 급등 캔들 없음 (최대 일일 +{maxDR}%)</p>
+      </div>
+      <div>
+        <p class="font-semibold text-slate-200 mb-1">📊 거래량</p>
+        <p class="text-slate-400">전반 15일 대비 후반 15일 {volRatio}배 증가</p>
+      </div>
+      <div>
+        <p class="font-semibold text-slate-200 mb-1">🎯 매집</p>
+        <p class="text-slate-400">30일 가격 위치 {pricePos}% (저점에서 위로), 매수세 누적 증가</p>
+      </div>
+    </div>
+
+    <div class="pt-3 border-t border-slate-800">
+      <p class="font-semibold text-slate-200 mb-1">⏱️ 호라이즌이 {entry.horizon}·{entry.holdDays}일인 이유</p>
+      <p class="text-sm text-slate-400">{horizonExplain}</p>
+    </div>
+  </article>
+</Base>

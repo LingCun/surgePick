@@ -1,13 +1,22 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { fetchMany } from './fetch-yahoo.mjs';
+import { fetchMany, fetchChart } from './fetch-yahoo.mjs';
 import { scorePicks } from './lib/scoring.mjs';
 import { pickReason } from './lib/reason-template.mjs';
 import { classifyHorizon } from './lib/horizon.mjs';
+import {
+  loadHistory,
+  saveHistory,
+  todayDate,
+  hasPickToday,
+  makeEntry,
+  updateEntry,
+} from './lib/history-store.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT = resolve(__dirname, '../src/data/picks.json');
+const HISTORY = resolve(__dirname, '../src/data/picks-history.json');
 
 function load(name) {
   return JSON.parse(readFileSync(resolve(__dirname, name), 'utf8'));
@@ -28,14 +37,6 @@ function vol20(closes) {
   const mean = rets.reduce((a, b) => a + b, 0) / rets.length;
   const variance = rets.reduce((a, b) => a + (b - mean) ** 2, 0) / Math.max(1, rets.length - 1);
   return Math.sqrt(variance) * Math.sqrt(252);
-}
-
-function todayDate() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function makeId(market, ticker) {
-  return `${market.toLowerCase()}-${todayDate()}-${ticker.replace(/[.^]/g, '')}`;
 }
 
 async function scanGroup(universe, marketLabel) {
@@ -79,25 +80,72 @@ async function scanGroup(universe, marketLabel) {
   }
 
   candidates.sort((a, b) => b.score - a.score);
-  const top = candidates[0] ?? null;
-  if (top) {
-    top.id = makeId(marketLabel, top.ticker);
-    top.buyDate = todayDate();
+  console.log(`[scan-picks] ${marketLabel} candidates ${candidates.length}, top: ${candidates[0]?.ticker ?? 'none'}`);
+  return candidates[0] ?? null;
+}
+
+async function refreshHoldings(history, today) {
+  const active = history.filter((e) => e.status === 'holding');
+  if (active.length === 0) return history;
+
+  console.log(`[scan-picks] refreshing ${active.length} active holdings...`);
+  const updates = new Map();
+  for (const entry of active) {
+    const data = await fetchChart(entry.ticker, '1mo');
+    if (!data || data.closes.length === 0) continue;
+    const currentPrice = data.closes[data.closes.length - 1];
+    updates.set(entry.id, updateEntry(entry, currentPrice, today));
+    await new Promise((r) => setTimeout(r, 200));
   }
-  console.log(`[scan-picks] ${marketLabel} candidates ${candidates.length}, top: ${top?.ticker ?? 'none'}`);
-  return top;
+
+  return history.map((e) => updates.get(e.id) ?? e);
 }
 
 async function main() {
   const kr = load('universe-kr.json');
   const us = load('universe-us.json');
+  const today = todayDate();
+
+  let history = loadHistory(HISTORY);
+  history = await refreshHoldings(history, today);
+
   const krPick = await scanGroup(kr, 'KR');
   const usPick = await scanGroup(us, 'US');
 
+  const newEntries = [];
+  if (krPick && !hasPickToday(history, 'KR', today)) {
+    newEntries.push(makeEntry({ market: 'KR', buyDate: today, pick: krPick }));
+  }
+  if (usPick && !hasPickToday(history, 'US', today)) {
+    newEntries.push(makeEntry({ market: 'US', buyDate: today, pick: usPick }));
+  }
+  history = [...history, ...newEntries];
+  saveHistory(HISTORY, history);
+  console.log(`[scan-picks] history now has ${history.length} entries (added ${newEntries.length})`);
+
+  // Today's picks snapshot for home page (1+1)
+  const buildSnapshot = (entry) => {
+    if (!entry) return null;
+    return {
+      id: entry.id,
+      ticker: entry.ticker,
+      name: entry.name,
+      market: entry.market,
+      score: entry.score,
+      horizon: entry.horizon,
+      holdDays: entry.holdDays,
+      closes30: entry.closes30AtEntry,
+      reason: entry.reason,
+    };
+  };
+
+  const todayKR = history.find((e) => e.market === 'KR' && e.buyDate === today) ?? null;
+  const todayUS = history.find((e) => e.market === 'US' && e.buyDate === today) ?? null;
+
   const out = {
     asOf: new Date().toISOString(),
-    kr: krPick,
-    us: usPick,
+    kr: buildSnapshot(todayKR),
+    us: buildSnapshot(todayUS),
   };
 
   mkdirSync(dirname(OUTPUT), { recursive: true });
