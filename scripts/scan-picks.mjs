@@ -82,7 +82,7 @@ async function scanGroup(universe, marketLabel) {
   return candidates[0] ?? null;
 }
 
-async function refreshHoldings(history, today) {
+async function refreshHoldings(history, today, vix) {
   const active = history.filter((e) => e.status === 'holding');
   if (active.length === 0) return history;
 
@@ -92,7 +92,7 @@ async function refreshHoldings(history, today) {
     const data = await fetchChart(entry.ticker, '1mo');
     if (!data || data.closes.length === 0) continue;
     const currentPrice = data.closes[data.closes.length - 1];
-    updates.set(entry.id, updateEntry(entry, currentPrice, today));
+    updates.set(entry.id, updateEntry(entry, currentPrice, today, vix));
     await new Promise((r) => setTimeout(r, 200));
   }
 
@@ -104,18 +104,28 @@ async function runTrack({ label, krUniverseFile, usUniverseFile, outputPath, his
   const us = load(usUniverseFile);
   const today = todayDate();
 
-  let history = loadHistory(historyPath);
-  history = await refreshHoldings(history, today);
+  const vixData = await fetchChart('^VIX', '1mo');
+  const vix = vixData?.closes?.[vixData.closes.length - 1] ?? null;
+  console.log(`[scan-picks/${label}] VIX today: ${vix?.toFixed(2) ?? 'N/A'}`);
 
-  const krPick = await scanGroup(kr, 'KR');
-  const usPick = await scanGroup(us, 'US');
+  let history = loadHistory(historyPath);
+  history = await refreshHoldings(history, today, vix);
+
+  let krPick = null;
+  let usPick = null;
+  if (vix != null && vix > 20) {
+    krPick = await scanGroup(kr, 'KR');
+    usPick = await scanGroup(us, 'US');
+  } else {
+    console.log(`[scan-picks/${label}] VIX gate closed (need >20, got ${vix?.toFixed(2) ?? 'null'}) — no new entries today`);
+  }
 
   const newEntries = [];
   if (krPick && !hasPickToday(history, 'KR', today)) {
-    newEntries.push(makeEntry({ market: 'KR', buyDate: today, pick: krPick, idPrefix }));
+    newEntries.push(makeEntry({ market: 'KR', buyDate: today, pick: krPick, idPrefix, vixAtBuy: vix }));
   }
   if (usPick && !hasPickToday(history, 'US', today)) {
-    newEntries.push(makeEntry({ market: 'US', buyDate: today, pick: usPick, idPrefix }));
+    newEntries.push(makeEntry({ market: 'US', buyDate: today, pick: usPick, idPrefix, vixAtBuy: vix }));
   }
   history = [...history, ...newEntries];
   saveHistory(historyPath, history);
