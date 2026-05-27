@@ -4,9 +4,11 @@ import { fileURLToPath } from 'node:url';
 import { fetchMany, fetchChart } from './fetch-yahoo.mjs';
 import { simulate } from './lib/backtest-engine.mjs';
 import { bucketize } from './lib/backtest-aggregate.mjs';
+import { buildBearMap } from './lib/regime-detect.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SIM_START = '2022-01-01';
+const DEFENSIVE_TICKERS = ['SQQQ', 'GLD', 'TLT', 'BND'];
 
 function todayStr() {
   const d = new Date();
@@ -38,7 +40,7 @@ function simDayCountsFrom(tickers, simStart, simEnd) {
   };
 }
 
-async function runBacktestTrack({ label, krUniverseFile, usUniverseFile, outputPath, vixByDate }) {
+async function runBacktestTrack({ label, krUniverseFile, usUniverseFile, outputPath, vixByDate, bearByMarket, defensiveTickers = [] }) {
   const kr = loadJson(krUniverseFile);
   const us = loadJson(usUniverseFile);
   const today = todayStr();
@@ -64,7 +66,7 @@ async function runBacktestTrack({ label, krUniverseFile, usUniverseFile, outputP
 
   console.log(`[backtest/${label}] simulating ${SIM_START} -> ${today}...`);
   const t0 = Date.now();
-  const entries = simulate({ tickers, simStart: SIM_START, simEnd: today, today, vixByDate });
+  const entries = simulate({ tickers, simStart: SIM_START, simEnd: today, today, vixByDate, bearByMarket, defensiveTickers });
   console.log(`[backtest/${label}] entries: ${entries.length} (matured ${entries.filter((e) => e.status === 'matured').length}, active ${entries.filter((e) => e.status === 'active').length}) in ${Date.now() - t0}ms`);
 
   const simDayCounts = simDayCountsFrom(tickers, SIM_START, today);
@@ -89,17 +91,29 @@ async function runBacktestTrack({ label, krUniverseFile, usUniverseFile, outputP
 }
 
 async function main() {
-  console.log('[backtest] fetching ^VIX (5y)...');
-  const vixData = await fetchChart('^VIX', '5y');
-  if (!vixData || !vixData.dates || vixData.dates.length === 0) {
-    console.error('[backtest] failed to fetch VIX — cannot run gated backtest');
+  console.log('[backtest] fetching ^VIX, ^GSPC, ^KS11 (5y)...');
+  const [vixData, gspcData, ksData] = await Promise.all([
+    fetchChart('^VIX', '5y'),
+    fetchChart('^GSPC', '5y'),
+    fetchChart('^KS11', '5y'),
+  ]);
+  if (!gspcData || !ksData) {
+    console.error('[backtest] failed to fetch indices — cannot run bear-gated backtest');
     process.exit(1);
   }
   const vixByDate = {};
-  for (let i = 0; i < vixData.dates.length; i++) {
-    vixByDate[vixData.dates[i]] = vixData.closes[i];
+  if (vixData) {
+    for (let i = 0; i < vixData.dates.length; i++) {
+      vixByDate[vixData.dates[i]] = vixData.closes[i];
+    }
   }
-  console.log(`[backtest] VIX days: ${Object.keys(vixByDate).length}`);
+  const bearByMarket = {
+    US: buildBearMap(gspcData.dates, gspcData.closes),
+    KR: buildBearMap(ksData.dates, ksData.closes),
+  };
+  const bearDaysUS = Object.values(bearByMarket.US).filter(Boolean).length;
+  const bearDaysKR = Object.values(bearByMarket.KR).filter(Boolean).length;
+  console.log(`[backtest] bear days — US: ${bearDaysUS}, KR: ${bearDaysKR}`);
 
   await runBacktestTrack({
     label: 'stocks',
@@ -107,6 +121,7 @@ async function main() {
     usUniverseFile: 'universe-us.json',
     outputPath: resolve(__dirname, '../src/data/backtest.json'),
     vixByDate,
+    bearByMarket,
   });
   await runBacktestTrack({
     label: 'etfs',
@@ -114,6 +129,8 @@ async function main() {
     usUniverseFile: 'universe-etf-us.json',
     outputPath: resolve(__dirname, '../src/data/backtest-etf.json'),
     vixByDate,
+    bearByMarket,
+    defensiveTickers: DEFENSIVE_TICKERS,
   });
 }
 
