@@ -1,9 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import StatsTable from '../components/StatsTable.astro';
-import backtest from '../data/backtest.json';
-
-const { window: winRange, simDays, totals, byMarket, byHorizon, byMarketHorizon, byYear, picks } = backtest;
+import backtestStocks from '../data/backtest.json';
+import backtestEtf from '../data/backtest-etf.json';
 
 const fmtPct = (v: number | null, digits = 1) =>
   v == null ? 'N/A' : `${(v * 100).toFixed(digits)}%`;
@@ -12,15 +11,19 @@ const fmtReturn = (v: number | null) =>
 const returnColor = (v: number | null) =>
   v == null ? 'text-slate-400' : v > 0 ? 'text-emerald-600' : v < 0 ? 'text-rose-600' : 'text-slate-600';
 
-const yearRows = Object.entries(byYear)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([year, b]: any) => ({ label: year, ...b }));
+function bind(b: any) {
+  const yearRows = Object.entries(b.byYear)
+    .sort(([a], [c]) => a.localeCompare(c))
+    .map(([year, v]: any) => ({ label: year, ...v }));
+  const horizonRows = ['단기', '중기', '장기'].map((h) => ({ label: h, ...b.byHorizon[h] }));
+  const marketRows = ['KR', 'US'].map((m) => ({ label: m, ...b.byMarket[m] }));
+  const marketHorizonRows = Object.entries(b.byMarketHorizon).map(([k, v]: any) => ({ label: k, ...v }));
+  const picksMatured = b.picks.filter((p: any) => p.status === 'matured');
+  return { ...b, yearRows, horizonRows, marketRows, marketHorizonRows, picksMatured };
+}
 
-const horizonRows = ['단기', '중기', '장기'].map((h) => ({ label: h, ...byHorizon[h] }));
-const marketRows = ['KR', 'US'].map((m) => ({ label: m, ...byMarket[m] }));
-const marketHorizonRows = Object.entries(byMarketHorizon).map(([k, b]: any) => ({ label: k, ...b }));
-
-const picksMatured = picks.filter((p: any) => p.status === 'matured');
+const stocks = bind(backtestStocks);
+const etfs = bind(backtestEtf);
 ---
 
 <Base title="surgePick — 백테스트">
@@ -30,79 +33,106 @@ const picksMatured = picks.filter((p: any) => p.status === 'matured');
       <a href="/" class="text-xs text-slate-400 hover:text-slate-200">← 홈</a>
     </header>
 
-    <p class="text-xs text-slate-400">
-      기간: <span class="font-medium text-slate-200">{winRange.start} → {winRange.end}</span>
-      · 시뮬레이션 거래일 <span class="font-medium text-slate-200">{simDays}</span>일
-    </p>
+    <div data-track-tabs data-track-group="bt" class="flex gap-1 rounded-full bg-slate-900 p-1 border border-slate-800">
+      <button data-track-tab="stock" aria-selected="true" class="flex-1 rounded-full px-3 py-1.5 text-xs font-medium text-slate-100 bg-slate-800">종목</button>
+      <button data-track-tab="etf" aria-selected="false" class="flex-1 rounded-full px-3 py-1.5 text-xs font-medium text-slate-400">ETF</button>
+    </div>
 
-    <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-      <h2 class="mb-2 text-sm font-semibold text-slate-700">전체 요약</h2>
-      <div class="grid grid-cols-4 gap-2 text-center">
-        <div>
-          <div class="text-[10px] text-slate-500">건수</div>
-          <div class="text-lg font-bold text-slate-900 tabular-nums">{totals.count}</div>
-        </div>
-        <div>
-          <div class="text-[10px] text-slate-500">진입률</div>
-          <div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(totals.pickRate, 1)}</div>
-        </div>
-        <div>
-          <div class="text-[10px] text-slate-500">승률</div>
-          <div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(totals.winRate, 1)}</div>
-        </div>
-        <div>
-          <div class="text-[10px] text-slate-500">평균 수익</div>
-          <div class={`text-lg font-bold tabular-nums ${returnColor(totals.meanReturn)}`}>
-            {fmtReturn(totals.meanReturn)}
-          </div>
-        </div>
-      </div>
-      {totals.active > 0 && (
-        <p class="mt-2 text-[10px] text-slate-400">
-          보유 중(만기 미도달) {totals.active}건은 집계 제외.
-        </p>
-      )}
-    </section>
+    <div data-track-panel="stock" data-track-group="bt" class="space-y-4">
+      <p class="text-xs text-slate-400">
+        기간: <span class="font-medium text-slate-200">{stocks.window.start} → {stocks.window.end}</span>
+        · 시뮬레이션 거래일 <span class="font-medium text-slate-200">{stocks.simDays}</span>일
+      </p>
 
-    <StatsTable title="연도별" rows={yearRows} highlightLabel="2022" />
-    <StatsTable title="보유기간별" rows={horizonRows} />
-    <StatsTable title="시장별" rows={marketRows} />
-    <StatsTable title="시장 × 보유기간" rows={marketHorizonRows} />
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-2 text-sm font-semibold text-slate-700">전체 요약</h2>
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div><div class="text-[10px] text-slate-500">건수</div><div class="text-lg font-bold text-slate-900 tabular-nums">{stocks.totals.count}</div></div>
+          <div><div class="text-[10px] text-slate-500">진입률</div><div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(stocks.totals.pickRate, 1)}</div></div>
+          <div><div class="text-[10px] text-slate-500">승률</div><div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(stocks.totals.winRate, 1)}</div></div>
+          <div><div class="text-[10px] text-slate-500">평균 수익</div><div class={`text-lg font-bold tabular-nums ${returnColor(stocks.totals.meanReturn)}`}>{fmtReturn(stocks.totals.meanReturn)}</div></div>
+        </div>
+        {stocks.totals.active > 0 && (
+          <p class="mt-2 text-[10px] text-slate-400">보유 중(만기 미도달) {stocks.totals.active}건은 집계 제외.</p>
+        )}
+      </section>
 
-    <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
-      <h2 class="mb-3 text-sm font-semibold text-slate-700">전체 픽 ({picksMatured.length})</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-xs">
-          <thead>
-            <tr class="border-b border-slate-200 text-left text-slate-500">
-              <th class="py-2 pr-2 font-medium">매수일</th>
-              <th class="py-2 pr-2 font-medium">종목</th>
-              <th class="py-2 pr-2 text-right font-medium">기간</th>
-              <th class="py-2 text-right font-medium">수익률</th>
-            </tr>
-          </thead>
-          <tbody>
-            {picksMatured.map((p: any) => (
-              <tr class="border-b border-slate-100 last:border-0">
-                <td class="py-2 pr-2 tabular-nums text-slate-600">{p.buyDate}</td>
-                <td class="py-2 pr-2">
-                  <span class="font-medium text-slate-800">{p.ticker}</span>
-                  <span class="ml-1 text-[10px] text-slate-400">{p.market}·{p.horizon}</span>
-                </td>
-                <td class="py-2 pr-2 text-right tabular-nums text-slate-500">{p.holdDays}d</td>
-                <td class={`py-2 text-right tabular-nums font-medium ${returnColor(p.return)}`}>
-                  {fmtReturn(p.return)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <StatsTable title="연도별" rows={stocks.yearRows} highlightLabel="2022" />
+      <StatsTable title="보유기간별" rows={stocks.horizonRows} />
+      <StatsTable title="시장별" rows={stocks.marketRows} />
+      <StatsTable title="시장 × 보유기간" rows={stocks.marketHorizonRows} />
+
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-3 text-sm font-semibold text-slate-700">전체 픽 ({stocks.picksMatured.length})</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead><tr class="border-b border-slate-200 text-left text-slate-500"><th class="py-2 pr-2 font-medium">매수일</th><th class="py-2 pr-2 font-medium">종목</th><th class="py-2 pr-2 text-right font-medium">기간</th><th class="py-2 text-right font-medium">수익률</th></tr></thead>
+            <tbody>
+              {stocks.picksMatured.map((p: any) => (
+                <tr class="border-b border-slate-100 last:border-0">
+                  <td class="py-2 pr-2 tabular-nums text-slate-600">{p.buyDate}</td>
+                  <td class="py-2 pr-2"><span class="font-medium text-slate-800">{p.ticker}</span><span class="ml-1 text-[10px] text-slate-400">{p.market}·{p.horizon}</span></td>
+                  <td class="py-2 pr-2 text-right tabular-nums text-slate-500">{p.holdDays}d</td>
+                  <td class={`py-2 text-right tabular-nums font-medium ${returnColor(p.return)}`}>{fmtReturn(p.return)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div data-track-panel="etf" data-track-group="bt" hidden class="space-y-4">
+      <p class="text-xs text-slate-400">
+        기간: <span class="font-medium text-slate-200">{etfs.window.start} → {etfs.window.end}</span>
+        · 시뮬레이션 거래일 <span class="font-medium text-slate-200">{etfs.simDays}</span>일
+      </p>
+
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-2 text-sm font-semibold text-slate-700">전체 요약</h2>
+        <div class="grid grid-cols-4 gap-2 text-center">
+          <div><div class="text-[10px] text-slate-500">건수</div><div class="text-lg font-bold text-slate-900 tabular-nums">{etfs.totals.count}</div></div>
+          <div><div class="text-[10px] text-slate-500">진입률</div><div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(etfs.totals.pickRate, 1)}</div></div>
+          <div><div class="text-[10px] text-slate-500">승률</div><div class="text-lg font-bold text-slate-900 tabular-nums">{fmtPct(etfs.totals.winRate, 1)}</div></div>
+          <div><div class="text-[10px] text-slate-500">평균 수익</div><div class={`text-lg font-bold tabular-nums ${returnColor(etfs.totals.meanReturn)}`}>{fmtReturn(etfs.totals.meanReturn)}</div></div>
+        </div>
+        {etfs.totals.active > 0 && (
+          <p class="mt-2 text-[10px] text-slate-400">보유 중(만기 미도달) {etfs.totals.active}건은 집계 제외.</p>
+        )}
+      </section>
+
+      <StatsTable title="연도별" rows={etfs.yearRows} highlightLabel="2022" />
+      <StatsTable title="보유기간별" rows={etfs.horizonRows} />
+      <StatsTable title="시장별" rows={etfs.marketRows} />
+      <StatsTable title="시장 × 보유기간" rows={etfs.marketHorizonRows} />
+
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-3 text-sm font-semibold text-slate-700">전체 픽 ({etfs.picksMatured.length})</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs">
+            <thead><tr class="border-b border-slate-200 text-left text-slate-500"><th class="py-2 pr-2 font-medium">매수일</th><th class="py-2 pr-2 font-medium">종목</th><th class="py-2 pr-2 text-right font-medium">기간</th><th class="py-2 text-right font-medium">수익률</th></tr></thead>
+            <tbody>
+              {etfs.picksMatured.map((p: any) => (
+                <tr class="border-b border-slate-100 last:border-0">
+                  <td class="py-2 pr-2 tabular-nums text-slate-600">{p.buyDate}</td>
+                  <td class="py-2 pr-2"><span class="font-medium text-slate-800">{p.ticker}</span><span class="ml-1 text-[10px] text-slate-400">{p.market}·{p.horizon}</span></td>
+                  <td class="py-2 pr-2 text-right tabular-nums text-slate-500">{p.holdDays}d</td>
+                  <td class={`py-2 text-right tabular-nums font-medium ${returnColor(p.return)}`}>{fmtReturn(p.return)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
 
     <p class="text-[10px] leading-relaxed text-slate-400">
-      ⓘ 한계: 종목 풀이 2026년 기준으로 고정되어 있어 생존편향(survivorship bias)이 존재합니다.
+      ⓘ 한계: 종목/ETF 풀이 2026년 기준으로 고정되어 있어 생존편향(survivorship bias)이 존재합니다.
       과거 시점에 상장폐지된 종목은 포함되지 않으며, 결과는 알고리즘 자체의 동작 검증 목적입니다.
     </p>
   </div>
+
+  <script>
+    import '../scripts/track-tabs.ts';
+  </script>
 </Base>
