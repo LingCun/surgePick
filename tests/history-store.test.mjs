@@ -135,48 +135,25 @@ describe('updateEntry', () => {
     expect(r).toBe(sold);
   });
 
-  it('marks sold with sellReason="trailing" when pullback >= 10%', () => {
-    const entry = { ...base, maxPriceSinceEntry: 130 };
-    const r = updateEntry(entry, 117, '2026-05-08');
+  it('exits with sellReason="vix" when vix < 15 (before maturity)', () => {
+    const r = updateEntry(base, 102, '2026-05-08', 12);
     expect(r.status).toBe('sold');
-    expect(r.sellReason).toBe('trailing');
-    expect(r.sellPrice).toBe(117);
+    expect(r.sellReason).toBe('vix');
+    expect(r.sellPrice).toBe(102);
     expect(r.sellDate).toBe('2026-05-08');
+    expect(r.vixAtSell).toBe(12);
   });
 
-  it('marks sold with sellReason="hard" when drawdown >= 15% and no pullback hit', () => {
-    const r = updateEntry(base, 85, '2026-05-08');
-    expect(r.status).toBe('sold');
-    expect(r.sellReason).toBe('hard');
-    expect(r.sellPrice).toBe(85);
+  it('keeps holding when vix >= 15 and before maturity', () => {
+    const r = updateEntry(base, 105, '2026-05-08', 20);
+    expect(r.status).toBe('holding');
+    expect(r.sellReason).toBeUndefined();
   });
 
-  it('trailing takes precedence over hard when both would trigger', () => {
-    const entry = { ...base, maxPriceSinceEntry: 120 };
-    const r = updateEntry(entry, 85, '2026-05-08');
-    expect(r.sellReason).toBe('trailing');
-  });
-
-  it('matured sellReason when today >= matureDate and no stop hit', () => {
-    const r = updateEntry(base, 95, '2026-05-15');
+  it('falls back to matured when vix is null and today >= matureDate', () => {
+    const r = updateEntry(base, 95, '2026-05-15', null);
     expect(r.status).toBe('sold');
     expect(r.sellReason).toBe('matured');
-  });
-
-  it('tracks maxPriceSinceEntry as monotonic max', () => {
-    const e0 = { ...base, maxPriceSinceEntry: 105 };
-    const r1 = updateEntry(e0, 110, '2026-05-08');
-    expect(r1.maxPriceSinceEntry).toBe(110);
-    const r2 = updateEntry(r1, 108, '2026-05-09');
-    expect(r2.maxPriceSinceEntry).toBe(110);
-    expect(r2.status).toBe('holding');
-  });
-
-  it('initializes maxPriceSinceEntry for legacy entries missing the field', () => {
-    const legacy = { ...base };
-    delete legacy.maxPriceSinceEntry;
-    const r = updateEntry(legacy, 102, '2026-05-08');
-    expect(r.maxPriceSinceEntry).toBe(102);
-    expect(r.status).toBe('holding');
+    expect(r.vixAtSell).toBe(null);
   });
 });

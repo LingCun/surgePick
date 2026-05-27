@@ -6,8 +6,7 @@ import { dirname } from 'node:path';
  * transitions matured entries to 'sold' (price/return frozen at maturity).
  */
 
-const TRAILING_PULLBACK = 0.10;
-const HARD_DRAWDOWN = 0.15;
+const VIX_EXIT = 15;
 
 export function loadHistory(filePath) {
   if (!existsSync(filePath)) return [];
@@ -49,7 +48,7 @@ export function hasPickToday(history, market, date) {
 /**
  * Build new history entry from scanner pick.
  */
-export function makeEntry({ market, pick, buyDate, idPrefix = '' }) {
+export function makeEntry({ market, pick, buyDate, idPrefix = '', vixAtBuy = null }) {
   return {
     id: `${idPrefix}${market.toLowerCase()}-${buyDate}-${pick.ticker.replace(/[.^]/g, '')}`,
     market,
@@ -68,11 +67,12 @@ export function makeEntry({ market, pick, buyDate, idPrefix = '' }) {
     currentPrice: pick.buyPrice,
     currentDate: buyDate,
     returnPct: 0,
-    maxPriceSinceEntry: pick.buyPrice,
+    vixAtBuy,
     status: 'holding',
     sellDate: null,
     sellPrice: null,
     sellReason: null,
+    vixAtSell: null,
   };
 }
 
@@ -80,32 +80,20 @@ export function makeEntry({ market, pick, buyDate, idPrefix = '' }) {
  * Update one holding entry with today's price + status transition if matured.
  * Pure — returns new entry object.
  */
-export function updateEntry(entry, currentPrice, today) {
+export function updateEntry(entry, currentPrice, today, vix = null) {
   if (entry.status === 'sold') return entry;
 
-  const maxPriceSinceEntry = Math.max(
-    entry.maxPriceSinceEntry ?? entry.buyPrice,
-    currentPrice
-  );
   const returnPct = entry.buyPrice
     ? ((currentPrice - entry.buyPrice) / entry.buyPrice) * 100
     : 0;
-  const pullback = maxPriceSinceEntry > 0
-    ? (maxPriceSinceEntry - currentPrice) / maxPriceSinceEntry
-    : 0;
-  const drawdown = entry.buyPrice
-    ? (entry.buyPrice - currentPrice) / entry.buyPrice
-    : 0;
 
   let sellReason = null;
-  if (maxPriceSinceEntry > entry.buyPrice && pullback >= TRAILING_PULLBACK) sellReason = 'trailing';
-  else if (drawdown >= HARD_DRAWDOWN) sellReason = 'hard';
+  if (vix != null && vix < VIX_EXIT) sellReason = 'vix';
   else if (today >= entry.matureDate) sellReason = 'matured';
 
   if (sellReason) {
     return {
       ...entry,
-      maxPriceSinceEntry,
       currentPrice,
       currentDate: today,
       returnPct,
@@ -113,12 +101,12 @@ export function updateEntry(entry, currentPrice, today) {
       sellDate: today,
       sellPrice: currentPrice,
       sellReason,
+      vixAtSell: vix,
     };
   }
 
   return {
     ...entry,
-    maxPriceSinceEntry,
     currentPrice,
     currentDate: today,
     returnPct,
