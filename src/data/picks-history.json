@@ -125,9 +125,9 @@
       5600,
       5400
     ],
-    "currentPrice": 5150,
+    "currentPrice": 5160,
     "currentDate": "2026-05-27",
-    "returnPct": -4.62962962962963,
+    "returnPct": -4.444444444444445,
     "status": "holding",
     "sellDate": null,
     "sellPrice": null,
@@ -192,9 +192,9 @@
       5400,
       5180
     ],
-    "currentPrice": 5150,
+    "currentPrice": 5160,
     "currentDate": "2026-05-27",
-    "returnPct": -0.5791505791505791,
+    "returnPct": -0.3861003861003861,
     "status": "holding",
     "sellDate": null,
     "sellPrice": null,
