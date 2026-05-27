@@ -1,0 +1,11 @@
+[
+  { "ticker": "069500.KS", "name": "KODEX 200" },
+  { "ticker": "122630.KS", "name": "KODEX 레버리지" },
+  { "ticker": "102110.KS", "name": "TIGER 200" },
+  { "ticker": "360750.KS", "name": "TIGER 미국S&P500" },
+  { "ticker": "278530.KS", "name": "KODEX 200TR" },
+  { "ticker": "133690.KS", "name": "TIGER 미국나스닥100" },
+  { "ticker": "091160.KS", "name": "KODEX AI반도체TOP2플러스" },
+  { "ticker": "381180.KS", "name": "TIGER 미국필라델피아반도체나스닥" },
+  { "ticker": "148020.KS", "name": "RISE 200" }
+]
