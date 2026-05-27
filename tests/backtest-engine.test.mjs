@@ -62,11 +62,13 @@ describe('simulate', () => {
       closeFn: sawtoothClose,
       volFn: geomVol,
     });
+    const vixByDate = Object.fromEntries(t.dates.map((d) => [d, 25]));
     const entries = simulate({
       tickers: [t],
       simStart: '2024-01-03',
       simEnd: t.dates[t.dates.length - 1],
       today: t.dates[t.dates.length - 1],
+      vixByDate,
     });
     expect(entries.length).toBeGreaterThan(0);
     const matured = entries.filter((e) => e.status === 'matured');
@@ -84,11 +86,13 @@ describe('simulate', () => {
       closeFn: linearDownClose,
       volFn: flatVol,
     });
+    const vixByDate = Object.fromEntries(t.dates.map((d) => [d, 25]));
     const entries = simulate({
       tickers: [t],
       simStart: '2024-01-03',
       simEnd: t.dates[t.dates.length - 1],
       today: t.dates[t.dates.length - 1],
+      vixByDate,
     });
     expect(entries.length).toBe(0);
   });
@@ -103,11 +107,13 @@ describe('simulate', () => {
       closeFn: sawtoothClose,
       volFn: geomVol,
     });
+    const vixByDate = Object.fromEntries(t.dates.map((d) => [d, 25]));
     const entries = simulate({
       tickers: [t],
       simStart: '2024-01-03',
       simEnd: t.dates[t.dates.length - 1],
       today: t.dates[t.dates.length - 1],
+      vixByDate,
     });
     // The fixture passes scorePicks filters on many days (~40+), but the
     // engine should dedupe so consecutive entries never overlap in hold time.
@@ -139,11 +145,13 @@ describe('simulate', () => {
       closeFn: sawtoothClose,
       volFn: geomVol,
     });
+    const vixByDate = Object.fromEntries(t.dates.map((d) => [d, 25]));
     const entries = simulate({
       tickers: [t],
       simStart: '2024-01-01',
       simEnd: t.dates[t.dates.length - 1],
       today: t.dates[t.dates.length - 1],
+      vixByDate,
     });
     const matured = entries.filter((e) => e.status === 'matured');
     const active = entries.filter((e) => e.status === 'active');
@@ -178,11 +186,13 @@ describe('simulate', () => {
       closeFn: sawtoothClose,
       volFn: geomVol,
     });
+    const vixByDate = Object.fromEntries(t.dates.map((d) => [d, 25]));
     const entries = simulate({
       tickers: [t],
       simStart: '2024-01-03',
       simEnd: t.dates[t.dates.length - 1],
       today: t.dates[t.dates.length - 1],
+      vixByDate,
     });
     const matured = entries.filter((e) => e.status === 'matured');
     expect(matured.length).toBeGreaterThan(0);
@@ -201,72 +211,33 @@ describe('simulate', () => {
     expect(slideObserved).toBe(true);
   });
 
-  it('exits early via trailing stop when pullback >= 10% mid-hold', () => {
-    function fixture(n) {
-      const synth = synthTicker({
-        ticker: 'TRAIL',
-        name: 'Trail',
-        market: 'US',
-        startDate: '2024-01-01',
-        n,
-        closeFn: (i) => {
-          const c = i % 11;
-          return 100 + Math.floor(i / 11) * 3 + (c < 10 ? c * 0.6 : 10 * 0.6 - 3);
-        },
-        volFn: (i) => Math.round(1000 * Math.pow(1.01, i)),
-      });
-      for (let i = 80; i < n; i++) {
-        synth.closes[i] = synth.closes[80] * 0.85;
-        synth.highs[i] = synth.closes[i] * 1.005;
-        synth.lows[i] = synth.closes[i] * 0.995;
-      }
-      return synth;
-    }
-    const t = fixture(200);
+  it('exits early via sellReason="vix" when VIX drops below 15 mid-hold', () => {
+    const t = synthTicker({
+      ticker: 'VIXEX',
+      name: 'VIX Exit',
+      market: 'US',
+      startDate: '2024-01-03',
+      n: 200,
+      closeFn: (i) => {
+        const c = i % 11;
+        return 100 + Math.floor(i / 11) * 3 + (c < 10 ? c * 0.6 : 10 * 0.6 - 3);
+      },
+      volFn: (i) => Math.round(1000 * Math.pow(1.01, i)),
+    });
+    const vixByDate = Object.fromEntries(
+      t.dates.map((d, i) => [d, i < 100 ? 25 : 12])
+    );
     const today = t.dates[t.dates.length - 1];
     const entries = simulate({
       tickers: [t],
-      simStart: '2024-01-01',
+      simStart: '2024-01-03',
       simEnd: today,
       today,
+      vixByDate,
     });
     const matured = entries.filter((e) => e.status === 'matured');
     expect(matured.length).toBeGreaterThan(0);
-    expect(matured.some((e) => e.sellReason === 'trailing')).toBe(true);
-  });
-
-  it('exits early via hard stop when drawdown >= 15% without max-price rally', () => {
-    function fixture(n) {
-      const synth = synthTicker({
-        ticker: 'HARD',
-        name: 'Hard',
-        market: 'US',
-        startDate: '2024-01-01',
-        n,
-        closeFn: (i) => {
-          const c = i % 11;
-          return 100 + Math.floor(i / 11) * 3 + (c < 10 ? c * 0.6 : 10 * 0.6 - 3);
-        },
-        volFn: (i) => Math.round(1000 * Math.pow(1.01, i)),
-      });
-      for (let i = 80; i < n; i++) {
-        const base = synth.closes[80];
-        synth.closes[i] = base * (1 - Math.min(0.30, (i - 80) * 0.012));
-        synth.highs[i] = synth.closes[i] * 1.005;
-        synth.lows[i] = synth.closes[i] * 0.995;
-      }
-      return synth;
-    }
-    const t = fixture(200);
-    const today = t.dates[t.dates.length - 1];
-    const entries = simulate({
-      tickers: [t],
-      simStart: '2024-01-01',
-      simEnd: today,
-      today,
-    });
-    const matured = entries.filter((e) => e.status === 'matured');
-    expect(matured.some((e) => e.sellReason === 'hard' || e.sellReason === 'trailing')).toBe(true);
-    expect(matured.every((e) => e.maxPriceSinceEntry != null)).toBe(true);
+    expect(matured.some((e) => e.sellReason === 'vix')).toBe(true);
+    expect(matured.every((e) => e.vixAtBuy != null)).toBe(true);
   });
 });
