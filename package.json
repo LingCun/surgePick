@@ -13,6 +13,7 @@
     "scan:themes": "node scripts/scan-themes.mjs",
     "scan": "npm run scan:regime && npm run scan:themes && npm run scan:picks",
     "backtest": "node scripts/backtest.mjs",
+    "tune:vix": "node scripts/tune-vix.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
