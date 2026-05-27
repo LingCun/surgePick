@@ -47,6 +47,47 @@ describe('makeEntry', () => {
     expect(e.status).toBe('holding');
     expect(e.returnPct).toBe(0);
   });
+
+  it('prepends idPrefix when provided', () => {
+    const entry = makeEntry({
+      market: 'US',
+      buyDate: '2026-05-27',
+      pick: {
+        ticker: 'VOO',
+        name: 'Vanguard S&P 500',
+        buyPrice: 500,
+        horizon: '중기',
+        holdDays: 90,
+        reason: 'r',
+        score: 50,
+        metrics: {},
+        scores: {},
+        closes30: [],
+      },
+      idPrefix: 'etf-',
+    });
+    expect(entry.id).toBe('etf-us-2026-05-27-VOO');
+  });
+
+  it('omits prefix by default (legacy id format)', () => {
+    const entry = makeEntry({
+      market: 'KR',
+      buyDate: '2026-05-27',
+      pick: {
+        ticker: '005930.KS',
+        name: '삼성전자',
+        buyPrice: 70000,
+        horizon: '단기',
+        holdDays: 14,
+        reason: 'r',
+        score: 50,
+        metrics: {},
+        scores: {},
+        closes30: [],
+      },
+    });
+    expect(entry.id).toBe('kr-2026-05-27-005930KS');
+  });
 });
 
 describe('updateEntry', () => {

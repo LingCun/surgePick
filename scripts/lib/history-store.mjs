@@ -46,9 +46,9 @@ export function hasPickToday(history, market, date) {
 /**
  * Build new history entry from scanner pick.
  */
-export function makeEntry({ market, pick, buyDate }) {
+export function makeEntry({ market, pick, buyDate, idPrefix = '' }) {
   return {
-    id: `${market.toLowerCase()}-${buyDate}-${pick.ticker.replace(/[.^]/g, '')}`,
+    id: `${idPrefix}${market.toLowerCase()}-${buyDate}-${pick.ticker.replace(/[.^]/g, '')}`,
     market,
     ticker: pick.ticker,
     name: pick.name,
