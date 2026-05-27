@@ -41,6 +41,12 @@ const horizonExplain = {
   '중기': '균형 잡힌 점수. 적당히 보유 후 회수.',
   '장기': '저점 매집 + 변동성 낮음 → 길게 들고 가도 OK.',
 }[entry.horizon] ?? '';
+
+const sellReasonLabel = entry.sellReason === 'trailing'
+  ? '⛔ 추세 청산 · 최고가 -10%'
+  : entry.sellReason === 'hard'
+  ? '⛔ 손절 청산 · 진입가 -15%'
+  : '✅ 매도완료 · 만기';
 ---
 <Base title={`${entry.name} — surgePick`}>
   <div class="mb-4">
@@ -69,7 +75,7 @@ const horizonExplain = {
 
   {entry.status === 'sold' ? (
     <article class="rounded-2xl bg-slate-900 border border-slate-800 p-5 space-y-3 mb-4">
-      <h2 class="text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2"><span>✅</span>매도완료 · 확정 수익률</h2>
+      <h2 class="text-sm uppercase tracking-wider text-slate-400 flex items-center gap-2">{sellReasonLabel} · 확정 수익률</h2>
       <p class={`text-4xl font-bold ${returnColor}`}>{returnText}</p>
       <dl class="space-y-2 pt-3 border-t border-slate-800 text-sm">
         <div class="flex justify-between"><dt class="text-slate-400">매수일</dt><dd class="font-medium">{entry.buyDate}</dd></div>
