@@ -2,9 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import Sparkline from '../../components/Sparkline.astro';
 import history from '../../data/picks-history.json';
+import historyEtf from '../../data/picks-history-etf.json';
 
 export function getStaticPaths() {
-  return history.map((entry) => ({
+  return [...history, ...historyEtf].map((entry) => ({
     params: { id: entry.id },
     props: { entry },
   }));
