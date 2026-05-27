@@ -19,7 +19,12 @@ function bind(b: any) {
   const marketRows = ['KR', 'US'].map((m) => ({ label: m, ...b.byMarket[m] }));
   const marketHorizonRows = Object.entries(b.byMarketHorizon).map(([k, v]: any) => ({ label: k, ...v }));
   const picksMatured = b.picks.filter((p: any) => p.status === 'matured');
-  return { ...b, yearRows, horizonRows, marketRows, marketHorizonRows, picksMatured };
+  const reasonCounts = picksMatured.reduce((acc: any, p: any) => {
+    const k = p.sellReason ?? 'matured';
+    acc[k] = (acc[k] ?? 0) + 1;
+    return acc;
+  }, { matured: 0, trailing: 0, hard: 0 });
+  return { ...b, yearRows, horizonRows, marketRows, marketHorizonRows, picksMatured, reasonCounts };
 }
 
 const stocks = bind(backtestStocks);
@@ -55,6 +60,24 @@ const etfs = bind(backtestEtf);
         {stocks.totals.active > 0 && (
           <p class="mt-2 text-[10px] text-slate-400">보유 중(만기 미도달) {stocks.totals.active}건은 집계 제외.</p>
         )}
+      </section>
+
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-2 text-sm font-semibold text-slate-700">청산 사유 분포</h2>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div>
+            <div class="text-[10px] text-slate-500">만기</div>
+            <div class="text-base font-bold text-slate-700 tabular-nums">{stocks.reasonCounts.matured}</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-500">추세</div>
+            <div class="text-base font-bold text-amber-600 tabular-nums">{stocks.reasonCounts.trailing}</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-500">손절</div>
+            <div class="text-base font-bold text-rose-600 tabular-nums">{stocks.reasonCounts.hard}</div>
+          </div>
+        </div>
       </section>
 
       <StatsTable title="연도별" rows={stocks.yearRows} highlightLabel="2022" />
@@ -99,6 +122,24 @@ const etfs = bind(backtestEtf);
         {etfs.totals.active > 0 && (
           <p class="mt-2 text-[10px] text-slate-400">보유 중(만기 미도달) {etfs.totals.active}건은 집계 제외.</p>
         )}
+      </section>
+
+      <section class="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+        <h2 class="mb-2 text-sm font-semibold text-slate-700">청산 사유 분포</h2>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div>
+            <div class="text-[10px] text-slate-500">만기</div>
+            <div class="text-base font-bold text-slate-700 tabular-nums">{etfs.reasonCounts.matured}</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-500">추세</div>
+            <div class="text-base font-bold text-amber-600 tabular-nums">{etfs.reasonCounts.trailing}</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-slate-500">손절</div>
+            <div class="text-base font-bold text-rose-600 tabular-nums">{etfs.reasonCounts.hard}</div>
+          </div>
+        </div>
       </section>
 
       <StatsTable title="연도별" rows={etfs.yearRows} highlightLabel="2022" />
