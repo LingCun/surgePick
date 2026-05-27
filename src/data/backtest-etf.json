@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-05-27T04:42:39.392Z",
+  "asOf": "2026-05-27T05:56:04.114Z",
   "window": {
     "start": "2022-01-01",
     "end": "2026-05-27"
@@ -20,26 +20,26 @@
     }
   },
   "totals": {
-    "count": 169,
-    "winRate": 0.6627218934911243,
-    "meanReturn": 0.03100355396522073,
-    "medianReturn": 0.022621032837988553,
-    "pickRate": 0.14850615114235502,
-    "active": 7
+    "count": 170,
+    "winRate": 0.5941176470588235,
+    "meanReturn": 0.02323974884584979,
+    "medianReturn": 0.01503291115183436,
+    "pickRate": 0.14938488576449913,
+    "active": 6
   },
   "byMarket": {
     "KR": {
-      "count": 58,
-      "winRate": 0.7241379310344828,
-      "meanReturn": 0.07064483832949832,
-      "medianReturn": 0.030825802856326967,
-      "pickRate": 0.05518553758325404
+      "count": 59,
+      "winRate": 0.6440677966101694,
+      "meanReturn": 0.051068121553892586,
+      "medianReturn": 0.022659323367427264,
+      "pickRate": 0.056137012369172214
     },
     "US": {
       "count": 111,
-      "winRate": 0.6306306306306306,
-      "meanReturn": 0.010290090063165768,
-      "medianReturn": 0.018759461237790154,
+      "winRate": 0.5675675675675675,
+      "meanReturn": 0.00844809128031353,
+      "medianReturn": 0.009584220665812992,
       "pickRate": 0.10072595281306715
     }
   },
@@ -52,11 +52,11 @@
       "pickRate": 0.033391915641476276
     },
     "중기": {
-      "count": 131,
-      "winRate": 0.6641221374045801,
-      "meanReturn": 0.034547222565136364,
-      "medianReturn": 0.027078745123531034,
-      "pickRate": 0.11511423550087874
+      "count": 132,
+      "winRate": 0.5757575757575758,
+      "meanReturn": 0.024521536664432027,
+      "medianReturn": 0.01503291115183436,
+      "pickRate": 0.11599297012302284
     },
     "장기": {
       "count": 0,
@@ -75,11 +75,11 @@
       "pickRate": 0.021883920076117985
     },
     "KR-중기": {
-      "count": 35,
-      "winRate": 0.7428571428571429,
-      "meanReturn": 0.1011738432910133,
-      "medianReturn": 0.07291666666666674,
-      "pickRate": 0.03330161750713606
+      "count": 36,
+      "winRate": 0.6111111111111112,
+      "meanReturn": 0.06824175177095074,
+      "medianReturn": 0.028189489148603863,
+      "pickRate": 0.03425309229305423
     },
     "KR-장기": {
       "count": 0,
@@ -97,9 +97,9 @@
     },
     "US-중기": {
       "count": 96,
-      "winRate": 0.6354166666666666,
-      "meanReturn": 0.010256267092160399,
-      "medianReturn": 0.019426205296898647,
+      "winRate": 0.5625,
+      "meanReturn": 0.008126455999487496,
+      "medianReturn": 0.00984826621680801,
       "pickRate": 0.08711433756805807
     },
     "US-장기": {
@@ -113,38 +113,38 @@
   "byYear": {
     "2022": {
       "count": 17,
-      "winRate": 0.29411764705882354,
-      "meanReturn": -0.03455568534589889,
-      "medianReturn": -0.028418640183346056,
+      "winRate": 0.23529411764705882,
+      "meanReturn": -0.03583136075248719,
+      "medianReturn": -0.029680513252543617,
       "pickRate": 0.06538461538461539
     },
     "2023": {
       "count": 36,
       "winRate": 0.6388888888888888,
-      "meanReturn": 0.010275962081335112,
+      "meanReturn": 0.02268091566220727,
       "medianReturn": 0.013134541137373335,
       "pickRate": 0.14007782101167315
     },
     "2024": {
       "count": 54,
-      "winRate": 0.7407407407407407,
-      "meanReturn": 0.02945962900432199,
+      "winRate": 0.7037037037037037,
+      "meanReturn": 0.026177774286881922,
       "medianReturn": 0.03153583166309015,
       "pickRate": 0.2076923076923077
     },
     "2025": {
       "count": 52,
-      "winRate": 0.6923076923076923,
-      "meanReturn": 0.06410770728307127,
-      "medianReturn": 0.04631267005570161,
+      "winRate": 0.5384615384615384,
+      "meanReturn": 0.03008294140561852,
+      "medianReturn": 0.010973801029821817,
       "pickRate": 0.20077220077220076
     },
     "2026": {
-      "count": 10,
-      "winRate": 0.8,
-      "meanReturn": 0.05326918911214269,
-      "medianReturn": 0.04477446144972752,
-      "pickRate": 0.09803921568627451
+      "count": 11,
+      "winRate": 0.7272727272727273,
+      "meanReturn": 0.06958770074213631,
+      "medianReturn": 0.04448907161607929,
+      "pickRate": 0.10784313725490197
     }
   },
   "picks": [
@@ -162,23 +162,9 @@
       "holdDays": 90,
       "score": 36,
       "reason": "완만하게 우상향(일평균 +0.38%) + 저점권 매수세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-10-25-IBIT",
-      "market": "US",
-      "ticker": "IBIT",
-      "name": "iShares Bitcoin Trust",
-      "buyDate": "2024-10-25",
-      "buyPrice": 38.0099983215332,
-      "exitDate": "2025-01-23",
-      "exitPrice": 58.790000915527344,
-      "return": 0.5466983296924266,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 24,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 84390,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2026-02-13-381180KS",
@@ -194,7 +180,9 @@
       "holdDays": 90,
       "score": 30,
       "reason": "완만하게 우상향(일평균 +0.26%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 47180,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-11-20-102110KS",
@@ -210,7 +198,27 @@
       "holdDays": 90,
       "score": 41,
       "reason": "완만하게 우상향(일평균 +0.46%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 84340,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2024-10-25-IBIT",
+      "market": "US",
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "buyDate": "2024-10-25",
+      "buyPrice": 38.0099983215332,
+      "exitDate": "2024-12-23",
+      "exitPrice": 52.869998931884766,
+      "return": 0.3909497833872084,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 24,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 60.72999954223633,
+      "sellReason": "trailing"
     },
     {
       "id": "kr-2025-12-17-278530KS",
@@ -219,30 +227,16 @@
       "name": "KODEX 200TR",
       "buyDate": "2025-12-17",
       "buyPrice": 20635,
-      "exitDate": "2026-03-17",
-      "exitPrice": 30455,
-      "return": 0.475890477344318,
+      "exitDate": "2026-03-04",
+      "exitPrice": 27300,
+      "return": 0.3229949115580324,
       "horizon": "중기",
       "holdDays": 90,
       "score": 15,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2025-03-18-122630KS",
-      "market": "KR",
-      "ticker": "122630.KS",
-      "name": "KODEX 레버리지",
-      "buyDate": "2025-03-18",
-      "buyPrice": 16505,
-      "exitDate": "2025-06-16",
-      "exitPrice": 20925,
-      "return": 0.26779763707967286,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 17,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 34330,
+      "sellReason": "trailing"
     },
     {
       "id": "kr-2023-03-23-133690KS",
@@ -258,7 +252,9 @@
       "holdDays": 90,
       "score": 16,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 86940,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-05-28-091160KS",
@@ -274,7 +270,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 38530,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-02-24-QQQM",
@@ -290,7 +288,9 @@
       "holdDays": 90,
       "score": 36,
       "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 139.72000122070312,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2026-02-02-148020KS",
@@ -306,7 +306,9 @@
       "holdDays": 14,
       "score": 70,
       "reason": "완만하게 우상향(일평균 +1.23%) + 거래량 2.0배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 85000,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-07-25-GLD",
@@ -322,23 +324,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2025-03-13-102110KS",
-      "market": "KR",
-      "ticker": "102110.KS",
-      "name": "TIGER 200",
-      "buyDate": "2025-03-13",
-      "buyPrice": 34115,
-      "exitDate": "2025-06-11",
-      "exitPrice": 39110,
-      "return": 0.14641653231716245,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 13,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 253.92999267578125,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-04-07-381180KS",
@@ -354,23 +342,9 @@
       "holdDays": 90,
       "score": 26,
       "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2024-03-27-381180KS",
-      "market": "KR",
-      "ticker": "381180.KS",
-      "name": "TIGER 미국필라델피아반도체나스닥",
-      "buyDate": "2024-03-27",
-      "buyPrice": 17495,
-      "exitDate": "2024-06-25",
-      "exitPrice": 19870,
-      "return": 0.13575307230637335,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 36,
-      "reason": "완만하게 우상향(일평균 +0.33%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 12740,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-06-20-360750KS",
@@ -386,7 +360,9 @@
       "holdDays": 90,
       "score": 10,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 22850,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-07-07-IEMG",
@@ -402,7 +378,9 @@
       "holdDays": 90,
       "score": 21,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 67.20999908447266,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-11-18-133690KS",
@@ -418,7 +396,9 @@
       "holdDays": 90,
       "score": 36,
       "reason": "완만하게 우상향(일평균 +0.36%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 142490,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-08-20-133690KS",
@@ -434,7 +414,9 @@
       "holdDays": 90,
       "score": 18,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 166875,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-06-20-VXUS",
@@ -450,7 +432,9 @@
       "holdDays": 90,
       "score": 22,
       "reason": "꾸준히 우상향 + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 73.7300033569336,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-12-20-IVV",
@@ -466,23 +450,9 @@
       "holdDays": 90,
       "score": 41,
       "reason": "거래량 1.7배 증가 + 완만하게 우상향(일평균 +0.26%).",
-      "status": "matured"
-    },
-    {
-      "id": "us-2026-01-29-TQQQ",
-      "market": "US",
-      "ticker": "TQQQ",
-      "name": "ProShares UltraPro QQQ (3x long)",
-      "buyDate": "2026-01-29",
-      "buyPrice": 56.040000915527344,
-      "exitDate": "2026-04-29",
-      "exitPrice": 61.86000061035156,
-      "return": 0.10385438257927726,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 20,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 519.8400268554688,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-01-03-VTI",
@@ -498,7 +468,9 @@
       "holdDays": 90,
       "score": 35,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 260.1400146484375,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-04-04-091160KS",
@@ -514,7 +486,9 @@
       "holdDays": 90,
       "score": 53,
       "reason": "거래량 2.7배 증가 + 완만하게 우상향(일평균 +0.36%).",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 32550,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-12-11-GLD",
@@ -530,7 +504,9 @@
       "holdDays": 90,
       "score": 13,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 202,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-01-16-148020KS",
@@ -546,23 +522,9 @@
       "holdDays": 90,
       "score": 39,
       "reason": "거래량 1.8배 증가 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-01-14-SQQQ",
-      "market": "US",
-      "ticker": "SQQQ",
-      "name": "ProShares UltraPro Short QQQ (3x short)",
-      "buyDate": "2025-01-14",
-      "buyPrice": 161.3000030517578,
-      "exitDate": "2025-04-14",
-      "exitPrice": 177.25,
-      "return": 0.09888404616535662,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 11,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 38415,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-04-04-GLD",
@@ -578,7 +540,9 @@
       "holdDays": 90,
       "score": 29,
       "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 316.2900085449219,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-05-09-VOO",
@@ -594,7 +558,9 @@
       "holdDays": 90,
       "score": 7,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 420.67999267578125,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-03-14-091160KS",
@@ -610,7 +576,9 @@
       "holdDays": 14,
       "score": 46,
       "reason": "완만하게 우상향(일평균 +0.49%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 41815,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-08-01-VTI",
@@ -626,23 +594,9 @@
       "holdDays": 90,
       "score": 20,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-03-10-IEFA",
-      "market": "US",
-      "ticker": "IEFA",
-      "name": "iShares Core MSCI EAFE",
-      "buyDate": "2025-03-10",
-      "buyPrice": 76.41000366210938,
-      "exitDate": "2025-06-09",
-      "exitPrice": 83.41000366210938,
-      "return": 0.09161104128399877,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 29,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 337.95001220703125,
+      "sellReason": "matured"
     },
     {
       "id": "us-2022-01-18-GLD",
@@ -658,7 +612,9 @@
       "holdDays": 90,
       "score": 9,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 191.50999450683594,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-01-08-278530KS",
@@ -674,7 +630,9 @@
       "holdDays": 90,
       "score": 51,
       "reason": "거래량 3.8배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 13105,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-04-04-360750KS",
@@ -690,7 +648,9 @@
       "holdDays": 90,
       "score": 23,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 19115,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-09-26-148020KS",
@@ -706,7 +666,9 @@
       "holdDays": 14,
       "score": 70,
       "reason": "완만하게 우상향(일평균 +0.52%) + 거래량 2.1배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 51250,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-10-23-VUG",
@@ -722,7 +684,9 @@
       "holdDays": 90,
       "score": 21,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 71.35166931152344,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-02-14-IEFA",
@@ -738,7 +702,9 @@
       "holdDays": 90,
       "score": 7,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 75.19999694824219,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-05-01-VWO",
@@ -754,7 +720,9 @@
       "holdDays": 90,
       "score": 7,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 43.06999969482422,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-03-02-360750KS",
@@ -770,7 +738,9 @@
       "holdDays": 90,
       "score": 34,
       "reason": "완만하게 우상향(일평균 +0.29%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 13985,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-02-20-VUG",
@@ -786,7 +756,9 @@
       "holdDays": 90,
       "score": 32,
       "reason": "완만하게 우상향(일평균 +0.31%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 58.746665954589844,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-06-16-IEFA",
@@ -802,7 +774,9 @@
       "holdDays": 90,
       "score": 20,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 87.52999877929688,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-11-06-GLD",
@@ -818,7 +792,9 @@
       "holdDays": 90,
       "score": 19,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 262.5,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-06-24-VEA",
@@ -834,7 +810,9 @@
       "holdDays": 90,
       "score": 17,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 60.29999923706055,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2026-01-12-091160KS",
@@ -850,7 +828,9 @@
       "holdDays": 14,
       "score": 59,
       "reason": "거래량 2.2배 증가 + 완만하게 우상향(일평균 +0.87%).",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 73445,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-02-15-102110KS",
@@ -866,7 +846,9 @@
       "holdDays": 90,
       "score": 12,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 38155,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-01-31-091160KS",
@@ -882,7 +864,27 @@
       "holdDays": 14,
       "score": 52,
       "reason": "완만하게 우상향(일평균 +0.77%) + 거래량 1.6배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 34505,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2026-02-23-SQQQ",
+      "market": "US",
+      "ticker": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ (3x short)",
+      "buyDate": "2026-02-23",
+      "buyPrice": 72.95999908447266,
+      "exitDate": "2026-04-01",
+      "exitPrice": 77.44999694824219,
+      "return": 0.061540541668196,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 21,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 89.41999816894531,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2024-04-10-VWO",
@@ -898,7 +900,9 @@
       "holdDays": 90,
       "score": 13,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 44.88999938964844,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-08-19-QQQM",
@@ -914,7 +918,9 @@
       "holdDays": 90,
       "score": 20,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 261.7900085449219,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-12-18-VEA",
@@ -930,7 +936,27 @@
       "holdDays": 90,
       "score": 27,
       "reason": "완만하게 우상향(일평균 +0.26%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 50.11000061035156,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2024-01-31-TQQQ",
+      "market": "US",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "buyDate": "2024-01-31",
+      "buyPrice": 26.31999969482422,
+      "exitDate": "2024-04-15",
+      "exitPrice": 27.885000228881836,
+      "return": 0.05946050730256558,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 28,
+      "reason": "완만하게 우상향(일평균 +0.46%) + 저점권 매수세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 31.565000534057617,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2025-12-29-GLD",
@@ -946,7 +972,9 @@
       "holdDays": 14,
       "score": 32,
       "reason": "완만하게 우상향(일평균 +0.35%) + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 422.2300109863281,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-03-25-VEA",
@@ -962,7 +990,9 @@
       "holdDays": 90,
       "score": 15,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 56.86000061035156,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-03-20-VXUS",
@@ -978,7 +1008,9 @@
       "holdDays": 90,
       "score": 22,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 68.86000061035156,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-02-13-SPLG",
@@ -994,7 +1026,9 @@
       "holdDays": 90,
       "score": 35,
       "reason": "거래량 1.6배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 61.529998779296875,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-11-01-133690KS",
@@ -1010,7 +1044,9 @@
       "holdDays": 14,
       "score": 41,
       "reason": "완만하게 우상향(일평균 +0.32%) + 거래량 1.5배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 131800,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-07-30-IBIT",
@@ -1026,7 +1062,9 @@
       "holdDays": 14,
       "score": 44,
       "reason": "완만하게 우상향(일평균 +0.58%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 69.83999633789062,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-01-16-VT",
@@ -1042,7 +1080,9 @@
       "holdDays": 90,
       "score": 18,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 110.5,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-01-02-VXUS",
@@ -1058,7 +1098,9 @@
       "holdDays": 90,
       "score": 37,
       "reason": "거래량 1.8배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 60.349998474121094,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-03-26-VOO",
@@ -1074,7 +1116,9 @@
       "holdDays": 90,
       "score": 17,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 504.2799987792969,
+      "sellReason": "matured"
     },
     {
       "id": "us-2022-11-18-GLD",
@@ -1090,7 +1134,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "완만하게 우상향(일평균 +0.25%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 181.6699981689453,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-09-25-IVV",
@@ -1106,23 +1152,9 @@
       "holdDays": 90,
       "score": 41,
       "reason": "거래량 2.6배 증가 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-02-24-IEMG",
-      "market": "US",
-      "ticker": "IEMG",
-      "name": "iShares Core MSCI Emerging Markets",
-      "buyDate": "2025-02-24",
-      "buyPrice": 54.72999954223633,
-      "exitDate": "2025-05-27",
-      "exitPrice": 57.380001068115234,
-      "return": 0.04841954226281042,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 26,
-      "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 693.3900146484375,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-06-24-VUG",
@@ -1138,39 +1170,9 @@
       "holdDays": 14,
       "score": 28,
       "reason": "완만하게 우상향(일평균 +0.31%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-03-06-VWO",
-      "market": "US",
-      "ticker": "VWO",
-      "name": "Vanguard FTSE Emerging Markets",
-      "buyDate": "2025-03-06",
-      "buyPrice": 45.77000045776367,
-      "exitDate": "2025-06-04",
-      "exitPrice": 47.90999984741211,
-      "return": 0.04675550291119657,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 18,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-10-17-TQQQ",
-      "market": "US",
-      "ticker": "TQQQ",
-      "name": "ProShares UltraPro QQQ (3x long)",
-      "buyDate": "2025-10-17",
-      "buyPrice": 51.994998931884766,
-      "exitDate": "2026-01-15",
-      "exitPrice": 54.380001068115234,
-      "return": 0.04586983720020665,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 25,
-      "reason": "완만하게 우상향(일평균 +0.35%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 64.56666564941406,
+      "sellReason": "matured"
     },
     {
       "id": "us-2026-01-20-VTI",
@@ -1186,7 +1188,9 @@
       "holdDays": 90,
       "score": 29,
       "reason": "거래량 1.8배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 350.5299987792969,
+      "sellReason": "matured"
     },
     {
       "id": "us-2026-02-17-GLD",
@@ -1202,7 +1206,9 @@
       "holdDays": 14,
       "score": 48,
       "reason": "완만하게 우상향(일평균 +0.46%) + 거래량 1.5배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 490,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-06-26-BND",
@@ -1218,7 +1224,9 @@
       "holdDays": 90,
       "score": 22,
       "reason": "거래량 1.5배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 75.63999938964844,
+      "sellReason": "matured"
     },
     {
       "id": "us-2026-01-30-GLD",
@@ -1234,7 +1242,9 @@
       "holdDays": 14,
       "score": 73,
       "reason": "완만하게 우상향(일평균 +0.69%) + 거래량 2.7배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 467.6300048828125,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-06-26-381180KS",
@@ -1250,7 +1260,9 @@
       "holdDays": 14,
       "score": 42,
       "reason": "완만하게 우상향(일평균 +0.64%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 21190,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-09-23-VEA",
@@ -1266,7 +1278,9 @@
       "holdDays": 90,
       "score": 14,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 62.84000015258789,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-01-03-381180KS",
@@ -1282,7 +1296,9 @@
       "holdDays": 14,
       "score": 71,
       "reason": "완만하게 우상향(일평균 +0.53%) + 거래량 2.1배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 14530,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-01-19-IEFA",
@@ -1298,7 +1314,9 @@
       "holdDays": 90,
       "score": 24,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 68.70999908447266,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-07-19-360750KS",
@@ -1314,7 +1332,9 @@
       "holdDays": 90,
       "score": 41,
       "reason": "거래량 1.9배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 19955,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-10-01-VOO",
@@ -1330,7 +1350,9 @@
       "holdDays": 90,
       "score": 39,
       "reason": "거래량 2.3배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 558.8200073242188,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-06-14-VT",
@@ -1346,7 +1368,9 @@
       "holdDays": 90,
       "score": 9,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 117.54000091552734,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-01-29-381180KS",
@@ -1362,7 +1386,9 @@
       "holdDays": 14,
       "score": 60,
       "reason": "거래량 2.1배 증가 + 완만하게 우상향(일평균 +0.42%).",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 16030,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-02-17-069500KS",
@@ -1378,7 +1404,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 33875,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-12-26-IEMG",
@@ -1394,7 +1422,27 @@
       "holdDays": 90,
       "score": 7,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 51.959999084472656,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2025-10-17-TQQQ",
+      "market": "US",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "buyDate": "2025-10-17",
+      "buyPrice": 51.994998931884766,
+      "exitDate": "2025-11-06",
+      "exitPrice": 53.44499969482422,
+      "return": 0.027887312101669615,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 25,
+      "reason": "완만하게 우상향(일평균 +0.35%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 60.30500030517578,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2024-05-23-VXUS",
@@ -1410,7 +1458,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 62.88999938964844,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2026-01-26-381180KS",
@@ -1426,23 +1476,9 @@
       "holdDays": 14,
       "score": 57,
       "reason": "완만하게 우상향(일평균 +0.49%) + 거래량 1.6배 증가.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2022-09-01-VTI",
-      "market": "US",
-      "ticker": "VTI",
-      "name": "Vanguard Total Stock Market",
-      "buyDate": "2022-09-01",
-      "buyPrice": 198.67999267578125,
-      "exitDate": "2022-11-30",
-      "exitPrice": 204.05999755859375,
-      "return": 0.027078745123531034,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 8,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 31220,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-04-23-091160KS",
@@ -1458,7 +1494,9 @@
       "holdDays": 90,
       "score": 36,
       "reason": "완만하게 우상향(일평균 +0.34%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 45330,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2025-07-08-VCIT",
@@ -1474,7 +1512,9 @@
       "holdDays": 90,
       "score": 12,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 84.54000091552734,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-01-13-091160KS",
@@ -1490,7 +1530,9 @@
       "holdDays": 14,
       "score": 37,
       "reason": "완만하게 우상향(일평균 +0.66%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 35025,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-09-05-IEMG",
@@ -1506,7 +1548,9 @@
       "holdDays": 90,
       "score": 16,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 58.90999984741211,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-06-21-QQQM",
@@ -1522,23 +1566,9 @@
       "holdDays": 14,
       "score": 51,
       "reason": "완만하게 우상향(일평균 +0.51%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2025-02-25-278530KS",
-      "market": "KR",
-      "ticker": "278530.KS",
-      "name": "KODEX 200TR",
-      "buyDate": "2025-02-25",
-      "buyPrice": 12285,
-      "exitDate": "2025-05-26",
-      "exitPrice": 12540,
-      "return": 0.020757020757020683,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 29,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 152.36000061035156,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-01-31-148020KS",
@@ -1554,23 +1584,9 @@
       "holdDays": 14,
       "score": 29,
       "reason": "완만하게 우상향(일평균 +0.32%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-12-22-VXUS",
-      "market": "US",
-      "ticker": "VXUS",
-      "name": "Vanguard Total International Stock",
-      "buyDate": "2025-12-22",
-      "buyPrice": 75.08999633789062,
-      "exitDate": "2026-03-23",
-      "exitPrice": 76.58000183105469,
-      "return": 0.019842929362512196,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 17,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 33185,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-10-16-VUG",
@@ -1586,7 +1602,9 @@
       "holdDays": 90,
       "score": 22,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 84.0433349609375,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-07-17-QQQM",
@@ -1602,7 +1620,9 @@
       "holdDays": 90,
       "score": 28,
       "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 204.75,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-02-22-133690KS",
@@ -1618,7 +1638,9 @@
       "holdDays": 14,
       "score": 50,
       "reason": "완만하게 우상향(일평균 +0.62%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 71735,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-11-14-IVV",
@@ -1634,7 +1656,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "거래량 1.5배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 612.7000122070312,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-04-05-VEA",
@@ -1650,7 +1674,9 @@
       "holdDays": 90,
       "score": 10,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 51.209999084472656,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-09-19-102110KS",
@@ -1666,7 +1692,9 @@
       "holdDays": 90,
       "score": 10,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 34455,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-02-15-148020KS",
@@ -1682,7 +1710,9 @@
       "holdDays": 90,
       "score": 42,
       "reason": "완만하게 우상향(일평균 +0.30%) + 거래량 1.6배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 34120,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-02-21-381180KS",
@@ -1698,7 +1728,9 @@
       "holdDays": 14,
       "score": 45,
       "reason": "완만하게 우상향(일평균 +0.69%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 10540,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-05-29-IBIT",
@@ -1714,7 +1746,9 @@
       "holdDays": 14,
       "score": 40,
       "reason": "완만하게 우상향(일평균 +0.94%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 62.290000915527344,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-03-14-VCIT",
@@ -1730,7 +1764,9 @@
       "holdDays": 90,
       "score": 16,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 82.01000213623047,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-08-29-360750KS",
@@ -1746,7 +1782,9 @@
       "holdDays": 90,
       "score": 14,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 15015,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-06-12-IEFA",
@@ -1762,7 +1800,9 @@
       "holdDays": 90,
       "score": 15,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 77.19000244140625,
+      "sellReason": "matured"
     },
     {
       "id": "us-2022-12-20-BND",
@@ -1778,7 +1818,9 @@
       "holdDays": 90,
       "score": 17,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 74.56999969482422,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-07-15-IBIT",
@@ -1794,7 +1836,9 @@
       "holdDays": 14,
       "score": 30,
       "reason": "완만하게 우상향(일평균 +0.33%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 67.83000183105469,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-03-12-381180KS",
@@ -1810,7 +1854,9 @@
       "holdDays": 14,
       "score": 34,
       "reason": "완만하게 우상향(일평균 +0.54%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 17550,
+      "sellReason": "matured"
     },
     {
       "id": "us-2022-12-09-VT",
@@ -1826,7 +1872,9 @@
       "holdDays": 90,
       "score": 23,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 94.55000305175781,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-06-22-VTI",
@@ -1842,7 +1890,9 @@
       "holdDays": 90,
       "score": 27,
       "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 228.35000610351562,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-01-23-GOVT",
@@ -1858,7 +1908,9 @@
       "holdDays": 90,
       "score": 34,
       "reason": "거래량 2.1배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 23.59000015258789,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-12-11-GOVT",
@@ -1874,39 +1926,9 @@
       "holdDays": 90,
       "score": 7,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-01-31-TQQQ",
-      "market": "US",
-      "ticker": "TQQQ",
-      "name": "ProShares UltraPro QQQ (3x long)",
-      "buyDate": "2024-01-31",
-      "buyPrice": 26.31999969482422,
-      "exitDate": "2024-04-30",
-      "exitPrice": 26.3700008392334,
-      "return": 0.0018997395512512227,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 28,
-      "reason": "완만하게 우상향(일평균 +0.46%) + 저점권 매수세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-07-18-TQQQ",
-      "market": "US",
-      "ticker": "TQQQ",
-      "name": "ProShares UltraPro QQQ (3x long)",
-      "buyDate": "2024-07-18",
-      "buyPrice": 36.52000045776367,
-      "exitDate": "2024-10-16",
-      "exitPrice": 36.560001373291016,
-      "return": 0.0010953153073918198,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 46,
-      "reason": "완만하게 우상향(일평균 +0.63%) + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 23,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-04-24-278530KS",
@@ -1922,7 +1944,9 @@
       "holdDays": 14,
       "score": 59,
       "reason": "거래량 4.8배 증가 + 완만하게 우상향(일평균 +0.34%).",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 11230,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-04-29-GLD",
@@ -1938,7 +1962,9 @@
       "holdDays": 14,
       "score": 35,
       "reason": "완만하게 우상향(일평균 +0.36%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 218.7100067138672,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-04-17-BNDX",
@@ -1954,7 +1980,9 @@
       "holdDays": 90,
       "score": 10,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 49.54999923706055,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-10-01-GOVT",
@@ -1970,7 +1998,9 @@
       "holdDays": 90,
       "score": 8,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 23.360000610351562,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-04-12-GLD",
@@ -1986,7 +2016,9 @@
       "holdDays": 14,
       "score": 41,
       "reason": "완만하게 우상향(일평균 +0.40%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 221.22000122070312,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-02-01-QQQM",
@@ -2002,7 +2034,9 @@
       "holdDays": 90,
       "score": 27,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 183.58999633789062,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2023-06-20-278530KS",
@@ -2018,7 +2052,9 @@
       "holdDays": 90,
       "score": 30,
       "reason": "완만하게 우상향(일평균 +0.25%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 11875,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-08-07-VCIT",
@@ -2034,23 +2070,9 @@
       "holdDays": 90,
       "score": 19,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-11-24-SQQQ",
-      "market": "US",
-      "ticker": "SQQQ",
-      "name": "ProShares UltraPro Short QQQ (3x short)",
-      "buyDate": "2025-11-24",
-      "buyPrice": 73.16000366210938,
-      "exitDate": "2026-02-23",
-      "exitPrice": 72.95999908447266,
-      "return": -0.0027337967143966635,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 17,
-      "reason": "거래량 1.5배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 84.0199966430664,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-07-23-381180KS",
@@ -2066,7 +2088,9 @@
       "holdDays": 14,
       "score": 47,
       "reason": "완만하게 우상향(일평균 +0.49%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 21035,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-03-21-GLD",
@@ -2082,23 +2106,9 @@
       "holdDays": 90,
       "score": 43,
       "reason": "거래량 2.1배 증가 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2022-12-19-VWO",
-      "market": "US",
-      "ticker": "VWO",
-      "name": "Vanguard FTSE Emerging Markets",
-      "buyDate": "2022-12-19",
-      "buyPrice": 38.95000076293945,
-      "exitDate": "2023-03-20",
-      "exitPrice": 38.779998779296875,
-      "return": -0.004364620803918751,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 20,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 190.44000244140625,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-09-17-BND",
@@ -2114,7 +2124,27 @@
       "holdDays": 90,
       "score": 10,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 75.0999984741211,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2025-12-22-VXUS",
+      "market": "US",
+      "ticker": "VXUS",
+      "name": "Vanguard Total International Stock",
+      "buyDate": "2025-12-22",
+      "buyPrice": 75.08999633789062,
+      "exitDate": "2026-03-20",
+      "exitPrice": 74.70999908447266,
+      "return": -0.005060557623522199,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 17,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 84.19999694824219,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2023-06-27-IVV",
@@ -2130,7 +2160,9 @@
       "holdDays": 90,
       "score": 25,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 460.17999267578125,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-09-19-VWO",
@@ -2146,7 +2178,9 @@
       "holdDays": 90,
       "score": 28,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 55.77000045776367,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2022-11-22-069500KS",
@@ -2162,7 +2196,9 @@
       "holdDays": 14,
       "score": 38,
       "reason": "완만하게 우상향(일평균 +0.45%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 32265,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-03-12-GOVT",
@@ -2178,7 +2214,9 @@
       "holdDays": 90,
       "score": 32,
       "reason": "거래량 1.9배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 23.170000076293945,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-12-22-BNDX",
@@ -2194,7 +2232,9 @@
       "holdDays": 90,
       "score": 24,
       "reason": "꾸준히 우상향 + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 49.709999084472656,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-04-12-BNDX",
@@ -2210,7 +2250,9 @@
       "holdDays": 90,
       "score": 12,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 49.09000015258789,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-10-08-VWO",
@@ -2226,7 +2268,27 @@
       "holdDays": 14,
       "score": 45,
       "reason": "완만하게 우상향(일평균 +0.44%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 48.150001525878906,
+      "sellReason": "matured"
+    },
+    {
+      "id": "us-2022-12-19-VWO",
+      "market": "US",
+      "ticker": "VWO",
+      "name": "Vanguard FTSE Emerging Markets",
+      "buyDate": "2022-12-19",
+      "buyPrice": 38.95000076293945,
+      "exitDate": "2023-03-15",
+      "exitPrice": 38.45000076293945,
+      "return": -0.012836970223521704,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 20,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 43.18000030517578,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2023-02-09-QQQM",
@@ -2242,7 +2304,9 @@
       "holdDays": 14,
       "score": 50,
       "reason": "완만하게 우상향(일평균 +0.65%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 127.18000030517578,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-01-30-IEMG",
@@ -2258,7 +2322,9 @@
       "holdDays": 14,
       "score": 56,
       "reason": "완만하게 우상향(일평균 +0.47%) + 거래량 1.6배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 51.5099983215332,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-10-04-BNDX",
@@ -2274,7 +2340,9 @@
       "holdDays": 90,
       "score": 19,
       "reason": "거래량 증가세 + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 50.61000061035156,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-12-15-SPLG",
@@ -2290,23 +2358,9 @@
       "holdDays": 90,
       "score": 16,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2024-07-12-133690KS",
-      "market": "KR",
-      "ticker": "133690.KS",
-      "name": "TIGER 미국나스닥100",
-      "buyDate": "2024-07-12",
-      "buyPrice": 124350,
-      "exitDate": "2024-10-10",
-      "exitPrice": 121785,
-      "return": -0.020627261761158033,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 35,
-      "reason": "완만하게 우상향(일평균 +0.36%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 81.8499984741211,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-08-08-GOVT",
@@ -2322,7 +2376,9 @@
       "holdDays": 90,
       "score": 21,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 23.65999984741211,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-11-05-102110KS",
@@ -2338,7 +2394,9 @@
       "holdDays": 14,
       "score": 62,
       "reason": "완만하게 우상향(일평균 +0.93%) + 거래량 1.8배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 59110,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2022-08-24-360750KS",
@@ -2354,7 +2412,9 @@
       "holdDays": 14,
       "score": 57,
       "reason": "완만하게 우상향(일평균 +0.44%) + 거래량 1.8배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 14020,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2026-03-03-069500KS",
@@ -2370,7 +2430,9 @@
       "holdDays": 14,
       "score": 42,
       "reason": "완만하게 우상향(일평균 +1.08%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 86705,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2022-08-19-069500KS",
@@ -2386,7 +2448,9 @@
       "holdDays": 90,
       "score": 24,
       "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 32725,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2022-08-23-133690KS",
@@ -2402,23 +2466,45 @@
       "holdDays": 14,
       "score": 51,
       "reason": "완만하게 우상향(일평균 +0.55%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 78055,
+      "sellReason": "matured"
     },
     {
-      "id": "us-2025-01-29-VT",
-      "market": "US",
-      "ticker": "VT",
-      "name": "Vanguard Total World Stock",
-      "buyDate": "2025-01-29",
-      "buyPrice": 120.91999816894531,
-      "exitDate": "2025-04-29",
-      "exitPrice": 116.66000366210938,
-      "return": -0.03522985917419563,
+      "id": "kr-2026-03-13-102110KS",
+      "market": "KR",
+      "ticker": "102110.KS",
+      "name": "TIGER 200",
+      "buyDate": "2026-03-13",
+      "buyPrice": 81615,
+      "exitDate": "2026-03-30",
+      "exitPrice": 78770,
+      "return": -0.034858788212951075,
       "horizon": "중기",
       "holdDays": 90,
-      "score": 25,
-      "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "score": 32,
+      "reason": "거래량 1.6배 증가 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 89390,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2024-12-31-TQQQ",
+      "market": "US",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "buyDate": "2024-12-31",
+      "buyPrice": 39.564998626708984,
+      "exitDate": "2025-01-13",
+      "exitPrice": 38.01499938964844,
+      "return": -0.03917602150538668,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 29,
+      "reason": "완만하게 우상향(일평균 +0.39%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 42.60499954223633,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2025-10-21-GLD",
@@ -2434,7 +2520,9 @@
       "holdDays": 14,
       "score": 70,
       "reason": "완만하게 우상향(일평균 +0.64%) + 거래량 2.1배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 378.7900085449219,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-07-20-VUG",
@@ -2450,7 +2538,9 @@
       "holdDays": 90,
       "score": 27,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 48.74333190917969,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-08-15-TQQQ",
@@ -2466,7 +2556,9 @@
       "holdDays": 14,
       "score": 29,
       "reason": "완만하게 우상향(일평균 +0.41%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 46.630001068115234,
+      "sellReason": "matured"
     },
     {
       "id": "us-2024-09-26-BND",
@@ -2482,7 +2574,9 @@
       "holdDays": 90,
       "score": 14,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 75.27999877929688,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2025-12-29-133690KS",
@@ -2498,7 +2592,9 @@
       "holdDays": 90,
       "score": 12,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 168350,
+      "sellReason": "matured"
     },
     {
       "id": "us-2025-12-31-IVV",
@@ -2514,39 +2610,9 @@
       "holdDays": 90,
       "score": 39,
       "reason": "거래량 2.1배 증가 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2023-08-10-381180KS",
-      "market": "KR",
-      "ticker": "381180.KS",
-      "name": "TIGER 미국필라델피아반도체나스닥",
-      "buyDate": "2023-08-10",
-      "buyPrice": 12730,
-      "exitDate": "2023-11-08",
-      "exitPrice": 12080,
-      "return": -0.05106048703849175,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 14,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2022-01-05-VXUS",
-      "market": "US",
-      "ticker": "VXUS",
-      "name": "Vanguard Total International Stock",
-      "buyDate": "2022-01-05",
-      "buyPrice": 63.41999816894531,
-      "exitDate": "2022-04-05",
-      "exitPrice": 60.04999923706055,
-      "return": -0.053137796108214674,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 8,
-      "reason": "거래량 증가세 + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 698.7000122070312,
+      "sellReason": "matured"
     },
     {
       "id": "kr-2024-04-08-091160KS",
@@ -2562,7 +2628,27 @@
       "holdDays": 14,
       "score": 53,
       "reason": "완만하게 우상향(일평균 +0.58%) + 거래량 1.6배 증가.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 43255,
+      "sellReason": "matured"
+    },
+    {
+      "id": "kr-2024-12-23-381180KS",
+      "market": "KR",
+      "ticker": "381180.KS",
+      "name": "TIGER 미국필라델피아반도체나스닥",
+      "buyDate": "2024-12-23",
+      "buyPrice": 19260,
+      "exitDate": "2025-02-28",
+      "exitPrice": 18145,
+      "return": -0.05789200415368645,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 22,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 20615,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2022-07-15-GOVT",
@@ -2578,23 +2664,9 @@
       "holdDays": 90,
       "score": 23,
       "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2022-01-05-278530KS",
-      "market": "KR",
-      "ticker": "278530.KS",
-      "name": "KODEX 200TR",
-      "buyDate": "2022-01-05",
-      "buyPrice": 12925,
-      "exitDate": "2022-04-05",
-      "exitPrice": 12140,
-      "return": -0.06073500967117984,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 49,
-      "reason": "거래량 14.4배 증가 + 저점권 매수세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 24.360000610351562,
+      "sellReason": "matured"
     },
     {
       "id": "us-2022-08-05-BNDX",
@@ -2610,7 +2682,9 @@
       "holdDays": 90,
       "score": 19,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 51.099998474121094,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-08-04-IEMG",
@@ -2626,55 +2700,63 @@
       "holdDays": 90,
       "score": 34,
       "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 50.58000183105469,
+      "sellReason": "matured"
     },
     {
-      "id": "us-2025-02-03-IBIT",
+      "id": "us-2022-09-01-VTI",
       "market": "US",
-      "ticker": "IBIT",
-      "name": "iShares Bitcoin Trust",
-      "buyDate": "2025-02-03",
-      "buyPrice": 57.58000183105469,
-      "exitDate": "2025-05-05",
-      "exitPrice": 53.630001068115234,
-      "return": -0.06860021947427408,
+      "ticker": "VTI",
+      "name": "Vanguard Total Stock Market",
+      "buyDate": "2022-09-01",
+      "buyPrice": 198.67999267578125,
+      "exitDate": "2022-09-23",
+      "exitPrice": 184.25999450683594,
+      "return": -0.07257901500166042,
       "horizon": "중기",
       "holdDays": 90,
-      "score": 22,
-      "reason": "완만하게 우상향(일평균 +0.32%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2024-12-23-381180KS",
-      "market": "KR",
-      "ticker": "381180.KS",
-      "name": "TIGER 미국필라델피아반도체나스닥",
-      "buyDate": "2024-12-23",
-      "buyPrice": 19260,
-      "exitDate": "2025-03-24",
-      "exitPrice": 17790,
-      "return": -0.07632398753894076,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 22,
+      "score": 8,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 206.64999389648438,
+      "sellReason": "trailing"
     },
     {
-      "id": "kr-2022-01-10-148020KS",
+      "id": "kr-2025-03-18-122630KS",
       "market": "KR",
-      "ticker": "148020.KS",
-      "name": "RISE 200",
-      "buyDate": "2022-01-10",
-      "buyPrice": 39290,
-      "exitDate": "2022-04-11",
-      "exitPrice": 36280,
-      "return": -0.07660982438279462,
+      "ticker": "122630.KS",
+      "name": "KODEX 레버리지",
+      "buyDate": "2025-03-18",
+      "buyPrice": 16505,
+      "exitDate": "2025-03-31",
+      "exitPrice": 15295,
+      "return": -0.07331111784307787,
       "horizon": "중기",
       "holdDays": 90,
-      "score": 30,
-      "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
-      "status": "matured"
+      "score": 17,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 17190,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2025-03-13-102110KS",
+      "market": "KR",
+      "ticker": "102110.KS",
+      "name": "TIGER 200",
+      "buyDate": "2025-03-13",
+      "buyPrice": 34115,
+      "exitDate": "2025-04-07",
+      "exitPrice": 31480,
+      "return": -0.07723875128242708,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 13,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 35795,
+      "sellReason": "trailing"
     },
     {
       "id": "us-2023-08-02-VT",
@@ -2690,135 +2772,9 @@
       "holdDays": 90,
       "score": 26,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-12-30-QQQM",
-      "market": "US",
-      "ticker": "QQQM",
-      "name": "Invesco NASDAQ 100",
-      "buyDate": "2024-12-30",
-      "buyPrice": 212.25999450683594,
-      "exitDate": "2025-03-31",
-      "exitPrice": 193.02000427246094,
-      "return": -0.09064350670071919,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 25,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-06-18-IBIT",
-      "market": "US",
-      "ticker": "IBIT",
-      "name": "iShares Bitcoin Trust",
-      "buyDate": "2024-06-18",
-      "buyPrice": 36.63999938964844,
-      "exitDate": "2024-09-16",
-      "exitPrice": 32.97999954223633,
-      "return": -0.0998908271937945,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 21,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2022-01-27-VWO",
-      "market": "US",
-      "ticker": "VWO",
-      "name": "Vanguard FTSE Emerging Markets",
-      "buyDate": "2022-01-27",
-      "buyPrice": 48.04999923706055,
-      "exitDate": "2022-04-27",
-      "exitPrice": 42.849998474121094,
-      "return": -0.10822062113434416,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 9,
-      "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2023-08-21-SQQQ",
-      "market": "US",
-      "ticker": "SQQQ",
-      "name": "ProShares UltraPro Short QQQ (3x short)",
-      "buyDate": "2023-08-21",
-      "buyPrice": 496.75,
-      "exitDate": "2023-11-20",
-      "exitPrice": 392.5,
-      "return": -0.20986411675893302,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 30,
-      "reason": "완만하게 우상향(일평균 +0.49%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2025-10-07-IBIT",
-      "market": "US",
-      "ticker": "IBIT",
-      "name": "iShares Bitcoin Trust",
-      "buyDate": "2025-10-07",
-      "buyPrice": 69.12999725341797,
-      "exitDate": "2026-01-05",
-      "exitPrice": 53.459999084472656,
-      "return": -0.22667436411869013,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 31,
-      "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-05-01-SQQQ",
-      "market": "US",
-      "ticker": "SQQQ",
-      "name": "ProShares UltraPro Short QQQ (3x short)",
-      "buyDate": "2024-05-01",
-      "buyPrice": 305.5,
-      "exitDate": "2024-07-30",
-      "exitPrice": 235.75,
-      "return": -0.22831423895253677,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 25,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "kr-2022-04-01-091160KS",
-      "market": "KR",
-      "ticker": "091160.KS",
-      "name": "KODEX AI반도체TOP2플러스",
-      "buyDate": "2022-04-01",
-      "buyPrice": 36370,
-      "exitDate": "2022-06-30",
-      "exitPrice": 27230,
-      "return": -0.2513060214462469,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 22,
-      "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
-    },
-    {
-      "id": "us-2024-12-31-TQQQ",
-      "market": "US",
-      "ticker": "TQQQ",
-      "name": "ProShares UltraPro QQQ (3x long)",
-      "buyDate": "2024-12-31",
-      "buyPrice": 39.564998626708984,
-      "exitDate": "2025-03-31",
-      "exitPrice": 28.649999618530273,
-      "return": -0.27587512667851743,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 29,
-      "reason": "완만하게 우상향(일평균 +0.39%) + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 98.63999938964844,
+      "sellReason": "matured"
     },
     {
       "id": "us-2023-01-04-SQQQ",
@@ -2827,30 +2783,430 @@
       "name": "ProShares UltraPro Short QQQ (3x short)",
       "buyDate": "2023-01-04",
       "buyPrice": 1360.25,
-      "exitDate": "2023-04-04",
-      "exitPrice": 746.75,
-      "return": -0.451020033082154,
+      "exitDate": "2023-01-10",
+      "exitPrice": 1250.75,
+      "return": -0.08049990810512775,
       "horizon": "중기",
       "holdDays": 90,
       "score": 19,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 1423.25,
+      "sellReason": "trailing"
     },
     {
-      "id": "us-2026-02-23-SQQQ",
+      "id": "us-2025-11-24-SQQQ",
       "market": "US",
       "ticker": "SQQQ",
       "name": "ProShares UltraPro Short QQQ (3x short)",
-      "buyDate": "2026-02-23",
-      "buyPrice": 72.95999908447266,
-      "exitDate": "2026-05-26",
-      "exitPrice": 39.279998779296875,
-      "return": -0.46162281699292895,
+      "buyDate": "2025-11-24",
+      "buyPrice": 73.16000366210938,
+      "exitDate": "2025-12-23",
+      "exitPrice": 67.23999786376953,
+      "return": -0.08091860992355171,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 17,
+      "reason": "거래량 1.5배 증가 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 75.13999938964844,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2022-01-27-VWO",
+      "market": "US",
+      "ticker": "VWO",
+      "name": "Vanguard FTSE Emerging Markets",
+      "buyDate": "2022-01-27",
+      "buyPrice": 48.04999923706055,
+      "exitDate": "2022-03-07",
+      "exitPrice": 44.15999984741211,
+      "return": -0.08095732469123773,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 9,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 50.7400016784668,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2025-02-24-IEMG",
+      "market": "US",
+      "ticker": "IEMG",
+      "name": "iShares Core MSCI Emerging Markets",
+      "buyDate": "2025-02-24",
+      "buyPrice": 54.72999954223633,
+      "exitDate": "2025-04-04",
+      "exitPrice": 50.2599983215332,
+      "return": -0.08167369373452171,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 26,
+      "reason": "완만하게 우상향(일평균 +0.27%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 55.939998626708984,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2024-12-30-QQQM",
+      "market": "US",
+      "ticker": "QQQM",
+      "name": "Invesco NASDAQ 100",
+      "buyDate": "2024-12-30",
+      "buyPrice": 212.25999450683594,
+      "exitDate": "2025-03-10",
+      "exitPrice": 194.8699951171875,
+      "return": -0.08192782361109685,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 25,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 222.10000610351562,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2022-04-01-091160KS",
+      "market": "KR",
+      "ticker": "091160.KS",
+      "name": "KODEX AI반도체TOP2플러스",
+      "buyDate": "2022-04-01",
+      "buyPrice": 36370,
+      "exitDate": "2022-06-09",
+      "exitPrice": 33380,
+      "return": -0.08221061314270006,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 22,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 37130,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2023-08-21-SQQQ",
+      "market": "US",
+      "ticker": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ (3x short)",
+      "buyDate": "2023-08-21",
+      "buyPrice": 496.75,
+      "exitDate": "2023-08-29",
+      "exitPrice": 453.5,
+      "return": -0.08706592853548067,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 30,
+      "reason": "완만하게 우상향(일평균 +0.49%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 507.75,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2024-07-12-133690KS",
+      "market": "KR",
+      "ticker": "133690.KS",
+      "name": "TIGER 미국나스닥100",
+      "buyDate": "2024-07-12",
+      "buyPrice": 124350,
+      "exitDate": "2024-08-02",
+      "exitPrice": 113420,
+      "return": -0.0878970647366305,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 35,
+      "reason": "완만하게 우상향(일평균 +0.36%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 126215,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2024-03-27-381180KS",
+      "market": "KR",
+      "ticker": "381180.KS",
+      "name": "TIGER 미국필라델피아반도체나스닥",
+      "buyDate": "2024-03-27",
+      "buyPrice": 17495,
+      "exitDate": "2024-04-22",
+      "exitPrice": 15955,
+      "return": -0.08802515004286937,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 36,
+      "reason": "완만하게 우상향(일평균 +0.33%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 17880,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2025-03-10-IEFA",
+      "market": "US",
+      "ticker": "IEFA",
+      "name": "iShares Core MSCI EAFE",
+      "buyDate": "2025-03-10",
+      "buyPrice": 76.41000366210938,
+      "exitDate": "2025-04-04",
+      "exitPrice": 69.55999755859375,
+      "return": -0.08964802742068767,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 29,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 78.6500015258789,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2025-02-25-278530KS",
+      "market": "KR",
+      "ticker": "278530.KS",
+      "name": "KODEX 200TR",
+      "buyDate": "2025-02-25",
+      "buyPrice": 12285,
+      "exitDate": "2025-04-07",
+      "exitPrice": 11115,
+      "return": -0.09523809523809523,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 29,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 12625,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2022-01-05-VXUS",
+      "market": "US",
+      "ticker": "VXUS",
+      "name": "Vanguard Total International Stock",
+      "buyDate": "2022-01-05",
+      "buyPrice": 63.41999816894531,
+      "exitDate": "2022-03-04",
+      "exitPrice": 57.2400016784668,
+      "return": -0.0974455482325236,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 8,
+      "reason": "거래량 증가세 + 저점권 매수세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 64.69999694824219,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2023-08-10-381180KS",
+      "market": "KR",
+      "ticker": "381180.KS",
+      "name": "TIGER 미국필라델피아반도체나스닥",
+      "buyDate": "2023-08-10",
+      "buyPrice": 12730,
+      "exitDate": "2023-10-26",
+      "exitPrice": 11485,
+      "return": -0.09780047132757264,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 14,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 13000,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2022-01-10-148020KS",
+      "market": "KR",
+      "ticker": "148020.KS",
+      "name": "RISE 200",
+      "buyDate": "2022-01-10",
+      "buyPrice": 39290,
+      "exitDate": "2022-01-27",
+      "exitPrice": 35435,
+      "return": -0.09811656910155253,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 30,
+      "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 40065,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2024-07-18-TQQQ",
+      "market": "US",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "buyDate": "2024-07-18",
+      "buyPrice": 36.52000045776367,
+      "exitDate": "2024-07-24",
+      "exitPrice": 32.724998474121094,
+      "return": -0.10391571566466973,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 46,
+      "reason": "완만하게 우상향(일평균 +0.63%) + 저점권 매수세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 37.08000183105469,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "kr-2022-01-05-278530KS",
+      "market": "KR",
+      "ticker": "278530.KS",
+      "name": "KODEX 200TR",
+      "buyDate": "2022-01-05",
+      "buyPrice": 12925,
+      "exitDate": "2022-01-27",
+      "exitPrice": 11570,
+      "return": -0.10483558994197295,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 49,
+      "reason": "거래량 14.4배 증가 + 저점권 매수세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 13095,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2025-10-07-IBIT",
+      "market": "US",
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "buyDate": "2025-10-07",
+      "buyPrice": 69.12999725341797,
+      "exitDate": "2025-10-16",
+      "exitPrice": 61.43000030517578,
+      "return": -0.11138430860940729,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 31,
+      "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 70.05999755859375,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2025-03-06-VWO",
+      "market": "US",
+      "ticker": "VWO",
+      "name": "Vanguard FTSE Emerging Markets",
+      "buyDate": "2025-03-06",
+      "buyPrice": 45.77000045776367,
+      "exitDate": "2025-04-07",
+      "exitPrice": 40.43000030517578,
+      "return": -0.116670310228981,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 18,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 46.709999084472656,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2024-06-18-IBIT",
+      "market": "US",
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "buyDate": "2024-06-18",
+      "buyPrice": 36.63999938964844,
+      "exitDate": "2024-07-05",
+      "exitPrice": 32.20000076293945,
+      "return": -0.12117900383926794,
       "horizon": "중기",
       "holdDays": 90,
       "score": 21,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "matured"
+      "status": "matured",
+      "maxPriceSinceEntry": 37.040000915527344,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2025-01-29-VT",
+      "market": "US",
+      "ticker": "VT",
+      "name": "Vanguard Total World Stock",
+      "buyDate": "2025-01-29",
+      "buyPrice": 120.91999816894531,
+      "exitDate": "2025-04-04",
+      "exitPrice": 105.69999694824219,
+      "return": -0.1258683547070374,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 25,
+      "reason": "거래량 1.7배 증가 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 123.97000122070312,
+      "sellReason": "trailing"
+    },
+    {
+      "id": "us-2026-01-29-TQQQ",
+      "market": "US",
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "buyDate": "2026-01-29",
+      "buyPrice": 56.040000915527344,
+      "exitDate": "2026-03-06",
+      "exitPrice": 47.540000915527344,
+      "return": -0.1516773708268241,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 20,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 56.040000915527344,
+      "sellReason": "hard"
+    },
+    {
+      "id": "us-2024-05-01-SQQQ",
+      "market": "US",
+      "ticker": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ (3x short)",
+      "buyDate": "2024-05-01",
+      "buyPrice": 305.5,
+      "exitDate": "2024-05-14",
+      "exitPrice": 258.5,
+      "return": -0.15384615384615385,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 25,
+      "reason": "꾸준히 우상향 + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 305.5,
+      "sellReason": "hard"
+    },
+    {
+      "id": "us-2025-02-03-IBIT",
+      "market": "US",
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "buyDate": "2025-02-03",
+      "buyPrice": 57.58000183105469,
+      "exitDate": "2025-02-26",
+      "exitPrice": 47.959999084472656,
+      "return": -0.16707194235262535,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 22,
+      "reason": "완만하게 우상향(일평균 +0.32%) + 거래량 증가세.",
+      "status": "matured",
+      "maxPriceSinceEntry": 57.58000183105469,
+      "sellReason": "hard"
+    },
+    {
+      "id": "us-2025-01-14-SQQQ",
+      "market": "US",
+      "ticker": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ (3x short)",
+      "buyDate": "2025-01-14",
+      "buyPrice": 161.3000030517578,
+      "exitDate": "2025-02-13",
+      "exitPrice": 134.35000610351562,
+      "return": -0.16707995312061152,
+      "horizon": "중기",
+      "holdDays": 90,
+      "score": 11,
+      "reason": "거래량 증가세 + 꾸준히 우상향.",
+      "status": "matured",
+      "maxPriceSinceEntry": 161.3000030517578,
+      "sellReason": "hard"
     },
     {
       "id": "kr-2026-05-20-278530KS",
@@ -2866,7 +3222,9 @@
       "holdDays": 90,
       "score": 42,
       "reason": "거래량 2.0배 증가 + 꾸준히 우상향.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 47755,
+      "sellReason": null
     },
     {
       "id": "kr-2026-05-19-381180KS",
@@ -2882,7 +3240,9 @@
       "holdDays": 14,
       "score": 48,
       "reason": "완만하게 우상향(일평균 +1.77%) + 거래량 증가세.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 50695,
+      "sellReason": null
     },
     {
       "id": "us-2026-05-15-VWO",
@@ -2898,7 +3258,9 @@
       "holdDays": 90,
       "score": 24,
       "reason": "완만하게 우상향(일평균 +0.28%) + 거래량 증가세.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 60.22999954223633,
+      "sellReason": null
     },
     {
       "id": "kr-2026-03-19-069500KS",
@@ -2914,23 +3276,9 @@
       "holdDays": 90,
       "score": 19,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "active"
-    },
-    {
-      "id": "kr-2026-03-13-102110KS",
-      "market": "KR",
-      "ticker": "102110.KS",
-      "name": "TIGER 200",
-      "buyDate": "2026-03-13",
-      "buyPrice": 81615,
-      "exitDate": null,
-      "exitPrice": null,
-      "return": null,
-      "horizon": "중기",
-      "holdDays": 90,
-      "score": 32,
-      "reason": "거래량 1.6배 증가 + 꾸준히 우상향.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 132255,
+      "sellReason": null
     },
     {
       "id": "us-2026-03-04-IEFA",
@@ -2946,7 +3294,9 @@
       "holdDays": 90,
       "score": 20,
       "reason": "꾸준히 우상향 + 거래량 증가세.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 98.31999969482422,
+      "sellReason": null
     },
     {
       "id": "us-2026-03-03-GOVT",
@@ -2962,7 +3312,9 @@
       "holdDays": 90,
       "score": 11,
       "reason": "거래량 증가세 + 꾸준히 우상향.",
-      "status": "active"
+      "status": "active",
+      "maxPriceSinceEntry": 23.190000534057617,
+      "sellReason": null
     }
   ]
 }
