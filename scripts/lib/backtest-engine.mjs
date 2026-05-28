@@ -255,7 +255,7 @@ export function simulate({
         if (tag !== 'rich') continue;
         const px = t.closes[idx];
         const gain = (px - p.avgCost) / p.avgCost;
-        if (gain < 0.10) continue;
+        if (gain < 0.20) continue;  // tuning F: start distribution at +20% (was +10%) — let winners run
         const plan = createDistPlan({ startDate: D, totalShares: p.shares });
         state = setPlan(state, market, p.ticker, 'distPlan', plan);
       }

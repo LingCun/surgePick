@@ -6,8 +6,8 @@ describe('evaluateExit', () => {
     const r = evaluateExit({ close: 89, avgCost: 100, peak: 100, isBear: false, holdingDays: 30 });
     expect(r).toEqual({ fire: true, reason: 'catastrophe' });
   });
-  it('gate 2 trailing fires when close < peak * 0.92', () => {
-    const r = evaluateExit({ close: 91, avgCost: 100, peak: 100, isBear: false, holdingDays: 30 });
+  it('gate 2 trailing fires when close < peak * 0.85', () => {
+    const r = evaluateExit({ close: 84, avgCost: 100, peak: 100, isBear: false, holdingDays: 30 });
     expect(r).toEqual({ fire: true, reason: 'trailing' });
   });
   it('gate 3 tight-trailing fires when gain >= 0.20 and close < peak * 0.96', () => {
@@ -22,9 +22,9 @@ describe('evaluateExit', () => {
     const r = evaluateExit({ close: 100, avgCost: 100, peak: 100, isBear: true, holdingDays: 30 });
     expect(r).toEqual({ fire: true, reason: 'bear-flip' });
   });
-  it('gate 5 time-stop fires after 365 holding days', () => {
-    const r = evaluateExit({ close: 100, avgCost: 100, peak: 100, isBear: false, holdingDays: 366 });
-    expect(r).toEqual({ fire: true, reason: 'time-stop' });
+  it('time-stop disabled — long holds do not auto-exit (tuning F)', () => {
+    const r = evaluateExit({ close: 100, avgCost: 100, peak: 100, isBear: false, holdingDays: 9999 });
+    expect(r).toEqual({ fire: false, reason: null });
   });
   it('gate 1 supersedes gate 4 when both apply', () => {
     const r = evaluateExit({ close: 80, avgCost: 100, peak: 100, isBear: true, holdingDays: 30 });

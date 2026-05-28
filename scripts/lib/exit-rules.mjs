@@ -20,17 +20,14 @@ export function evaluateExit({ close, avgCost, peak, isBear, holdingDays }) {
   if (gain >= 0.20 && close < peak * 0.96) {
     return { fire: true, reason: 'trailing-tight' };
   }
-  // 2. plain trailing
-  if (close < peak * 0.92) {
+  // 2. plain trailing (tuning F: -8% → -15%, let winners breathe)
+  if (close < peak * 0.85) {
     return { fire: true, reason: 'trailing' };
   }
   // 4. bear flip
   if (isBear) {
     return { fire: true, reason: 'bear-flip' };
   }
-  // 5. time stop
-  if (holdingDays > 365) {
-    return { fire: true, reason: 'time-stop' };
-  }
+  // 5. time stop disabled (tuning F: let winners run, only bear-flip forces exit)
   return { fire: false, reason: null };
 }

@@ -1,0 +1,106 @@
+# Handoff — surgePick CWC v2 Portfolio Simulator
+
+**Last updated:** 2026-05-28
+**Status:** CWC v2 live at https://surge-pick.vercel.app/. Strategy tuning iteration F applied.
+
+## What this repo does
+
+Mobile-first Astro site + Node ESM scripts that:
+- Track a portfolio (KR ₩10M + US $10K) using mean-reversion + DCA strategy (CWC v2 / WBCSR)
+- Watch the universe for CHEAP (RSI<35 + near MA200) / RICH (RSI>70 or far above MA200) signals
+- Buy via 3-chunk DCA over 14 days when CHEAP triggers
+- Sell via 3-chunk distribution when RICH + gain≥20%
+- 5-tier exit gate: catastrophe (-10% from avgCost) / trailing-tight (-4% from peak after +20% gain) / trailing (-15% from peak) / bear-flip (50/200 SMA death cross) / time-stop disabled
+- Max 5 concurrent positions per market
+- Backtest 2022-01-01 to today, output equity curve + CAGR/MDD/Sharpe
+
+## Live pages
+
+- `/` — today's actions + market mood + themes
+- `/portfolio` — equity curve, current positions, ledger, sell breakdown
+- `/watchlist` — daily CHEAP / NEUTRAL / RICH grouping
+- `/stats` — backtest headline metrics
+
+## Current backtest (param set F)
+
+```
+CAGR=2.71% MDD=2.75% Sharpe=0.89
+ledger=180  positions=7
+sell: trailing 21 / trailing-tight 21 / dist-chunk 16 / bear-flip 15 / catastrophe 10
+```
+
+**Below 10% CAGR target.** Strategy needs more tuning before live trading.
+
+## Param history
+
+| Iteration | Changes | CAGR | MDD | Sharpe | Notes |
+|---|---|---|---|---|---|
+| default | trailing -8%, rich-gate ≥10%, time-stop 365d | 2.41% | 3.92% | 0.92 | first run |
+| **F** (current) | trailing -15%, rich-gate ≥20%, time-stop OFF | 2.71% | 2.75% | 0.89 | winners run longer; fewer trades |
+
+## How to continue on a new PC
+
+```bash
+git clone <repo>
+cd surgePick
+npm install
+npm test           # 18 files, ~114 tests (check passing)
+npm run backtest   # 5-7 min, writes src/data/backtest.json
+npm run scan:picks # 8-15 min, writes portfolio.json + watchlist.json + picks.json
+npm run dev        # local preview at localhost:4321
+```
+
+## Key files
+
+| Path | Role |
+|---|---|
+| `scripts/lib/valuation.mjs` | RSI, MA200, CHEAP/RICH tag |
+| `scripts/lib/dca-plan.mjs` | 3-chunk DCA + distribution scheduler |
+| `scripts/lib/exit-rules.mjs` | 5-tier risk gate (tuning lives here) |
+| `scripts/lib/portfolio.mjs` | state init/buy/sell/equity pure helpers |
+| `scripts/lib/backtest-engine.mjs` | portfolio sim driver (daily loop) |
+| `scripts/lib/backtest-aggregate.mjs` | CAGR/MDD/Sharpe + sell breakdown |
+| `scripts/backtest.mjs` | 4.5y backtest runner |
+| `scripts/scan-picks.mjs` | state-advancing live scanner |
+| `docs/superpowers/specs/2026-05-28-cwc-portfolio-design.md` | spec |
+| `docs/superpowers/plans/2026-05-28-cwc-portfolio.md` | 14-task plan (all done) |
+
+## Next iteration candidates (pick one)
+
+The goal is CAGR ≥10%/year. Current strategy under-performs in 2024-2025 trend regime because mean-reversion only buys pullbacks, never breakouts.
+
+| # | Direction | Rationale |
+|---|---|---|
+| 1 | **Add momentum branch** — also buy on 3-condition breakout (legacy logic) in parallel with CHEAP entries | Capture trend continuation, biggest expected upside |
+| 2 | **RSI threshold widen** — CHEAP at RSI<40 (currently <35) | More entries (current cheap=1 daily), might help in trend years |
+| 3 | **Universe expand** — KR universe-kr.json from 39 to 100+, US from 51 to 200+ | More candidates → more opportunities |
+| 4 | **trailing -15% → -20%** | Even more winner-friendly, but MDD risk |
+| 5 | **catastrophe -10% → -15%** | Don't panic-sell on a -10% dip |
+| 6 | **Walk-forward optimization** — grid sweep over (trailing, catastrophe, gain-gate) | Data-driven param selection |
+| 7 | **Broker SDK integration** — defer until CAGR ≥10% achieved | Production prep |
+
+## When you come back to this repo
+
+1. Read this HANDOFF.md
+2. `git log --oneline -30` to see recent work
+3. Read `docs/superpowers/specs/2026-05-28-cwc-portfolio-design.md` for strategy spec
+4. Read `docs/superpowers/plans/2026-05-28-cwc-portfolio.md` for what was built
+5. Pick a next iteration from the table above (suggest #1 — momentum branch — for biggest impact)
+6. Tell Claude: "이어서 작업하자. HANDOFF.md 봐줘" and Claude will continue.
+
+## Open questions
+
+- Does adding a momentum branch double-count signals (a stock can be both pulled-back AND breakout-confirmed)? → Spec needed before implementing.
+- Should bear gate liquidation be partial (50%) instead of full? Bear-flip fires 15 times in 4.5 years; full liquidations may hurt recovery participation.
+- FX 1300 fixed simplifies KRW/USD but real-world rate fluctuated 1180-1450 in 2022-2026. Material impact unknown.
+
+## How to pull updates safely
+
+```bash
+git pull --rebase
+npm install      # if package.json changed
+npm test         # verify all pass
+npm run build    # verify Astro build
+```
+
+If conflicts on `src/data/*.json` (cron scans push these), accept the newer one — they're regenerated by `npm run scan:picks`.
