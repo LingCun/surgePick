@@ -1,6 +1,810 @@
 {
-  "asOf": "2026-05-28T00:00:00.000Z",
-  "cheap": [],
-  "neutral": [],
-  "rich": []
+  "cheap": [
+    {
+      "ticker": "WMT",
+      "name": "Walmart",
+      "market": "US",
+      "price": 118.54000091552734,
+      "rsi": 31.74111789535533,
+      "ma200Distance": 0.0313799215139347,
+      "inPortfolio": false
+    }
+  ],
+  "neutral": [
+    {
+      "ticker": "373220.KS",
+      "name": "LG에너지솔루션",
+      "market": "KR",
+      "price": 442000,
+      "rsi": 54.379589175827,
+      "ma200Distance": 0.09031482223798218,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "207940.KS",
+      "name": "삼성바이오로직스",
+      "market": "KR",
+      "price": 1373000,
+      "rsi": 37.57952147736317,
+      "ma200Distance": -0.17001895029069364,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "105560.KS",
+      "name": "KB금융",
+      "market": "KR",
+      "price": 149700,
+      "rsi": 41.17301154372034,
+      "ma200Distance": 0.12177685857518603,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "035420.KS",
+      "name": "NAVER",
+      "market": "KR",
+      "price": 205000,
+      "rsi": 49.16720178193634,
+      "ma200Distance": -0.13129427618273753,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "068270.KS",
+      "name": "셀트리온",
+      "market": "KR",
+      "price": 190000,
+      "rsi": 45.49643941583233,
+      "ma200Distance": -0.012963939416765586,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "055550.KS",
+      "name": "신한지주",
+      "market": "KR",
+      "price": 92800,
+      "rsi": 40.6784238690343,
+      "ma200Distance": 0.12747242066384798,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "035720.KS",
+      "name": "카카오",
+      "market": "KR",
+      "price": 40100,
+      "rsi": 33.25472327932728,
+      "ma200Distance": -0.29093376596393666,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "086790.KS",
+      "name": "하나금융지주",
+      "market": "KR",
+      "price": 115300,
+      "rsi": 42.10350300317797,
+      "ma200Distance": 0.14388892471464784,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "015760.KS",
+      "name": "한국전력",
+      "market": "KR",
+      "price": 39050,
+      "rsi": 39.9189460678985,
+      "ma200Distance": -0.15408443991941598,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "012450.KS",
+      "name": "한화에어로스페이스",
+      "market": "KR",
+      "price": 1200000,
+      "rsi": 35.47236038674811,
+      "ma200Distance": 0.06684210292359188,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "196170.KQ",
+      "name": "알테오젠",
+      "market": "KR",
+      "price": 369500,
+      "rsi": 51.721314647244995,
+      "ma200Distance": -0.1401327616399146,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "035900.KQ",
+      "name": "JYP Ent.",
+      "market": "KR",
+      "price": 57800,
+      "rsi": 41.811074499777,
+      "ma200Distance": -0.16898502591530262,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "041510.KQ",
+      "name": "에스엠",
+      "market": "KR",
+      "price": 81200,
+      "rsi": 37.8043107104033,
+      "ma200Distance": -0.2802662660267064,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "293490.KQ",
+      "name": "카카오게임즈",
+      "market": "KR",
+      "price": 9480,
+      "rsi": 29.25452175638098,
+      "ma200Distance": -0.35747327041360966,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "067160.KQ",
+      "name": "아프리카TV",
+      "market": "KR",
+      "price": 49450,
+      "rsi": 34.535233062950624,
+      "ma200Distance": -0.2763617605847641,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "market": "US",
+      "price": 412.6700134277344,
+      "rsi": 49.58707105376541,
+      "ma200Distance": -0.10158339489431004,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "market": "US",
+      "price": 212.60000610351562,
+      "rsi": 51.03998949400481,
+      "ma200Distance": 0.1347602827704745,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "market": "US",
+      "price": 271.8500061035156,
+      "rsi": 62.65035254328112,
+      "ma200Distance": 0.1767827969864418,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "market": "US",
+      "price": 635.260009765625,
+      "rsi": 56.85976306161898,
+      "ma200Distance": -0.04902882986359869,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "market": "US",
+      "price": 440.3599853515625,
+      "rsi": 63.04891650704072,
+      "ma200Distance": 0.07107624644363265,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "BRK-B",
+      "name": "Berkshire B",
+      "market": "US",
+      "price": 479.9200134277344,
+      "rsi": 50.39769859134468,
+      "ma200Distance": -0.021432439962403023,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan",
+      "market": "US",
+      "price": 299.2799987792969,
+      "rsi": 44.936898411248904,
+      "ma200Distance": -0.021007872963154033,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "V",
+      "name": "Visa",
+      "market": "US",
+      "price": 327.6099853515625,
+      "rsi": 55.89574828454759,
+      "ma200Distance": -0.009902225612358144,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "XOM",
+      "name": "Exxon",
+      "market": "US",
+      "price": 147.89999389648438,
+      "rsi": 41.871042940187024,
+      "ma200Distance": 0.12447706174506434,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "UNH",
+      "name": "UnitedHealth",
+      "market": "US",
+      "price": 384.010009765625,
+      "rsi": 61.023790285323614,
+      "ma200Distance": 0.18026534224392815,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "MA",
+      "name": "Mastercard",
+      "market": "US",
+      "price": 495.0400085449219,
+      "rsi": 46.23160768786506,
+      "ma200Distance": -0.08777416746092538,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "JNJ",
+      "name": "J&J",
+      "market": "US",
+      "price": 231.2899932861328,
+      "rsi": 52.4336569191808,
+      "ma200Distance": 0.0944615779942326,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle",
+      "market": "US",
+      "price": 190.9600067138672,
+      "rsi": 57.872803370219806,
+      "ma200Distance": -0.07927662572545346,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "HD",
+      "name": "Home Depot",
+      "market": "US",
+      "price": 317.8500061035156,
+      "rsi": 50.08532912398691,
+      "ma200Distance": -0.12991013193175138,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "COST",
+      "name": "Costco",
+      "market": "US",
+      "price": 1003.6900024414062,
+      "rsi": 44.11151694584045,
+      "ma200Distance": 0.04817212261315056,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "ABBV",
+      "name": "AbbVie",
+      "market": "US",
+      "price": 215.39999389648438,
+      "rsi": 59.508131170989124,
+      "ma200Distance": -0.018189725055021047,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "ADBE",
+      "name": "Adobe",
+      "market": "US",
+      "price": 238.24000549316406,
+      "rsi": 43.109686691635346,
+      "ma200Distance": -0.21833755134574886,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce",
+      "market": "US",
+      "price": 177.50999450683594,
+      "rsi": 48.21705532706458,
+      "ma200Distance": -0.19952491009238008,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Netflix",
+      "market": "US",
+      "price": 87.3499984741211,
+      "rsi": 40.56461752357738,
+      "ma200Distance": -0.13992166652788443,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "MCD",
+      "name": "McDonald's",
+      "market": "US",
+      "price": 280.9200134277344,
+      "rsi": 41.54614029338846,
+      "ma200Distance": -0.08706615930216478,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "DIS",
+      "name": "Disney",
+      "market": "US",
+      "price": 104.18000030517578,
+      "rsi": 51.95361493699484,
+      "ma200Distance": -0.03893609258880514,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "SGOV",
+      "name": "iShares 0-3 Month Treasury",
+      "market": "US",
+      "price": 100.6500015258789,
+      "rsi": 67.35914317722903,
+      "ma200Distance": 0.0012390043299848243,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "VXUS",
+      "name": "Vanguard Total International Stock",
+      "market": "US",
+      "price": 85.8499984741211,
+      "rsi": 60.44690582660115,
+      "ma200Distance": 0.11144050419515808,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "IEMG",
+      "name": "iShares Core MSCI Emerging Markets",
+      "market": "US",
+      "price": 83.45999908447266,
+      "rsi": 63.92941066974718,
+      "ma200Distance": 0.18997290297684474,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "BND",
+      "name": "Vanguard Total Bond Market",
+      "market": "US",
+      "price": 73.27999877929688,
+      "rsi": 50.65242573128851,
+      "ma200Distance": -0.01094668627697044,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "market": "US",
+      "price": 42.45000076293945,
+      "rsi": 42.34916285511823,
+      "ma200Distance": -0.1752180530474922,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VEA",
+      "name": "Vanguard FTSE Developed Markets",
+      "market": "US",
+      "price": 71.41000366210938,
+      "rsi": 60.16284219476991,
+      "ma200Distance": 0.11934923049078548,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "IEFA",
+      "name": "iShares Core MSCI EAFE",
+      "market": "US",
+      "price": 97.94000244140625,
+      "rsi": 58.23862475693691,
+      "ma200Distance": 0.07705083753052569,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "BNDX",
+      "name": "Vanguard Total International Bond",
+      "market": "US",
+      "price": 48.220001220703125,
+      "rsi": 56.440984273296365,
+      "ma200Distance": -0.012641925594667015,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "GOVT",
+      "name": "iShares U.S. Treasury Bond",
+      "market": "US",
+      "price": 22.719999313354492,
+      "rsi": 48.48389976139137,
+      "ma200Distance": -0.013503571545501032,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "GLD",
+      "name": "SPDR Gold Shares",
+      "market": "US",
+      "price": 408.489990234375,
+      "rsi": 36.47554986340974,
+      "ma200Distance": 0.018420246522272525,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VT",
+      "name": "Vanguard Total World Stock",
+      "market": "US",
+      "price": 157.16000366210938,
+      "rsi": 65.83632407689441,
+      "ma200Distance": 0.10497356824811353,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VCIT",
+      "name": "Vanguard Intermediate-Term Corporate Bond",
+      "market": "US",
+      "price": 82.5999984741211,
+      "rsi": 51.16686879986285,
+      "ma200Distance": -0.01213071841651056,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VWO",
+      "name": "Vanguard FTSE Emerging Markets",
+      "market": "US",
+      "price": 60.290000915527344,
+      "rsi": 60.46062428506932,
+      "ma200Distance": 0.09030804818184165,
+      "inPortfolio": true
+    },
+    {
+      "ticker": "SQQQ",
+      "name": "ProShares UltraPro Short QQQ (3x short)",
+      "market": "US",
+      "price": 39.439998626708984,
+      "rsi": 25.746407059604252,
+      "ma200Distance": -0.43602519871660556,
+      "inPortfolio": false
+    }
+  ],
+  "rich": [
+    {
+      "ticker": "000660.KS",
+      "name": "SK하이닉스",
+      "market": "KR",
+      "price": 2289000,
+      "rsi": 80.49601759431164,
+      "ma200Distance": 2.0183354980781023,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "122630.KS",
+      "name": "KODEX 레버리지",
+      "market": "KR",
+      "price": 189460,
+      "rsi": 70.98067981506209,
+      "ma200Distance": 1.9079043396780986,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "066570.KS",
+      "name": "LG전자",
+      "market": "KR",
+      "price": 225500,
+      "rsi": 63.88301178658843,
+      "ma200Distance": 1.1409820034084814,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "091160.KS",
+      "name": "KODEX AI반도체TOP2플러스",
+      "market": "KR",
+      "price": 160810,
+      "rsi": 69.37718777854093,
+      "ma200Distance": 1.1302723611699872,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "AMD",
+      "name": "AMD",
+      "market": "US",
+      "price": 495.5400085449219,
+      "rsi": 74.07880901632595,
+      "ma200Distance": 1.1163565068309504,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "005930.KS",
+      "name": "삼성전자",
+      "market": "KR",
+      "price": 299500,
+      "rsi": 65.23307882712244,
+      "ma200Distance": 1.088228526805324,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "032830.KS",
+      "name": "삼성생명",
+      "market": "KR",
+      "price": 357500,
+      "rsi": 71.84179065883959,
+      "ma200Distance": 0.8916394826167592,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "278530.KS",
+      "name": "KODEX 200TR",
+      "market": "KR",
+      "price": 46925,
+      "rsi": 72.42196278785816,
+      "ma200Distance": 0.8763188962406646,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "069500.KS",
+      "name": "KODEX 200",
+      "market": "KR",
+      "price": 129990,
+      "rsi": 72.46798012816501,
+      "ma200Distance": 0.8691320017858775,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "102110.KS",
+      "name": "TIGER 200",
+      "market": "KR",
+      "price": 129985,
+      "rsi": 72.48091865824068,
+      "ma200Distance": 0.8685986372750101,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "148020.KS",
+      "name": "RISE 200",
+      "market": "KR",
+      "price": 130945,
+      "rsi": 71.95973629426491,
+      "ma200Distance": 0.8677971347939177,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "012330.KS",
+      "name": "현대모비스",
+      "market": "KR",
+      "price": 686000,
+      "rsi": 68.59516506878046,
+      "ma200Distance": 0.7973406694176983,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "005380.KS",
+      "name": "현대차",
+      "market": "KR",
+      "price": 677000,
+      "rsi": 60.73259289579702,
+      "ma200Distance": 0.7822355604696467,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "381180.KS",
+      "name": "TIGER 미국필라델피아반도체나스닥",
+      "market": "KR",
+      "price": 49355,
+      "rsi": 71.9803098113682,
+      "ma200Distance": 0.6920288147141884,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "TQQQ",
+      "name": "ProShares UltraPro QQQ (3x long)",
+      "market": "US",
+      "price": 81.66999816894531,
+      "rsi": 73.68907904415946,
+      "ma200Distance": 0.5285133798047412,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm",
+      "market": "US",
+      "price": 233.39999389648438,
+      "rsi": 65.61958571612575,
+      "ma200Distance": 0.44521328356701767,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "017670.KS",
+      "name": "SK텔레콤",
+      "market": "KR",
+      "price": 96900,
+      "rsi": 48.8475835184753,
+      "ma200Distance": 0.4402175932462861,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices",
+      "market": "US",
+      "price": 416.8800048828125,
+      "rsi": 58.10280587654674,
+      "ma200Distance": 0.40507267372910527,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "086520.KQ",
+      "name": "에코프로",
+      "market": "KR",
+      "price": 144700,
+      "rsi": 50.80671226426709,
+      "ma200Distance": 0.3505630457203392,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "240810.KQ",
+      "name": "원익IPS",
+      "market": "KR",
+      "price": 108300,
+      "rsi": 41.13087498190668,
+      "ma200Distance": 0.32690098782448884,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto",
+      "market": "US",
+      "price": 248.47000122070312,
+      "rsi": 71.2635997543791,
+      "ma200Distance": 0.31863536851647983,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet",
+      "market": "US",
+      "price": 388.8299865722656,
+      "rsi": 60.96864423709889,
+      "ma200Distance": 0.30440247754119787,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "247540.KQ",
+      "name": "에코프로비엠",
+      "market": "KR",
+      "price": 218500,
+      "rsi": 55.293863729254525,
+      "ma200Distance": 0.2967993981901191,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "088350.KS",
+      "name": "한화생명",
+      "market": "KR",
+      "price": 4935,
+      "rsi": 46.00675737323704,
+      "ma200Distance": 0.2916650308193632,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "058470.KQ",
+      "name": "리노공업",
+      "market": "KR",
+      "price": 99100,
+      "rsi": 41.875658142068076,
+      "ma200Distance": 0.28912665246589375,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "005490.KS",
+      "name": "POSCO홀딩스",
+      "market": "KR",
+      "price": 420000,
+      "rsi": 44.06129734338947,
+      "ma200Distance": 0.2383261957587328,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "000270.KS",
+      "name": "기아",
+      "market": "KR",
+      "price": 164300,
+      "rsi": 51.72294785695253,
+      "ma200Distance": 0.22608280349840304,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "133690.KS",
+      "name": "TIGER 미국나스닥100",
+      "market": "KR",
+      "price": 198750,
+      "rsi": 83.10558252945339,
+      "ma200Distance": 0.22384455603922637,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "market": "US",
+      "price": 421.8599853515625,
+      "rsi": 56.36666472986593,
+      "ma200Distance": 0.2018095932210686,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "market": "US",
+      "price": 310.8500061035156,
+      "rsi": 78.84996018701908,
+      "ma200Distance": 0.18464879336609236,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "QQQM",
+      "name": "Invesco NASDAQ 100",
+      "market": "US",
+      "price": 300.3800048828125,
+      "rsi": 74.72784159086373,
+      "ma200Distance": 0.18394611458452892,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "LLY",
+      "name": "Eli Lilly",
+      "market": "US",
+      "price": 1082.9200439453125,
+      "rsi": 70.66716403349857,
+      "ma200Distance": 0.16111062303297757,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "360750.KS",
+      "name": "TIGER 미국S&P500",
+      "market": "KR",
+      "price": 28000,
+      "rsi": 75.63904639437342,
+      "ma200Distance": 0.14321177181493028,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VUG",
+      "name": "Vanguard Growth",
+      "market": "US",
+      "price": 88.20999908447266,
+      "rsi": 70.02390847327543,
+      "ma200Distance": 0.10467150572904205,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "SPLG",
+      "name": "SPDR Portfolio S&P 500",
+      "market": "US",
+      "price": 88.3499984741211,
+      "rsi": 71.38119955167474,
+      "ma200Distance": 0.10444331926271314,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "IVV",
+      "name": "iShares Core S&P 500",
+      "market": "US",
+      "price": 754.1699829101562,
+      "rsi": 71.4073354782023,
+      "ma200Distance": 0.10400991394446628,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VOO",
+      "name": "Vanguard S&P 500",
+      "market": "US",
+      "price": 689.9600219726562,
+      "rsi": 71.28853386921368,
+      "ma200Distance": 0.10333890738533752,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VTI",
+      "name": "Vanguard Total Stock Market",
+      "market": "US",
+      "price": 369.3599853515625,
+      "rsi": 70.16976401004753,
+      "ma200Distance": 0.10210193927636484,
+      "inPortfolio": false
+    }
+  ],
+  "asOf": "2026-05-28T08:12:06.400Z"
 }
