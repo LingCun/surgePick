@@ -4,9 +4,9 @@
       "ticker": "WMT",
       "name": "Walmart",
       "market": "US",
-      "price": 118.54000091552734,
-      "rsi": 31.74111789535533,
-      "ma200Distance": 0.0313799215139347,
+      "price": 118.9000015258789,
+      "rsi": 32.76200958236703,
+      "ma200Distance": 0.03383889134686114,
       "inPortfolio": true
     }
   ],
@@ -150,189 +150,189 @@
       "ticker": "MSFT",
       "name": "Microsoft",
       "market": "US",
-      "price": 412.6700134277344,
-      "rsi": 49.58707105376541,
-      "ma200Distance": -0.10158339489431004,
+      "price": 426.989990234375,
+      "rsi": 59.323734687050575,
+      "ma200Distance": -0.0694475568108706,
       "inPortfolio": false
     },
     {
       "ticker": "NVDA",
       "name": "NVIDIA",
       "market": "US",
-      "price": 212.60000610351562,
-      "rsi": 51.03998949400481,
-      "ma200Distance": 0.1347602827704745,
+      "price": 214.25,
+      "rsi": 52.59495604725178,
+      "ma200Distance": 0.14258561682406967,
       "inPortfolio": false
     },
     {
       "ticker": "AMZN",
       "name": "Amazon",
       "market": "US",
-      "price": 271.8500061035156,
-      "rsi": 62.65035254328112,
-      "ma200Distance": 0.1767827969864418,
+      "price": 274,
+      "rsi": 64.39889722829838,
+      "ma200Distance": 0.18473832194156065,
       "inPortfolio": false
     },
     {
       "ticker": "META",
       "name": "Meta",
       "market": "US",
-      "price": 635.260009765625,
-      "rsi": 56.85976306161898,
-      "ma200Distance": -0.04902882986359869,
+      "price": 635.2899780273438,
+      "rsi": 56.87156881979688,
+      "ma200Distance": -0.048053556480420714,
       "inPortfolio": false
     },
     {
       "ticker": "TSLA",
       "name": "Tesla",
       "market": "US",
-      "price": 440.3599853515625,
-      "rsi": 63.04891650704072,
-      "ma200Distance": 0.07107624644363265,
+      "price": 442.1000061035156,
+      "rsi": 63.6113412439607,
+      "ma200Distance": 0.0739622717884439,
       "inPortfolio": false
     },
     {
       "ticker": "BRK-B",
       "name": "Berkshire B",
       "market": "US",
-      "price": 479.9200134277344,
-      "rsi": 50.39769859134468,
-      "ma200Distance": -0.021432439962403023,
+      "price": 477.4200134277344,
+      "rsi": 47.572111241060334,
+      "ma200Distance": -0.026655922801297034,
       "inPortfolio": true
     },
     {
       "ticker": "JPM",
       "name": "JPMorgan",
       "market": "US",
-      "price": 299.2799987792969,
-      "rsi": 44.936898411248904,
-      "ma200Distance": -0.021007872963154033,
+      "price": 296.7300109863281,
+      "rsi": 42.53744672244848,
+      "ma200Distance": -0.02946310168755999,
       "inPortfolio": false
     },
     {
       "ticker": "V",
       "name": "Visa",
       "market": "US",
-      "price": 327.6099853515625,
-      "rsi": 55.89574828454759,
-      "ma200Distance": -0.009902225612358144,
+      "price": 324.95001220703125,
+      "rsi": 52.40188244868996,
+      "ma200Distance": -0.017778632263809976,
       "inPortfolio": false
     },
     {
       "ticker": "XOM",
       "name": "Exxon",
       "market": "US",
-      "price": 147.89999389648438,
-      "rsi": 41.871042940187024,
-      "ma200Distance": 0.12447706174506434,
+      "price": 146.9600067138672,
+      "rsi": 40.69478164216173,
+      "ma200Distance": 0.11558610869505155,
       "inPortfolio": false
     },
     {
       "ticker": "UNH",
       "name": "UnitedHealth",
       "market": "US",
-      "price": 384.010009765625,
-      "rsi": 61.023790285323614,
-      "ma200Distance": 0.18026534224392815,
+      "price": 382.5299987792969,
+      "rsi": 59.729243270245775,
+      "ma200Distance": 0.17336945337174048,
       "inPortfolio": false
     },
     {
       "ticker": "MA",
       "name": "Mastercard",
       "market": "US",
-      "price": 495.0400085449219,
-      "rsi": 46.23160768786506,
-      "ma200Distance": -0.08777416746092538,
+      "price": 493.75,
+      "rsi": 45.35529825475138,
+      "ma200Distance": -0.08948151247832563,
       "inPortfolio": false
     },
     {
       "ticker": "JNJ",
       "name": "J&J",
       "market": "US",
-      "price": 231.2899932861328,
-      "rsi": 52.4336569191808,
-      "ma200Distance": 0.0944615779942326,
+      "price": 230.8000030517578,
+      "rsi": 51.54183612623594,
+      "ma200Distance": 0.09067256682892409,
       "inPortfolio": false
     },
     {
       "ticker": "ORCL",
       "name": "Oracle",
       "market": "US",
-      "price": 190.9600067138672,
-      "rsi": 57.872803370219806,
-      "ma200Distance": -0.07927662572545346,
+      "price": 203.6999969482422,
+      "rsi": 66.0582990094515,
+      "ma200Distance": -0.01668902421502321,
       "inPortfolio": false
     },
     {
       "ticker": "HD",
       "name": "Home Depot",
       "market": "US",
-      "price": 317.8500061035156,
-      "rsi": 50.08532912398691,
-      "ma200Distance": -0.12991013193175138,
+      "price": 321.2099914550781,
+      "rsi": 52.80327507093807,
+      "ma200Distance": -0.11991355082439335,
       "inPortfolio": false
     },
     {
       "ticker": "COST",
       "name": "Costco",
       "market": "US",
-      "price": 1003.6900024414062,
-      "rsi": 44.11151694584045,
-      "ma200Distance": 0.04817212261315056,
+      "price": 995.2000122070312,
+      "rsi": 42.0405148209454,
+      "ma200Distance": 0.03927081175675956,
       "inPortfolio": false
     },
     {
       "ticker": "ABBV",
       "name": "AbbVie",
       "market": "US",
-      "price": 215.39999389648438,
-      "rsi": 59.508131170989124,
-      "ma200Distance": -0.018189725055021047,
+      "price": 218.6300048828125,
+      "rsi": 63.484429752524804,
+      "ma200Distance": -0.0039208724059268075,
       "inPortfolio": true
     },
     {
       "ticker": "ADBE",
       "name": "Adobe",
       "market": "US",
-      "price": 238.24000549316406,
-      "rsi": 43.109686691635346,
-      "ma200Distance": -0.21833755134574886,
+      "price": 241.44000244140625,
+      "rsi": 46.03993681856927,
+      "ma200Distance": -0.20663828423757402,
       "inPortfolio": false
     },
     {
       "ticker": "CRM",
       "name": "Salesforce",
       "market": "US",
-      "price": 177.50999450683594,
-      "rsi": 48.21705532706458,
-      "ma200Distance": -0.19952491009238008,
+      "price": 176.1699981689453,
+      "rsi": 46.8250414816538,
+      "ma200Distance": -0.20455405975058705,
       "inPortfolio": false
     },
     {
       "ticker": "NFLX",
       "name": "Netflix",
       "market": "US",
-      "price": 87.3499984741211,
-      "rsi": 40.56461752357738,
-      "ma200Distance": -0.13992166652788443,
+      "price": 86.36000061035156,
+      "rsi": 37.98999828178544,
+      "ma200Distance": -0.14818199958722258,
       "inPortfolio": false
     },
     {
       "ticker": "MCD",
       "name": "McDonald's",
       "market": "US",
-      "price": 280.9200134277344,
-      "rsi": 41.54614029338846,
-      "ma200Distance": -0.08706615930216478,
+      "price": 277.9700012207031,
+      "rsi": 38.13287411267953,
+      "ma200Distance": -0.0962655776539684,
       "inPortfolio": false
     },
     {
       "ticker": "DIS",
       "name": "Disney",
       "market": "US",
-      "price": 104.18000030517578,
-      "rsi": 51.95361493699484,
-      "ma200Distance": -0.03893609258880514,
+      "price": 103.7300033569336,
+      "rsi": 50.60384528007648,
+      "ma200Distance": -0.04269787573258742,
       "inPortfolio": false
     },
     {
@@ -340,125 +340,125 @@
       "name": "iShares 0-3 Month Treasury",
       "market": "US",
       "price": 100.6500015258789,
-      "rsi": 67.35914317722903,
-      "ma200Distance": 0.0012390043299848243,
+      "rsi": 67.35914306856937,
+      "ma200Distance": 0.0012310361670811105,
       "inPortfolio": true
     },
     {
       "ticker": "VXUS",
       "name": "Vanguard Total International Stock",
       "market": "US",
-      "price": 85.8499984741211,
-      "rsi": 60.44690582660115,
-      "ma200Distance": 0.11144050419515808,
+      "price": 85.98999786376953,
+      "rsi": 60.95180088572527,
+      "ma200Distance": 0.11211771166114291,
       "inPortfolio": false
     },
     {
       "ticker": "IEMG",
       "name": "iShares Core MSCI Emerging Markets",
       "market": "US",
-      "price": 83.45999908447266,
-      "rsi": 63.92941066974718,
-      "ma200Distance": 0.18997290297684474,
+      "price": 83.55999755859375,
+      "rsi": 64.18600180446529,
+      "ma200Distance": 0.1895084880347003,
       "inPortfolio": false
     },
     {
       "ticker": "BND",
       "name": "Vanguard Total Bond Market",
       "market": "US",
-      "price": 73.27999877929688,
-      "rsi": 50.65242573128851,
-      "ma200Distance": -0.01094668627697044,
+      "price": 73.41999816894531,
+      "rsi": 53.63854931146778,
+      "ma200Distance": -0.009053783681766667,
       "inPortfolio": false
     },
     {
       "ticker": "IBIT",
       "name": "iShares Bitcoin Trust",
       "market": "US",
-      "price": 42.45000076293945,
-      "rsi": 42.34916285511823,
-      "ma200Distance": -0.1752180530474922,
+      "price": 41.560001373291016,
+      "rsi": 38.28726866038869,
+      "ma200Distance": -0.1904592320140959,
       "inPortfolio": false
     },
     {
       "ticker": "VEA",
       "name": "Vanguard FTSE Developed Markets",
       "market": "US",
-      "price": 71.41000366210938,
-      "rsi": 60.16284219476991,
-      "ma200Distance": 0.11934923049078548,
+      "price": 71.66000366210938,
+      "rsi": 61.18197926583976,
+      "ma200Distance": 0.12204823887460904,
       "inPortfolio": false
     },
     {
       "ticker": "IEFA",
       "name": "iShares Core MSCI EAFE",
       "market": "US",
-      "price": 97.94000244140625,
-      "rsi": 58.23862475693691,
-      "ma200Distance": 0.07705083753052569,
+      "price": 97.94999694824219,
+      "rsi": 58.27609762603714,
+      "ma200Distance": 0.07634816171355256,
       "inPortfolio": false
     },
     {
       "ticker": "BNDX",
       "name": "Vanguard Total International Bond",
       "market": "US",
-      "price": 48.220001220703125,
-      "rsi": 56.440984273296365,
-      "ma200Distance": -0.012641925594667015,
+      "price": 48.2599983215332,
+      "rsi": 57.42938877619447,
+      "ma200Distance": -0.011713664546951922,
       "inPortfolio": true
     },
     {
       "ticker": "GOVT",
       "name": "iShares U.S. Treasury Bond",
       "market": "US",
-      "price": 22.719999313354492,
-      "rsi": 48.48389976139137,
-      "ma200Distance": -0.013503571545501032,
+      "price": 22.760000228881836,
+      "rsi": 51.79398257439372,
+      "ma200Distance": -0.01173670529162546,
       "inPortfolio": false
     },
     {
       "ticker": "GLD",
       "name": "SPDR Gold Shares",
       "market": "US",
-      "price": 408.489990234375,
-      "rsi": 36.47554986340974,
-      "ma200Distance": 0.018420246522272525,
+      "price": 412.7699890136719,
+      "rsi": 41.01680367585842,
+      "ma200Distance": 0.02775562518399596,
       "inPortfolio": false
     },
     {
       "ticker": "VT",
       "name": "Vanguard Total World Stock",
       "market": "US",
-      "price": 157.16000366210938,
-      "rsi": 65.83632407689441,
-      "ma200Distance": 0.10497356824811353,
+      "price": 157.8699951171875,
+      "rsi": 67.46788116185533,
+      "ma200Distance": 0.10893586822374271,
       "inPortfolio": false
     },
     {
       "ticker": "VCIT",
       "name": "Vanguard Intermediate-Term Corporate Bond",
       "market": "US",
-      "price": 82.5999984741211,
-      "rsi": 51.16686879986285,
-      "ma200Distance": -0.01213071841651056,
+      "price": 82.73999786376953,
+      "rsi": 53.474963595547294,
+      "ma200Distance": -0.010444535936283172,
       "inPortfolio": false
     },
     {
       "ticker": "VWO",
       "name": "Vanguard FTSE Emerging Markets",
       "market": "US",
-      "price": 60.290000915527344,
-      "rsi": 60.46062428506932,
-      "ma200Distance": 0.09030804818184165,
+      "price": 59.900001525878906,
+      "rsi": 57.29450594930889,
+      "ma200Distance": 0.08234790947822396,
       "inPortfolio": false
     },
     {
       "ticker": "SQQQ",
       "name": "ProShares UltraPro Short QQQ (3x short)",
       "market": "US",
-      "price": 39.439998626708984,
-      "rsi": 25.746407059604252,
-      "ma200Distance": -0.43602519871660556,
+      "price": 38.470001220703125,
+      "rsi": 24.394306516343576,
+      "ma200Distance": -0.44792885503779617,
       "inPortfolio": false
     }
   ],
@@ -482,6 +482,15 @@
       "inPortfolio": false
     },
     {
+      "ticker": "AMD",
+      "name": "AMD",
+      "market": "US",
+      "price": 518.0900268554688,
+      "rsi": 76.70830179432357,
+      "ma200Distance": 1.1964438057302718,
+      "inPortfolio": false
+    },
+    {
       "ticker": "066570.KS",
       "name": "LG전자",
       "market": "KR",
@@ -497,15 +506,6 @@
       "price": 160810,
       "rsi": 69.37718777854093,
       "ma200Distance": 1.1302723611699872,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "AMD",
-      "name": "AMD",
-      "market": "US",
-      "price": 495.5400085449219,
-      "rsi": 74.07880901632595,
-      "ma200Distance": 1.1163565068309504,
       "inPortfolio": false
     },
     {
@@ -593,18 +593,18 @@
       "ticker": "TQQQ",
       "name": "ProShares UltraPro QQQ (3x long)",
       "market": "US",
-      "price": 81.66999816894531,
-      "rsi": 73.68907904415946,
-      "ma200Distance": 0.5285133798047412,
+      "price": 83.68000030517578,
+      "rsi": 75.7391255347641,
+      "ma200Distance": 0.5605818898279943,
       "inPortfolio": false
     },
     {
       "ticker": "QCOM",
       "name": "Qualcomm",
       "market": "US",
-      "price": 233.39999389648438,
-      "rsi": 65.61958571612575,
-      "ma200Distance": 0.44521328356701767,
+      "price": 243.2899932861328,
+      "rsi": 68.13445127961519,
+      "ma200Distance": 0.5020195599117384,
       "inPortfolio": false
     },
     {
@@ -620,9 +620,18 @@
       "ticker": "ADI",
       "name": "Analog Devices",
       "market": "US",
-      "price": 416.8800048828125,
-      "rsi": 58.10280587654674,
-      "ma200Distance": 0.40507267372910527,
+      "price": 419.010009765625,
+      "rsi": 58.87053467378902,
+      "ma200Distance": 0.4076274414878902,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto",
+      "market": "US",
+      "price": 257.7699890136719,
+      "rsi": 74.45568330487816,
+      "ma200Distance": 0.36474584903908924,
       "inPortfolio": false
     },
     {
@@ -644,21 +653,12 @@
       "inPortfolio": false
     },
     {
-      "ticker": "PANW",
-      "name": "Palo Alto",
-      "market": "US",
-      "price": 248.47000122070312,
-      "rsi": 71.2635997543791,
-      "ma200Distance": 0.31863536851647983,
-      "inPortfolio": false
-    },
-    {
       "ticker": "GOOGL",
       "name": "Alphabet",
       "market": "US",
-      "price": 388.8299865722656,
-      "rsi": 60.96864423709889,
-      "ma200Distance": 0.30440247754119787,
+      "price": 390.1300048828125,
+      "rsi": 61.776522980749945,
+      "ma200Distance": 0.30462489237577883,
       "inPortfolio": false
     },
     {
@@ -719,36 +719,36 @@
       "ticker": "AVGO",
       "name": "Broadcom",
       "market": "US",
-      "price": 421.8599853515625,
-      "rsi": 56.36666472986593,
-      "ma200Distance": 0.2018095932210686,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "AAPL",
-      "name": "Apple",
-      "market": "US",
-      "price": 310.8500061035156,
-      "rsi": 78.84996018701908,
-      "ma200Distance": 0.18464879336609236,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "QQQM",
-      "name": "Invesco NASDAQ 100",
-      "market": "US",
-      "price": 300.3800048828125,
-      "rsi": 74.72784159086373,
-      "ma200Distance": 0.18394611458452892,
+      "price": 426.5799865722656,
+      "rsi": 58.44341660637691,
+      "ma200Distance": 0.2131361733786442,
       "inPortfolio": false
     },
     {
       "ticker": "LLY",
       "name": "Eli Lilly",
       "market": "US",
-      "price": 1082.9200439453125,
-      "rsi": 70.66716403349857,
-      "ma200Distance": 0.16111062303297757,
+      "price": 1126.800048828125,
+      "rsi": 75.54271592033245,
+      "ma200Distance": 0.20498334017697895,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "QQQM",
+      "name": "Invesco NASDAQ 100",
+      "market": "US",
+      "price": 302.8500061035156,
+      "rsi": 76.49234196037597,
+      "ma200Distance": 0.1921070817121124,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "market": "US",
+      "price": 312.510009765625,
+      "rsi": 79.7860037721505,
+      "ma200Distance": 0.18904172675329667,
       "inPortfolio": false
     },
     {
@@ -764,9 +764,36 @@
       "ticker": "VUG",
       "name": "Vanguard Growth",
       "market": "US",
-      "price": 88.20999908447266,
-      "rsi": 70.02390847327543,
-      "ma200Distance": 0.10467150572904205,
+      "price": 89.22000122070312,
+      "rsi": 73.4719096848956,
+      "ma200Distance": 0.1164214418912833,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "IVV",
+      "name": "iShares Core S&P 500",
+      "market": "US",
+      "price": 758.1699829101562,
+      "rsi": 73.40051330945349,
+      "ma200Distance": 0.10889801242905531,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VOO",
+      "name": "Vanguard S&P 500",
+      "market": "US",
+      "price": 693.9099731445312,
+      "rsi": 73.44420168216644,
+      "ma200Distance": 0.10868587972124133,
+      "inPortfolio": false
+    },
+    {
+      "ticker": "VTI",
+      "name": "Vanguard Total Stock Market",
+      "market": "US",
+      "price": 371.6600036621094,
+      "rsi": 72.467685744643,
+      "ma200Distance": 0.1079837077465489,
       "inPortfolio": false
     },
     {
@@ -774,37 +801,10 @@
       "name": "SPDR Portfolio S&P 500",
       "market": "US",
       "price": 88.3499984741211,
-      "rsi": 71.38119955167474,
+      "rsi": 71.38119950007695,
       "ma200Distance": 0.10444331926271314,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "IVV",
-      "name": "iShares Core S&P 500",
-      "market": "US",
-      "price": 754.1699829101562,
-      "rsi": 71.4073354782023,
-      "ma200Distance": 0.10400991394446628,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "VOO",
-      "name": "Vanguard S&P 500",
-      "market": "US",
-      "price": 689.9600219726562,
-      "rsi": 71.28853386921368,
-      "ma200Distance": 0.10333890738533752,
-      "inPortfolio": false
-    },
-    {
-      "ticker": "VTI",
-      "name": "Vanguard Total Stock Market",
-      "market": "US",
-      "price": 369.3599853515625,
-      "rsi": 70.16976401004753,
-      "ma200Distance": 0.10210193927636484,
       "inPortfolio": false
     }
   ],
-  "asOf": "2026-05-28T11:06:23.037Z"
+  "asOf": "2026-05-28T22:55:49.317Z"
 }
