@@ -1,77 +1,47 @@
-function median(nums) {
-  if (nums.length === 0) return null;
-  const s = [...nums].sort((a, b) => a - b);
-  const mid = Math.floor(s.length / 2);
-  return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+/**
+ * Aggregate the portfolio equity curve + ledger into headline metrics.
+ */
+
+export function portfolioMetrics(equityCurve) {
+  if (!equityCurve || equityCurve.length < 2) {
+    return { cagr: 0, maxDrawdown: 0, sharpe: 0, days: equityCurve?.length ?? 0 };
+  }
+  const start = equityCurve[0].total;
+  const end = equityCurve[equityCurve.length - 1].total;
+  const startDate = new Date(equityCurve[0].date + 'T00:00:00Z').getTime();
+  const endDate = new Date(equityCurve[equityCurve.length - 1].date + 'T00:00:00Z').getTime();
+  const years = Math.max((endDate - startDate) / (365.25 * 86_400_000), 1 / 365.25);
+  const cagr = start > 0 ? Math.pow(end / start, 1 / years) - 1 : 0;
+
+  // Max drawdown
+  let peak = start;
+  let maxDD = 0;
+  for (const p of equityCurve) {
+    if (p.total > peak) peak = p.total;
+    const dd = (peak - p.total) / peak;
+    if (dd > maxDD) maxDD = dd;
+  }
+
+  // Sharpe — daily return stdev annualized
+  const returns = [];
+  for (let i = 1; i < equityCurve.length; i++) {
+    const prev = equityCurve[i - 1].total;
+    if (prev > 0) returns.push(equityCurve[i].total / prev - 1);
+  }
+  if (returns.length < 2) return { cagr, maxDrawdown: maxDD, sharpe: 0, days: equityCurve.length };
+  const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+  const variance = returns.reduce((a, b) => a + (b - mean) ** 2, 0) / (returns.length - 1);
+  const stdev = Math.sqrt(variance);
+  const sharpe = stdev > 0 ? (mean / stdev) * Math.sqrt(252) : 0;
+
+  return { cagr, maxDrawdown: maxDD, sharpe, days: equityCurve.length };
 }
 
-function metricsFor(entries, denomSimDays) {
-  const matured = entries.filter((e) => e.status === 'matured');
-  const count = matured.length;
-  if (count === 0) {
-    return {
-      count: 0,
-      winRate: null,
-      meanReturn: null,
-      medianReturn: null,
-      pickRate: denomSimDays > 0 ? 0 : null,
-    };
+export function sellReasonBreakdown(ledger) {
+  const out = {};
+  for (const row of ledger) {
+    if (row.action !== 'sell') continue;
+    out[row.reason] = (out[row.reason] ?? 0) + 1;
   }
-  const rets = matured.map((e) => e.return);
-  const wins = rets.filter((r) => r > 0).length;
-  const mean = rets.reduce((a, b) => a + b, 0) / count;
-  return {
-    count,
-    winRate: wins / count,
-    meanReturn: mean,
-    medianReturn: median(rets),
-    pickRate: denomSimDays > 0 ? count / denomSimDays : null,
-  };
-}
-
-function yearOf(dateStr) {
-  return dateStr.slice(0, 4);
-}
-
-export function bucketize(entries, simDayCounts) {
-  const overallSimDays = simDayCounts?.overall ?? 0;
-  const byMarketSimDays = simDayCounts?.byMarket ?? {};
-  const byYearSimDays = simDayCounts?.byYear ?? {};
-
-  const totals = {
-    ...metricsFor(entries, overallSimDays),
-    active: entries.filter((e) => e.status === 'active').length,
-  };
-
-  const byMarket = {};
-  for (const m of ['KR', 'US']) {
-    const sub = entries.filter((e) => e.market === m);
-    byMarket[m] = metricsFor(sub, byMarketSimDays[m] ?? 0);
-  }
-
-  const byHorizon = {};
-  for (const h of ['단기', '중기', '장기']) {
-    const sub = entries.filter((e) => e.horizon === h);
-    byHorizon[h] = metricsFor(sub, overallSimDays);
-  }
-
-  const byMarketHorizon = {};
-  for (const m of ['KR', 'US']) {
-    for (const h of ['단기', '중기', '장기']) {
-      const sub = entries.filter((e) => e.market === m && e.horizon === h);
-      byMarketHorizon[`${m}-${h}`] = metricsFor(sub, byMarketSimDays[m] ?? 0);
-    }
-  }
-
-  const byYear = {};
-  const years = new Set([
-    ...entries.map((e) => yearOf(e.buyDate)),
-    ...Object.keys(byYearSimDays),
-  ]);
-  for (const y of [...years].sort()) {
-    const sub = entries.filter((e) => yearOf(e.buyDate) === y);
-    byYear[y] = metricsFor(sub, byYearSimDays[y] ?? 0);
-  }
-
-  return { totals, byMarket, byHorizon, byMarketHorizon, byYear };
+  return out;
 }
