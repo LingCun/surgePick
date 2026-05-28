@@ -1,8 +1,8 @@
 # surgePick 인수인계 — 종목 시뮬레이션 피벗
 
-> 최종 작업일: **2026-05-28** · 브랜치: `feat/stock-simulation` · 다음 진입점: **Task 18 (Vercel preview 에서 수동 QA)** → 19 → 20
+> 최종 작업일: **2026-05-28** · 브랜치: `feat/stock-simulation` (최신 `137c09a`) · 다음 진입점: **Task 18 (Vercel preview 에서 수동 QA)** → Task 20 (문서/README)
 >
-> 진행: Task 4~17 완료. 데이터 적재(ingest.yml) Actions 실행 성공(초록) → Turso 에 tickers/prices/regime 적재됨. UI(Phase 4) 전부 구현·빌드 통과. 남은 건 QA(18) + 구버전 정리(19) + 문서(20). QA 는 DB 가 닿는 **Vercel preview** 에서, 19·20 은 DB 불필요라 이 컨테이너에서 가능.
+> 진행: **Task 4~17 + 19 완료.** 데이터 적재(ingest.yml) Actions 성공 → Turso 적재됨. UI 전부 구현. Vercel 500 + 런타임 에러 수정. 구버전(portfolio/watchlist/stats) 삭제하고 **탭 2개(홈/시뮬레이션)로 통합**. 남은 건 **Task 18 QA**(Vercel preview 에서 `/sim` 실동작 확인) + **Task 20**(구 spec archive + README 재작성, DB 불필요). PC 에서 이어받을 것.
 >
 > 이 문서는 다른 PC 에서 작업을 자연스럽게 이어받기 위한 핸드오프야. 위에서 아래로 순서대로 읽으면 돼.
 
@@ -170,9 +170,14 @@ d13e6a0 docs(spec): 2026-05-28 종목 시뮬레이션 페이지 설계
 | 15 | TickerSearch 컴포넌트 | ✅ DONE | `src/components/TickerSearch.astro` 자동완성 + 키보드 |
 | 16 | SimController + PriceTable | ✅ DONE | `src/components/{SimController,PriceTable}.astro` + horizon 토글 |
 | 17 | ForecastChart (progressive draw) | ✅ DONE | Chart.js CDN(Base.astro) + `requestAnimationFrame` progressive draw |
-| 18 | 수동 QA | pending | **Vercel preview 에서** KR 3 + US 3 종목 + 모바일 (이 컨테이너는 DB 접근 불가). 다음 진입점. |
-| 19 | 구버전 일괄 삭제 | pending | portfolio/watchlist/stats + 관련 코드 (DB 불필요, 여기서 가능) |
-| 20 | spec archive + README 재작성 | pending | 구 spec 8개 + 구 plan 6개 archive (DB 불필요) |
+| 18 | 수동 QA | **pending — 다음 진입점** | **Vercel preview 에서** `/sim` KR 3 + US 3 종목 + 모바일. 500 수정됐으니 이제 떠야 함 |
+| 19 | 구버전 일괄 삭제 + 탭 통합 | ✅ DONE | portfolio/watchlist/stats + 옛 전략 코드/데이터/테스트 삭제. 홈(index)은 시장 카드만 남김. 탭 = 홈/시뮬레이션 2개. `market-comment.mjs` 는 scan-regime 의존이라 유지(plan 삭제목록 오류). HANDOFF.md 는 작업 진행중이라 유지 |
+| 20 | spec archive + README 재작성 | pending | 구 spec 8개 + 구 plan 6개 → `docs/superpowers/archive/`, README 재작성 (plan §Task 20 에 본문 있음). DB 불필요, PC 에서 가능 |
+
+### 이번 세션(2차)에 추가로 고친 것
+- **Vercel 500**: `src/lib/db.mjs` 가 `import.meta.env` 로 Turso 자격증명을 읽어 런타임에 비어 500. → `process.env` 우선 + `import.meta.env` 폴백으로 수정.
+- **Vercel 런타임 에러** (`invalid runtime nodejs18.x`): `@astrojs/vercel` v7.8.2 어댑터가 빌드노드 22 를 모르면 nodejs18.x 로 폴백 → Vercel 이 18 폐기. → `engines.node`=`20.x` + 빌드 후처리 `scripts/fix-vercel-runtime.mjs` 가 함수 runtime 을 `nodejs20.x` 로 강제(build script 에 포함).
+- **탭 통합**: Base.astro 네비 = 홈(/) · 시뮬레이션(/sim) 두 개.
 
 ---
 
@@ -191,15 +196,17 @@ d13e6a0 docs(spec): 2026-05-28 종목 시뮬레이션 페이지 설계
 ### 6.2 첫 메시지 예시 (그대로 복사해서 보내도 됨)
 
 ```
-HANDOFF.md 읽었어. feat/stock-simulation 브랜치에서 Task 4 review 부터 진행.
-plan 파일은 docs/superpowers/plans/2026-05-28-stock-simulation.md.
-이후 Task 5~20 순차로 subagent-driven 방식 진행해줘.
+HANDOFF.md 읽었어. feat/stock-simulation 브랜치, Task 4~17+19 끝났고 다음은 Task 18 QA + Task 20 문서.
+먼저 .env.local 에 Turso 자격증명 채우고(§2.3) npm install → npm run build/test 로 환경 확인하고,
+npm run dev 로 /sim 직접 QA(삼성/AAPL 검색→차트). 잘 되면 Task 20(구 spec archive + README 재작성) 마무리하고
+PR 또는 main merge 준비해줘.
 ```
 
-Claude 가:
-1. Task 4 review (spec + quality 묶어서 1회 디스패치)
-2. Task 5 implementer 디스패치
-3. 반복...
+남은 작업:
+1. **Task 18 QA** — `npm run dev` 또는 Vercel preview 에서 `/sim` 실동작 (검색→예측 차트, 1/2/3M 토글, KR+US). regime 표본 적으면 "표본 부족" 정상.
+2. **Task 20** — 구 spec 8 + plan 6 → `docs/superpowers/archive/`, README 재작성 (plan 파일 Task 20 에 README 본문 그대로 있음).
+3. (선택) regime 과거 backfill — predict 가 "표본 부족" 자주 뜨면 §7.4 참고.
+4. PR/merge — QA 통과 후 `feat/stock-simulation` → `main`.
 
 ### 6.3 Task 5 부터의 진행 패턴
 
