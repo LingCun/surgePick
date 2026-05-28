@@ -1,6 +1,8 @@
 # surgePick 인수인계 — 종목 시뮬레이션 피벗
 
-> 최종 작업일: **2026-05-29** · 브랜치: `feat/stock-simulation` · 다음 진입점: **Task 5**
+> 최종 작업일: **2026-05-28** · 브랜치: `feat/stock-simulation` · 다음 진입점: **Task 6** (DB 필요)
+>
+> 진행: Task 4 review PASS, Task 5·10·11 완료·푸시됨. DB 자격증명(`.env.local`) 없는 환경이라 DB 의존 Task 6·7·8·9 는 보류, 순수 로직 Task 10·11 을 먼저 처리함.
 >
 > 이 문서는 다른 PC 에서 작업을 자연스럽게 이어받기 위한 핸드오프야. 위에서 아래로 순서대로 읽으면 돼.
 
@@ -154,14 +156,14 @@ d13e6a0 docs(spec): 2026-05-28 종목 시뮬레이션 페이지 설계
 
 | # | Task | 상태 | 비고 |
 |---|---|---|---|
-| 4 | tickers ingest | implementer DONE, review 보류 | 다음 PC 첫 작업: review 디스패치 |
-| 5 | Yahoo fetch open 필드 추가 | pending | `parseChartResult` 에 `opens` 배열 추가 |
-| 6 | 가격 5년 backfill | pending | **실행 시 ~15분 대기** (Yahoo Finance 60 종목 × 5y) |
-| 7 | 일일 가격 증분 | pending | `INSERT OR IGNORE` 로 멱등 |
-| 8 | regime ingest | pending | regime.json → DB, score→label/vix→band 변환 |
-| 9 | tickers-index 빌드 + GH Actions | pending | `public/tickers-index.json` 생성 |
-| 10 | autocomplete 라이브러리 (TDD) | pending | 단위 테스트 7개 포함 |
-| 11 | predict 라이브러리 (TDD) | pending | case 매칭/normalize/percentile + 테스트 |
+| 4 | tickers ingest | ✅ DONE (review PASS) | plan 코드와 일치, 60건 upsert |
+| 5 | Yahoo fetch open 필드 추가 | ✅ DONE | `parseChartResult` 에 `opens` 배열 추가, 파서 테스트 통과 |
+| 6 | 가격 5년 backfill | pending (DB 필요) | **실행 시 ~15분 대기** (Yahoo Finance 60 종목 × 5y). 다음 진입점. |
+| 7 | 일일 가격 증분 | pending (DB 필요) | `INSERT OR IGNORE` 로 멱등 |
+| 8 | regime ingest | pending (DB 필요) | regime.json → DB, score→label/vix→band 변환 |
+| 9 | tickers-index 빌드 + GH Actions | pending (DB 필요) | `public/tickers-index.json` 생성 |
+| 10 | autocomplete 라이브러리 (TDD) | ✅ DONE | `src/lib/autocomplete.mjs` + `tests/autocomplete.test.mjs` 7개 통과 |
+| 11 | predict 라이브러리 (TDD) | ✅ DONE | `src/lib/predict.mjs` + `tests/predict.test.mjs` 8개 통과. **matchCases 버그 수정**(아래 7.6) |
 | 12 | `/sim` 페이지 스캐폴드 + 네비 | pending | Base.astro 네비 수정 |
 | 13 | `/api/search` 라우트 | pending | SSR fallback |
 | 14 | `/api/ticker` 라우트 | pending | 종목 prices + forecast 반환 |
@@ -237,6 +239,12 @@ Claude 가:
 - 구현: `animation: false` + `requestAnimationFrame` 으로 매 프레임 한 포인트씩 `chart.data.datasets[i].data.push()` 후 `chart.update('none')`.
 - `prefers-reduced-motion: reduce` 환경에서는 즉시 그리기.
 - Chart.js v4 + chartjs-adapter-date-fns CDN 사용 (npm 의존성 추가 X).
+
+### 7.6 Task 11 구현 중 발견·수정한 plan 버그 (이미 반영됨)
+- **matchCases vix_band fallback 버그**: plan 의 `predict` 는 fallback 시 `matchCases(..., { ...ctx, vix_band: undefined })` 로 vix_band 제약을 풀려 했지만, `matchCases` 가 `r.vix_band === ctx.vix_band` 엄격비교라 `'low' === undefined` → 전부 제외되어 fallback 이 항상 빈 결과였음. → `matchCases` 를 `(ctx.vix_band == null || r.vix_band === ctx.vix_band)` 로 수정. exact 매칭(vix_band 지정 시)은 영향 없음.
+- **plan 의 predict 테스트 `today: '2024-06-01'` 모순**: 픽스처 prices 는 2024-01~04 만 생성하는데 today 가 06-01 이라 `no_today_close` 로 조기 리턴됨. → today 를 시리즈에 실재하는 `'2024-04-10'` 로 교정 (의도 동일).
+- **normalizeTrajectory 첫 테스트 `toEqual([0, 0.1, 0.21])`**: 부동소수점(`1.1 - 1 !== 0.1`)으로 깨짐 → 다른 케이스처럼 `toBeCloseTo` 로 작성.
+- **테스트 위치 컨벤션**: plan 은 `src/lib/*.test.ts` co-located 를 제시했으나, vitest.config 가 `tests/**/*.test.mjs` 만 include 하고 기존 18개 테스트도 그 컨벤션이라 **`tests/*.test.mjs`** 로 작성함. 라이브러리 본체는 plan 대로 `src/lib/*.mjs`.
 
 ---
 
