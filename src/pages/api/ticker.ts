@@ -1,10 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getDb } from '../../lib/db.mjs';
-import { predict } from '../../lib/predict.mjs';
+import { predict, addDays } from '../../lib/predict.mjs';
 
 export const prerender = false;
-
-const HORIZON_TO_HISTORY = { 30: 60, 60: 90, 90: 120 } as const;
 
 export const GET: APIRoute = async ({ url }) => {
   const id = url.searchParams.get('id');
@@ -72,9 +70,9 @@ export const GET: APIRoute = async ({ url }) => {
     horizon,
   });
 
-  // 표시용 최근 가격 (과거 N일)
-  const historyDays = HORIZON_TO_HISTORY[horizon as 30 | 60 | 90];
-  const recent = prices.slice(-historyDays);
+  // 표시용 최근 가격: horizon 과 동일한 calendar-day 윈도우 (대칭 차트)
+  const historyCutoff = addDays(today, -horizon);
+  const recent = prices.filter((p) => p.date >= historyCutoff);
 
   return new Response(
     JSON.stringify({
