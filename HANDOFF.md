@@ -1,8 +1,8 @@
 # surgePick 인수인계 — 종목 시뮬레이션 피벗
 
-> 최종 작업일: **2026-05-28** · 브랜치: `feat/stock-simulation` · 다음 진입점: **Task 6** (DB 필요)
+> 최종 작업일: **2026-05-28** · 브랜치: `feat/stock-simulation` · 다음 진입점: **데이터 적재 실행(아래 §11) → Task 12**
 >
-> 진행: Task 4 review PASS, Task 5·10·11 완료·푸시됨. DB 자격증명(`.env.local`) 없는 환경이라 DB 의존 Task 6·7·8·9 는 보류, 순수 로직 Task 10·11 을 먼저 처리함.
+> 진행: Task 4 review PASS, Task 5~11 코드 완료·푸시됨. 단 Claude 웹 실행환경의 네트워크 allowlist 가 Turso·Yahoo 를 차단(403)해서 **DB 적재(Task 6·7·8·9)는 이 컨테이너 안에서 실행 불가** → GitHub Actions 워크플로(`.github/workflows/ingest.yml`)로 실행하도록 구성함(§11). 적재 후 Task 12(UI) 부터 이어가면 됨.
 >
 > 이 문서는 다른 PC 에서 작업을 자연스럽게 이어받기 위한 핸드오프야. 위에서 아래로 순서대로 읽으면 돼.
 
@@ -158,10 +158,10 @@ d13e6a0 docs(spec): 2026-05-28 종목 시뮬레이션 페이지 설계
 |---|---|---|---|
 | 4 | tickers ingest | ✅ DONE (review PASS) | plan 코드와 일치, 60건 upsert |
 | 5 | Yahoo fetch open 필드 추가 | ✅ DONE | `parseChartResult` 에 `opens` 배열 추가, 파서 테스트 통과 |
-| 6 | 가격 5년 backfill | pending (DB 필요) | **실행 시 ~15분 대기** (Yahoo Finance 60 종목 × 5y). 다음 진입점. |
-| 7 | 일일 가격 증분 | pending (DB 필요) | `INSERT OR IGNORE` 로 멱등 |
-| 8 | regime ingest | pending (DB 필요) | regime.json → DB, score→label/vix→band 변환 |
-| 9 | tickers-index 빌드 + GH Actions | pending (DB 필요) | `public/tickers-index.json` 생성 |
+| 6 | 가격 5년 backfill | ✅ 코드 DONE · 실행 대기 | `scripts/backfill-prices.mjs`. **실행은 Actions(§11)** — Yahoo 60종목 × 5y, ~15분 |
+| 7 | 일일 가격 증분 | ✅ 코드 DONE · 실행 대기 | `scripts/ingest-prices.mjs`. `INSERT OR IGNORE` 멱등. `npm run scan` 에 포함 |
+| 8 | regime ingest | ✅ 코드 DONE · 실행 대기 | `scripts/ingest-regime.mjs`. score→label/vix→band 변환 |
+| 9 | tickers-index 빌드 + 파이프라인 | ✅ DONE | `build-tickers-index.mjs`(DB 실패 시 기존 파일 유지 fallback), package.json scripts, scan.yml+ingest.yml, 초기 `public/tickers-index.json`(universe 60종목) 커밋 |
 | 10 | autocomplete 라이브러리 (TDD) | ✅ DONE | `src/lib/autocomplete.mjs` + `tests/autocomplete.test.mjs` 7개 통과 |
 | 11 | predict 라이브러리 (TDD) | ✅ DONE | `src/lib/predict.mjs` + `tests/predict.test.mjs` 8개 통과. **matchCases 버그 수정**(아래 7.6) |
 | 12 | `/sim` 페이지 스캐폴드 + 네비 | pending | Base.astro 네비 수정 |
@@ -279,6 +279,30 @@ Vercel preview 자동 배포가 트리거됐을 수 있음. preview URL 확인: 
 - `@astrojs/vercel` ^7.8.2 (sub-export `serverless` 사용)
 
 `package.json` `engines` 가 `>=20` 으로 잡혀있음.
+
+---
+
+## 11. 데이터 적재 실행 (GitHub Actions)
+
+Claude 웹 실행환경은 네트워크 allowlist 가 Turso·Yahoo 를 막아서(403) 컨테이너 안에서 직접 적재가 안 됨. 대신 두 가지 길:
+
+### 길 A — GitHub Actions (모바일 OK, 권장)
+전제: repo Settings → Secrets and variables → Actions 에 `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN` 등록돼 있어야 함 (등록됨).
+1. GitHub → repo → **Actions** 탭 → 좌측 **"Initial data ingest (manual)"** 워크플로 선택
+2. **Run workflow** 버튼 → branch `feat/stock-simulation` 선택 → 실행
+3. ~15분 후 완료. `ingest.yml` 이: tickers seed → 5y backfill → 오늘 regime → 인덱스 재생성 → (변경 시) 커밋·푸시
+4. 이후 매일은 `scan.yml`(스케줄)이 regime+증분가격을 DB 에 적재 (TURSO secrets env 추가됨)
+
+### 길 B — Claude 웹 환경 네트워크 열기 (PC 브라우저)
+claude.ai/code 환경 편집 → Network access = **Custom** → Allowed domains 에 `*.turso.io`, `query1.finance.yahoo.com`, `query2.finance.yahoo.com` 추가(+ 기본 목록 포함 체크) → env vars 에 TURSO 2개 등록 → 세션 재시작 → `npm run ingest:tickers && npm run backfill:prices && npm run scan:regime && npm run ingest:regime && npm run build:index` 직접 실행.
+
+### 적재 검증 (어느 길이든 후)
+```bash
+node -e "import('./scripts/lib/db.mjs').then(async({getDb})=>{const d=getDb();for(const t of['tickers','prices','regime']){const r=await d.execute('SELECT COUNT(*) n FROM '+t);console.log(t, r.rows[0].n)}})"
+```
+기대: tickers 60 / prices ~75,000 / regime ≥2
+
+적재가 끝나면 **Task 12(/sim 페이지 스캐폴드 + 네비)** 부터 UI 진행. Task 13·14 API 라우트는 런타임에 DB 를 읽으므로 Vercel(secrets 등록됨)에서 동작.
 
 ---
 
