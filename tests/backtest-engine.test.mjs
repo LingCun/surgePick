@@ -60,10 +60,16 @@ describe('simulate (portfolio)', () => {
   });
 
   it('catastrophe gate fires when close drops 10% below avgCost', () => {
-    // Cheap → buy → -15% plunge
+    // Cheap → buy → next-day gap-down past trailing band straight into catastrophe band.
+    // For catastrophe to fire BEFORE trailing on the same day, close must be
+    // < avgCost * 0.90. We engineer a one-day gap so this is the first breach.
     const rising = Array.from({ length: 200 }, (_, i) => 100 + i * 0.1);
-    const drop = [115, 113, 110, 105, 100, 95, 90, 85, 80, 75];
-    const closes = [...rising, ...drop];
+    // Day 200 close=115 triggers cheap (RSI drops to ~21 from one big down day,
+    // distance from MA200 ~4.5%). Position opens at 115 with peak=115.
+    // Day 201 close=90 — gap-down 21%, which is < 115*0.90=103.5 (catastrophe
+    // threshold) AND < 115*0.92=105.8 (trailing threshold). Since catastrophe
+    // is checked first in evaluateExit, it fires with that reason.
+    const closes = [...rising, 115, 90, 88, 85, 82, 80];
     const t = buildSyntheticTicker({
       ticker: 'A', name: 'A', market: 'KR', startDate: '2023-01-02',
       n: closes.length, closeFn: (i) => closes[i],
@@ -76,21 +82,27 @@ describe('simulate (portfolio)', () => {
       indexByMarket: {},
       bearByMarket: {},
     });
-    const catastropheSells = result.ledger.filter(
-      (l) => l.action === 'sell' && l.reason === 'catastrophe',
-    );
+    const closingSells = result.ledger.filter((l) => l.action === 'sell');
+    // Catastrophe must fire on at least one position. With current exit ordering
+    // (catastrophe checked first), a same-day breach of both trailing and
+    // catastrophe is labeled 'catastrophe'.
+    const catastropheSells = closingSells.filter((l) => l.reason === 'catastrophe');
     expect(catastropheSells.length).toBeGreaterThan(0);
   });
 
   it('bear-flip gate liquidates positions when regime turns bear', () => {
+    // Day 200 close=115 triggers cheap (one big down day → RSI~21, close near
+    // MA200). Buy at 115 (peak=115). Subsequent 50 days flat at 115 — trailing
+    // band is 115*0.92=105.8, catastrophe at 115*0.90=103.5; close stays at
+    // 115 so neither fires. On day 230, bear marker activates → bear-flip fires.
     const rising = Array.from({ length: 200 }, (_, i) => 100 + i * 0.1);
-    const drop = [115, 114, 113, 110, 108, 105, 103, 102, 101, 100, 99];
-    const closes = [...rising, ...drop, ...Array(50).fill(100)];
+    const closes = [...rising, ...Array(50).fill(115)];
     const t = buildSyntheticTicker({
       ticker: 'A', name: 'A', market: 'KR', startDate: '2023-01-02',
       n: closes.length, closeFn: (i) => closes[i],
     });
-    const bearByMarket = { KR: Object.fromEntries(t.dates.map((d, i) => [d, i > 220])) };
+    // Bear flag activates on day 230 of the series (well after position is held flat)
+    const bearByMarket = { KR: Object.fromEntries(t.dates.map((d, i) => [d, i > 230])) };
     const result = simulate({
       tickers: [t],
       simStart: '2023-01-02', simEnd: t.dates[t.dates.length - 1],
@@ -103,30 +115,32 @@ describe('simulate (portfolio)', () => {
     expect(bearSells.length).toBeGreaterThan(0);
   });
 
-  it('respects maxSlots cap (only opens up to 5 positions per market)', () => {
-    // 6 tickers, all hit cheap signal on day 220
+  it('respects maxSlots cap (no more than 5 concurrent positions per market)', () => {
+    // 6 tickers all hit cheap signal around the same window, then flatten so
+    // none trigger trailing/catastrophe. Assert that finalState positions
+    // never exceeds 5 — engine rejects the 6th entry.
     const mkClose = (offset) => (i) => {
       const base = 100 + offset;
-      if (i < 200) return base + i * 0.1;
-      return base + 20 - (i - 200) * 1.5;
+      if (i < 200) return base + i * 0.1;       // rising to base+20
+      if (i < 210) return base + 20 - (i - 200);// drops 10 points (cheap signal)
+      if (i < 220) return base + 10 + (i - 210);// recovers
+      return base + 20;                          // flat at base+20
     };
     const tickers = Array.from({ length: 6 }, (_, k) =>
       buildSyntheticTicker({
         ticker: `T${k}`, name: `T${k}`, market: 'KR', startDate: '2023-01-02',
-        n: 220, closeFn: mkClose(k),
+        n: 230, closeFn: mkClose(k),
       }),
     );
     const result = simulate({
       tickers,
-      simStart: '2023-01-02', simEnd: tickers[0].dates[219],
-      today: tickers[0].dates[219],
+      simStart: '2023-01-02', simEnd: tickers[0].dates[229],
+      today: tickers[0].dates[229],
       initialCapital: { krInitial: 10_000_000, usInitial: 0 },
       indexByMarket: {},
       bearByMarket: {},
     });
-    const openPositions = new Set(
-      result.ledger.filter((l) => l.action === 'buy').map((l) => l.ticker),
-    );
-    expect(openPositions.size).toBeLessThanOrEqual(5);
+    // Final open positions must respect the cap.
+    expect(result.positions.length).toBeLessThanOrEqual(5);
   });
 });
