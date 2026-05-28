@@ -17,11 +17,19 @@ const asOfText = asOf
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#020617" />
     <title>{title}</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" is:inline></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" is:inline></script>
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
-    <header class="px-4 pt-6 pb-4 flex items-baseline justify-between max-w-screen-md mx-auto">
-      <a href="/" class="text-2xl font-bold tracking-tight">surgePick</a>
-      {asOfText && <span class="text-xs text-slate-400">{asOfText} 기준</span>}
+    <header class="px-4 pt-6 pb-2 max-w-screen-md mx-auto">
+      <div class="flex items-baseline justify-between">
+        <a href="/" class="text-2xl font-bold tracking-tight">surgePick</a>
+        {asOfText && <span class="text-xs text-slate-400">{asOfText} 기준</span>}
+      </div>
+      <nav class="mt-3 flex gap-4 text-sm border-b border-slate-800">
+        <a href="/" class="pb-2 border-b-2 border-transparent hover:border-slate-500" data-nav="home">홈</a>
+        <a href="/sim" class="pb-2 border-b-2 border-transparent hover:border-slate-500" data-nav="sim">시뮬레이션</a>
+      </nav>
     </header>
     <main class="px-4 pb-12 max-w-screen-md mx-auto">
       <slot />

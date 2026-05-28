@@ -1,0 +1,112 @@
+---
+// Server-side: 아무 prop 없음. 모든 동작은 클라이언트.
+---
+<div class="ticker-search relative">
+  <input
+    id="tk-input"
+    type="text"
+    autocomplete="off"
+    spellcheck="false"
+    placeholder="종목명 또는 코드 (예: 삼성전자, AAPL)"
+    class="w-full px-4 py-3 rounded-lg bg-slate-900 text-slate-100 border border-slate-700 focus:outline-none focus:border-cyan-500"
+  />
+  <ul
+    id="tk-results"
+    role="listbox"
+    class="hidden absolute z-10 mt-1 w-full max-h-72 overflow-auto rounded-lg bg-slate-900 border border-slate-700 shadow-xl"
+  ></ul>
+  <button
+    id="tk-go"
+    type="button"
+    disabled
+    class="mt-3 w-full py-3 rounded-lg bg-cyan-700 hover:bg-cyan-600 disabled:bg-slate-800 disabled:text-slate-500 font-semibold transition"
+  >시뮬레이션 시작</button>
+</div>
+
+<script>
+  import { search } from '../lib/autocomplete.mjs';
+
+  const input = document.getElementById('tk-input') as HTMLInputElement;
+  const results = document.getElementById('tk-results') as HTMLUListElement;
+  const goBtn = document.getElementById('tk-go') as HTMLButtonElement;
+
+  type Item = { ticker: string; name_kr: string | null; name_en: string | null; market: 'KR' | 'US'; exchange: string };
+
+  let index: Item[] = [];
+  let selected: Item | null = null;
+  let highlight = -1;
+  let currentMatches: Item[] = [];
+
+  // 인덱스 로드 (한 번)
+  fetch('/tickers-index.json').then((r) => r.json()).then((d) => { index = d; });
+
+  function render(matches: Item[]) {
+    currentMatches = matches;
+    highlight = -1;
+    if (matches.length === 0) {
+      results.classList.add('hidden');
+      return;
+    }
+    results.innerHTML = matches
+      .map((m, i) => {
+        const flag = m.market === 'KR' ? '🇰🇷' : '🇺🇸';
+        const display = m.name_kr ?? m.name_en ?? m.ticker;
+        const short = m.ticker.replace(/\.[A-Z]+$/, '');
+        return `<li role="option" data-i="${i}" class="px-4 py-2 cursor-pointer hover:bg-slate-800 flex items-center gap-3">
+          <span>${flag}</span>
+          <span class="text-slate-400 font-mono text-xs">${short}</span>
+          <span class="font-medium">${display}</span>
+        </li>`;
+      })
+      .join('');
+    results.classList.remove('hidden');
+  }
+
+  function pick(m: Item) {
+    selected = m;
+    input.value = m.name_kr ?? m.name_en ?? m.ticker;
+    results.classList.add('hidden');
+    goBtn.disabled = false;
+  }
+
+  input.addEventListener('input', () => {
+    selected = null;
+    goBtn.disabled = true;
+    render(search(index, input.value, 8));
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (results.classList.contains('hidden')) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      highlight = Math.min(highlight + 1, currentMatches.length - 1);
+      updateHighlight();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      highlight = Math.max(highlight - 1, 0);
+      updateHighlight();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (highlight >= 0) pick(currentMatches[highlight]);
+    } else if (e.key === 'Escape') {
+      results.classList.add('hidden');
+    }
+  });
+
+  function updateHighlight() {
+    [...results.children].forEach((el, i) => {
+      el.classList.toggle('bg-slate-800', i === highlight);
+    });
+  }
+
+  results.addEventListener('click', (e) => {
+    const li = (e.target as HTMLElement).closest('li');
+    if (!li) return;
+    pick(currentMatches[Number((li as HTMLElement).dataset.i)]);
+  });
+
+  goBtn.addEventListener('click', () => {
+    if (!selected) return;
+    window.dispatchEvent(new CustomEvent('sim:run', { detail: { ticker: selected } }));
+  });
+</script>

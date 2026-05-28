@@ -1,65 +1,66 @@
 # surgePick
 
-모바일 우선 한국·미국 주식 **포트폴리오 시뮬레이터** (CWC v2 / WBCSR 전략).
-
-- KR ₩10,000,000 + US $10,000 초기자본으로 mean-reversion + DCA 전략 시뮬레이션
-- **CHEAP** (RSI<35 + MA200 근접) 시그널에 3분할 DCA 매수, **RICH** (RSI>70 또는 MA200 +20%↑) + 수익≥20%에 3분할 분할 매도
-- 5단 위험 게이트: 손절 (-10%) / 후행 (-15%) / 후행 강 (+20% 이후 -4%) / 약세장 청산 / 보유기간 만료
-- 마켓당 최대 5개 동시 보유, 2022-01-01부터 백테스트
+한국·미국 종목 case-based 시뮬레이터. 종목 하나를 선택하면 과거 차트 + 과거 유사 시장 사례 평균에 기반한 미래 1·2·3개월 예측선을 그려줍니다.
 
 ## 페이지
 
 | 경로 | 내용 |
 |---|---|
-| `/` | 포트폴리오 요약 + 오늘의 매매 행동 + 시장 온도계 (VIX·4시장·overall) |
-| `/portfolio` | 누적 자산 곡선, 현재 보유, 거래 원장, 청산 사유 분포 |
-| `/watchlist` | 일일 CHEAP / NEUTRAL / RICH 스냅샷 |
-| `/stats` | CAGR / MDD / Sharpe 백테스트 헤드라인 |
+| `/` | 시장 온도계 (VIX·4시장·overall regime) |
+| `/sim` | 종목 시뮬레이션 (자동완성 검색 + 표 + 예측 차트) |
+
+## 데이터
+
+- **Turso (libSQL/SQLite)** — `tickers / prices / regime` 3 테이블
+- 매일 KST 16:30, ET 16:30 (GitHub Actions) — `scan:regime → ingest:regime → ingest:prices`
+- 출처: Yahoo Finance
 
 ## 로컬 실행
 
 ```bash
 npm install
-npm run dev          # http://localhost:4321
+cp .env.local.example .env.local   # Turso URL/Token 채우기
+npm run dev   # http://localhost:4321
 ```
 
 ## Scripts
 
-- `npm run backtest` — 4.5년 포트폴리오 시뮬레이션 → `src/data/backtest.json` (5-7분)
-- `npm run scan:picks` — state-advancing 라이브 스캐너 → `portfolio.json` + `watchlist.json` + `picks.json` (8-15분)
-- `npm run scan:regime` — VIX + 4시장 → `regime.json` (~30초)
-- `npm run scan:themes` — KR/US 테마 데이터 → `themes.json` (현재 페이지에서 미사용이지만 워크플로 유지)
-- `npm run scan` — regime → themes → picks 순차 실행
+- `npm run scan:regime` — 시장 regime 계산 → `src/data/regime.json`
+- `npm run ingest:regime` — regime.json → Turso `regime` 테이블
+- `npm run ingest:prices` — 어제 가격 incremental → Turso `prices`
+- `npm run ingest:tickers` — universe JSON → Turso `tickers`
+- `npm run backfill:prices` — Yahoo 5년 일괄 백필 (1회성)
+- `npm run build:index` — `tickers` → `public/tickers-index.json`
+- `npm run scan` — 위 세 개를 순차 실행 (운영용)
 - `npm test` — Vitest 단위 테스트
-- `npm run build` — Astro 정적 빌드
-
-## 배포
-
-Vercel 정적 호스팅. `main` 브랜치 push 시 자동 재빌드 → 배포.
-
-## 자동 데이터 갱신 (GitHub Actions)
-
-`.github/workflows/scan.yml` cron:
-- KST 16:30 (KOSPI 마감 후)
-- ET 16:30 (NYSE 마감 후, EDT/EST 둘 다 커버)
-- 수동 트리거: GitHub Actions 탭 → Daily data scan → Run workflow
-
-흐름: `npm ci` → `npm run scan` → `src/data/*.json` 변경 있으면 자동 커밋 + push → Vercel 재배포.
+- `npm run build` — Astro 빌드 (build:index → astro build)
 
 ## 핵심 파일
 
 | 경로 | 역할 |
 |---|---|
-| `scripts/lib/valuation.mjs` | RSI(14), MA200, CHEAP/RICH 태깅 |
-| `scripts/lib/dca-plan.mjs` | 3-분할 DCA + 분할 매도 스케줄러 |
-| `scripts/lib/exit-rules.mjs` | 5단 위험 게이트 (튜닝 지점) |
-| `scripts/lib/portfolio.mjs` | state init/buy/sell/equity 순수 함수 |
-| `scripts/lib/backtest-engine.mjs` | 포트폴리오 시뮬레이션 드라이버 (일별 루프) |
-| `scripts/lib/backtest-aggregate.mjs` | CAGR/MDD/Sharpe + 청산 사유 분포 |
-| `scripts/backtest.mjs` | 백테스트 러너 |
-| `scripts/scan-picks.mjs` | state-advancing 라이브 스캐너 |
-| `docs/superpowers/specs/2026-05-28-cwc-portfolio-design.md` | 전략 스펙 |
-| `HANDOFF.md` | 현재 백테스트 결과, 다음 이터레이션 후보 |
+| `scripts/db/schema.sql` | DB 스키마 |
+| `scripts/backfill-prices.mjs` | 5년 가격 백필 |
+| `scripts/ingest-prices.mjs` | 일일 가격 증분 |
+| `scripts/ingest-regime.mjs` | 일일 regime 증분 |
+| `src/lib/predict.mjs` | case-based 예측 알고리즘 |
+| `src/lib/autocomplete.mjs` | 자작 prefix/substring 검색 |
+| `src/pages/sim.astro` | 종목 시뮬레이션 페이지 |
+| `src/components/SimController.astro` | 검색→fetch→표/차트 컨트롤러 |
+| `docs/superpowers/specs/2026-05-28-stock-simulation-design.md` | 설계 문서 |
+
+## 배포
+
+Vercel hybrid (정적 + serverless API 라우트). `main` push 시 자동 배포.
+
+## 자동 데이터 갱신 (GitHub Actions)
+
+`.github/workflows/scan.yml` cron:
+- KST 16:30
+- ET 16:30
+- 수동 트리거 가능
+
+흐름: `npm ci` → `npm run scan` → Turso 적재. JSON 파일 자동 커밋은 없음 (DB 가 데이터 진실값).
 
 ## 면책
 

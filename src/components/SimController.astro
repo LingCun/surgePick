@@ -1,0 +1,205 @@
+---
+---
+<script>
+  type ApiResp = {
+    ticker: { ticker: string; name_kr: string|null; name_en: string|null; market: string; exchange: string };
+    today_close: number;
+    context: { label: string; vix: number|null; vix_band: string; case_count: number; fallback: boolean; error: string|null };
+    history: { date: string; open: number; close: number }[];
+    forecast: { d: number; date: string; median: number; lo: number; hi: number }[];
+  };
+
+  const resultRoot = document.getElementById('sim-result') as HTMLElement;
+  let lastSelectedTicker: string | null = null;
+  let currentHorizon = 30;
+
+  window.addEventListener('sim:run', async (ev: Event) => {
+    const { ticker } = (ev as CustomEvent).detail;
+    lastSelectedTicker = ticker.ticker;
+    await runAndRender(currentHorizon);
+  });
+
+  window.addEventListener('sim:horizon', async (ev: Event) => {
+    currentHorizon = (ev as CustomEvent).detail.horizon;
+    if (lastSelectedTicker) await runAndRender(currentHorizon);
+  });
+
+  async function runAndRender(horizon: number) {
+    if (!lastSelectedTicker) return;
+    resultRoot.classList.remove('hidden');
+    resultRoot.innerHTML = '<p class="text-slate-400 text-sm">로딩 중...</p>';
+
+    const res = await fetch(`/api/ticker?id=${encodeURIComponent(lastSelectedTicker)}&horizon=${horizon}`);
+    if (!res.ok) {
+      resultRoot.innerHTML = `<p class="text-red-400 text-sm">조회 실패: ${res.status}</p>`;
+      return;
+    }
+    const data: ApiResp = await res.json();
+
+    resultRoot.innerHTML = renderPriceTable(data) + renderChartPlaceholder(horizon);
+    fillPriceTable(data);
+    // 차트 init 은 Task 17 에서 추가
+    window.dispatchEvent(new CustomEvent('sim:rendered', { detail: { data, horizon } }));
+  }
+
+  function renderPriceTable(d: ApiResp) {
+    return `
+      <section class="price-table">
+        <header class="flex items-baseline justify-between mb-2">
+          <h2 class="text-lg font-semibold" data-pt-title></h2>
+          <span class="text-xs text-slate-400" data-pt-context></span>
+        </header>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-slate-400 text-left border-b border-slate-800">
+              <tr><th class="py-2 pr-4">날짜</th><th class="py-2 pr-4 text-right">시가</th><th class="py-2 pr-4 text-right">종가</th><th class="py-2 text-right">변동</th></tr>
+            </thead>
+            <tbody data-pt-body></tbody>
+          </table>
+        </div>
+      </section>
+    `;
+  }
+
+  function renderChartPlaceholder(horizon: number) {
+    const mTag = (n: number) => `<button data-hz="${n}" class="px-3 py-1 rounded text-sm ${n === horizon ? 'bg-cyan-700 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}">${n / 30}M</button>`;
+    return `
+      <section class="forecast-chart space-y-2">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold">예측 차트</h2>
+          <div class="flex gap-1">${[30, 60, 90].map(mTag).join('')}</div>
+        </div>
+        <div class="relative h-72 md:h-96 bg-slate-900 rounded-lg p-2">
+          <canvas id="forecast-canvas"></canvas>
+        </div>
+      </section>
+    `;
+  }
+
+  function fillPriceTable(d: ApiResp) {
+    const title = resultRoot.querySelector('[data-pt-title]') as HTMLElement;
+    const ctxEl = resultRoot.querySelector('[data-pt-context]') as HTMLElement;
+    const body = resultRoot.querySelector('[data-pt-body]') as HTMLElement;
+    const fmt = (n: number) => n.toLocaleString(d.ticker.market === 'KR' ? 'ko-KR' : 'en-US', { maximumFractionDigits: 2 });
+    const currency = d.ticker.market === 'KR' ? '₩' : '$';
+    const shortTicker = d.ticker.ticker.replace(/\.[A-Z]+$/, '');
+    title.textContent = `${d.ticker.name_kr ?? d.ticker.name_en ?? shortTicker} (${shortTicker}) — ${currency}${fmt(d.today_close)}`;
+
+    const labelKo = { bull: '강세장', neutral: '횡보', bear: '약세장' }[d.context.label] ?? d.context.label;
+    const bandKo = { low: '낮음', mid: '보통', high: '높음' }[d.context.vix_band] ?? d.context.vix_band;
+    const fb = d.context.fallback ? ' · VIX 폴백' : '';
+    const err = d.context.error ? ` · ${d.context.error}` : '';
+    ctxEl.textContent = `시장: ${labelKo} · VIX ${bandKo} · 유사 ${d.context.case_count}건${fb}${err}`;
+
+    const last10 = d.history.slice(-10).reverse();
+    body.innerHTML = last10
+      .map((p, i) => {
+        const prev = i === last10.length - 1 ? p.close : last10[i + 1].close;
+        const change = ((p.close - prev) / prev) * 100;
+        const color = change > 0 ? 'text-red-400' : change < 0 ? 'text-blue-400' : 'text-slate-400';
+        return `<tr class="border-b border-slate-900">
+          <td class="py-1.5 pr-4 font-mono text-xs">${p.date}</td>
+          <td class="py-1.5 pr-4 text-right">${fmt(p.open)}</td>
+          <td class="py-1.5 pr-4 text-right font-semibold">${fmt(p.close)}</td>
+          <td class="py-1.5 text-right ${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</td>
+        </tr>`;
+      })
+      .join('');
+  }
+
+  // horizon 토글
+  document.body.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-hz]');
+    if (!btn) return;
+    const hz = Number((btn as HTMLElement).dataset.hz);
+    window.dispatchEvent(new CustomEvent('sim:horizon', { detail: { horizon: hz } }));
+  });
+
+  // ---- ForecastChart (Chart.js + 수동 progressive draw) ----
+  declare const Chart: any;
+
+  let chart: any = null;
+
+  window.addEventListener('sim:rendered', (ev: Event) => {
+    const { data } = (ev as CustomEvent).detail;
+    drawChart(data);
+  });
+
+  function drawChart(data: ApiResp) {
+    const canvas = document.getElementById('forecast-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    if (chart) chart.destroy();
+
+    const ctx = canvas.getContext('2d')!;
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          { label: '실제',         data: [], borderColor: '#60a5fa', backgroundColor: 'transparent', borderWidth: 2, fill: false, pointRadius: 0, tension: 0.2 },
+          { label: '예측 메디안',  data: [], borderColor: '#22d3ee', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6, 4], fill: false, pointRadius: 0, tension: 0.2 },
+          { label: '예측 p25-p75', data: [], borderColor: 'transparent', backgroundColor: 'rgba(34,211,238,0.18)', fill: '-1', pointRadius: 0 },
+          { label: '_p25 hidden',  data: [], borderColor: 'transparent', backgroundColor: 'transparent', fill: false, pointRadius: 0, showLine: false, hidden: false },
+        ],
+      },
+      options: {
+        animation: false,
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: '#cbd5e1', filter: (l: any) => !l.text.startsWith('_') } },
+          tooltip: { mode: 'index', intersect: false },
+        },
+        scales: {
+          x: { type: 'time', time: { unit: 'month' }, ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+          y: { ticks: { color: '#64748b' }, grid: { color: '#1e293b' } },
+        },
+      },
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const allPoints = [
+      ...data.history.map((p) => ({ date: p.date, isHistory: true, value: p.close })),
+      ...data.forecast.slice(1).map((p) => ({ date: p.date, isHistory: false, median: p.median, lo: p.lo, hi: p.hi })),
+    ];
+
+    if (reduceMotion) {
+      allPoints.forEach((p) => pushPoint(p));
+      chart.update('none');
+      return;
+    }
+
+    const totalMs = 2000;
+    const msPerPoint = totalMs / allPoints.length;
+    let i = 0;
+    let lastTs = performance.now();
+
+    function tick(now: number) {
+      while (now - lastTs >= msPerPoint && i < allPoints.length) {
+        pushPoint(allPoints[i]);
+        i++;
+        lastTs += msPerPoint;
+      }
+      chart.update('none');
+      if (i < allPoints.length) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    function pushPoint(p: any) {
+      chart.data.labels.push(p.date);
+      if (p.isHistory) {
+        chart.data.datasets[0].data.push(p.value);
+        chart.data.datasets[1].data.push(null);
+        chart.data.datasets[2].data.push(null);
+        chart.data.datasets[3].data.push(null);
+      } else {
+        chart.data.datasets[0].data.push(null);
+        chart.data.datasets[1].data.push(p.median);
+        chart.data.datasets[2].data.push(p.hi);
+        chart.data.datasets[3].data.push(p.lo);
+      }
+    }
+  }
+</script>

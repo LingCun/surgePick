@@ -30,10 +30,12 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Run scanners
+      - name: Run scan + ingest
         run: npm run scan
         env:
           NODE_OPTIONS: --max-old-space-size=2048
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
 
       - name: Commit data changes (if any)
         run: |

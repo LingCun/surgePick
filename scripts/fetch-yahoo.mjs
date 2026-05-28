@@ -8,7 +8,7 @@ const YAHOO_HEADERS = {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * Pure parser: chart-result object → { dates, closes, volumes, highs, lows, meta } or null.
+ * Pure parser: chart-result object → { dates, opens, closes, volumes, highs, lows, meta } or null.
  * Exported for testing.
  */
 export function parseChartResult(result) {
@@ -18,11 +18,13 @@ export function parseChartResult(result) {
   const ts = result.timestamp ?? [];
 
   const rawCloses = q.close ?? [];
+  const rawOpens = q.open ?? [];
   const rawVolumes = q.volume ?? [];
   const rawHighs = q.high ?? [];
   const rawLows = q.low ?? [];
 
   const dates = [];
+  const opens = [];
   const closes = [];
   const volumes = [];
   const highs = [];
@@ -35,6 +37,7 @@ export function parseChartResult(result) {
     const d = new Date(t * 1000);
     const dateStr = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
     dates.push(dateStr);
+    opens.push(rawOpens[i] ?? rawCloses[i]);
     closes.push(rawCloses[i]);
     volumes.push(rawVolumes[i] ?? 0);
     highs.push(rawHighs[i] ?? rawCloses[i]);
@@ -44,6 +47,7 @@ export function parseChartResult(result) {
 
   return {
     dates,
+    opens,
     closes,
     volumes,
     highs,
@@ -59,7 +63,7 @@ export function parseChartResult(result) {
 /**
  * Fetch daily OHLCV from Yahoo chart endpoint.
  * range: '1mo' | '3mo' | '4mo' | '6mo' | '1y' | '2y' | '5y'
- * Returns: { dates, closes, volumes, highs, lows, meta } | null
+ * Returns: { dates, opens, closes, volumes, highs, lows, meta } | null
  */
 export async function fetchChart(ticker, range = '4mo') {
   const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=${range}`;
