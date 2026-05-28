@@ -28,21 +28,21 @@ const endEq = points[points.length - 1]?.total ?? 0;
 const totalReturn = startEq > 0 ? (endEq / startEq - 1) * 100 : 0;
 ---
 
-<div class="rounded-lg border border-gray-200 p-4 bg-white">
+<div class="rounded-2xl border border-slate-800 p-4 bg-slate-900">
   <div class="flex items-baseline justify-between mb-2">
-    <h3 class="font-semibold">자산 곡선</h3>
-    <div class="text-sm text-gray-600">
+    <h3 class="font-semibold text-slate-100">자산 곡선</h3>
+    <div class="text-sm text-slate-400">
       {points[0]?.date} → {points[points.length - 1]?.date}
-      <span class={totalReturn >= 0 ? 'text-red-600 ml-2' : 'text-blue-600 ml-2'}>
+      <span class={totalReturn >= 0 ? 'text-rose-400 ml-2' : 'text-sky-400 ml-2'}>
         {totalReturn >= 0 ? '+' : ''}{totalReturn.toFixed(1)}%
       </span>
     </div>
   </div>
   <svg viewBox={`0 0 ${w} ${h}`} class="w-full h-48">
-    <path d={path} fill="none" stroke="#2563eb" stroke-width="2" />
+    <path d={path} fill="none" stroke="#60a5fa" stroke-width="2" />
   </svg>
-  <div class="grid grid-cols-2 gap-2 mt-2 text-sm">
-    <div><span class="text-gray-500">시작:</span> {Math.round(startEq).toLocaleString()} 원</div>
-    <div><span class="text-gray-500">현재:</span> {Math.round(endEq).toLocaleString()} 원</div>
+  <div class="grid grid-cols-2 gap-2 mt-2 text-sm text-slate-200">
+    <div><span class="text-slate-500">시작:</span> {Math.round(startEq).toLocaleString()} 원</div>
+    <div><span class="text-slate-500">현재:</span> {Math.round(endEq).toLocaleString()} 원</div>
   </div>
 </div>

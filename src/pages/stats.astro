@@ -8,27 +8,34 @@ const totalInitial = data.initialCapital.krInitial + data.initialCapital.usIniti
 const totalReturn = totalInitial > 0 ? (totalCurrent / totalInitial - 1) * 100 : 0;
 const breakdown = Object.entries(sellReasonBreakdown ?? {}).sort((a, b) => b[1] - a[1]);
 ---
-<Base title="surgePick — 백테스트">
-  <main class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+<Base title="surgePick — 백테스트" asOf={data.asOf}>
+  <nav class="flex gap-3 text-sm py-2 px-4 border-b border-slate-800 mb-4">
+    <a href="/" class="text-slate-400 hover:text-slate-200">홈</a>
+    <a href="/portfolio" class="text-slate-400 hover:text-slate-200">포트폴리오</a>
+    <a href="/watchlist" class="text-slate-400 hover:text-slate-200">관찰목록</a>
+    <a href="/stats" class="font-medium text-slate-100">통계</a>
+  </nav>
+
+  <div class="space-y-6">
     <h1 class="text-2xl font-bold">백테스트 결과</h1>
-    <p class="text-sm text-gray-600">{win.start} → {win.end} · 초기 1000만원 + $10K</p>
+    <p class="text-sm text-slate-400">{win.start} → {win.end} · 초기 1000만원 + $10K</p>
 
     <div class="grid grid-cols-2 gap-3">
-      <div class="rounded-lg border p-3 bg-white">
-        <div class="text-xs text-gray-500">CAGR</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">CAGR</div>
         <div class="text-2xl font-bold">{(metrics.cagr * 100).toFixed(1)}%</div>
       </div>
-      <div class="rounded-lg border p-3 bg-white">
-        <div class="text-xs text-gray-500">최대 낙폭</div>
-        <div class="text-2xl font-bold text-blue-600">{(metrics.maxDrawdown * 100).toFixed(1)}%</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">최대 낙폭</div>
+        <div class="text-2xl font-bold text-sky-400">{(metrics.maxDrawdown * 100).toFixed(1)}%</div>
       </div>
-      <div class="rounded-lg border p-3 bg-white">
-        <div class="text-xs text-gray-500">Sharpe</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">Sharpe</div>
         <div class="text-2xl font-bold">{metrics.sharpe.toFixed(2)}</div>
       </div>
-      <div class="rounded-lg border p-3 bg-white">
-        <div class="text-xs text-gray-500">총 수익</div>
-        <div class={`text-2xl font-bold ${totalReturn >= 0 ? 'text-red-600' : 'text-blue-600'}`}>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">총 수익</div>
+        <div class={`text-2xl font-bold ${totalReturn >= 0 ? 'text-rose-400' : 'text-sky-400'}`}>
           {totalReturn >= 0 ? '+' : ''}{totalReturn.toFixed(1)}%
         </div>
       </div>
@@ -36,15 +43,15 @@ const breakdown = Object.entries(sellReasonBreakdown ?? {}).sort((a, b) => b[1] 
 
     <section>
       <h2 class="font-semibold mb-2">청산 사유 분포</h2>
-      <div class="bg-white border rounded-lg p-3 text-sm space-y-1">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 text-sm space-y-1 text-slate-200">
         {breakdown.map(([reason, n]) => (
-          <div class="flex justify-between"><span>{reason}</span><span class="font-medium">{n}</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">{reason}</span><span class="font-medium">{n}</span></div>
         ))}
       </div>
     </section>
 
-    <a href="/portfolio" class="block bg-blue-50 border border-blue-200 rounded-lg p-3 text-center font-medium text-blue-700">
+    <a href="/portfolio" class="block bg-slate-900 border border-slate-800 rounded-2xl p-3 text-center font-medium text-sky-300 hover:bg-slate-800 transition-colors">
       📊 자세히 보기 — 자산 곡선 + 보유 종목
     </a>
-  </main>
+  </div>
 </Base>

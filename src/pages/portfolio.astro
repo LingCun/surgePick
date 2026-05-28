@@ -11,26 +11,33 @@ const totalReturn = (totalCurrent / totalInitial - 1) * 100;
 const recentLedger = [...ledger].slice(-20).reverse();
 ---
 
-<Base title="surgePick — 포트폴리오">
-  <main class="space-y-6">
+<Base title="surgePick — 포트폴리오" asOf={data.asOf}>
+  <nav class="flex gap-3 text-sm py-2 px-4 border-b border-slate-800 mb-4">
+    <a href="/" class="text-slate-400 hover:text-slate-200">홈</a>
+    <a href="/portfolio" class="font-medium text-slate-100">포트폴리오</a>
+    <a href="/watchlist" class="text-slate-400 hover:text-slate-200">관찰목록</a>
+    <a href="/stats" class="text-slate-400 hover:text-slate-200">통계</a>
+  </nav>
+
+  <div class="space-y-6">
     <h1 class="text-2xl font-bold">포트폴리오</h1>
 
     <div class="grid grid-cols-2 gap-3">
-      <div class="rounded-lg border border-gray-200 p-3 bg-white">
-        <div class="text-xs text-gray-500">CAGR</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">CAGR</div>
         <div class="text-xl font-bold">{(metrics.cagr * 100).toFixed(1)}%</div>
       </div>
-      <div class="rounded-lg border border-gray-200 p-3 bg-white">
-        <div class="text-xs text-gray-500">MDD</div>
-        <div class="text-xl font-bold text-blue-600">{(metrics.maxDrawdown * 100).toFixed(1)}%</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">MDD</div>
+        <div class="text-xl font-bold text-sky-400">{(metrics.maxDrawdown * 100).toFixed(1)}%</div>
       </div>
-      <div class="rounded-lg border border-gray-200 p-3 bg-white">
-        <div class="text-xs text-gray-500">Sharpe</div>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">Sharpe</div>
         <div class="text-xl font-bold">{metrics.sharpe.toFixed(2)}</div>
       </div>
-      <div class="rounded-lg border border-gray-200 p-3 bg-white">
-        <div class="text-xs text-gray-500">총 수익</div>
-        <div class={`text-xl font-bold ${totalReturn >= 0 ? 'text-red-600' : 'text-blue-600'}`}>
+      <div class="rounded-2xl border border-slate-800 p-3 bg-slate-900">
+        <div class="text-xs text-slate-400">총 수익</div>
+        <div class={`text-xl font-bold ${totalReturn >= 0 ? 'text-rose-400' : 'text-sky-400'}`}>
           {totalReturn >= 0 ? '+' : ''}{totalReturn.toFixed(1)}%
         </div>
       </div>
@@ -40,39 +47,39 @@ const recentLedger = [...ledger].slice(-20).reverse();
 
     <section>
       <h2 class="font-semibold mb-2">현재 보유 ({positions.length})</h2>
-      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
         {positions.length === 0 ? (
-          <div class="p-4 text-gray-500 text-sm">보유 종목 없음</div>
+          <div class="p-4 text-slate-400 text-sm">보유 종목 없음</div>
         ) : positions.map((p) => <PositionRow position={p} />)}
       </div>
     </section>
 
     <section>
       <h2 class="font-semibold mb-2">청산 사유 분포</h2>
-      <div class="bg-white border border-gray-200 rounded-lg p-3 text-sm grid grid-cols-2 gap-2">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 text-sm grid grid-cols-2 gap-2 text-slate-200">
         {Object.entries(sellReasonBreakdown).map(([reason, n]) => (
-          <div class="flex justify-between"><span>{reason}</span><span class="font-medium">{n}</span></div>
+          <div class="flex justify-between"><span class="text-slate-400">{reason}</span><span class="font-medium">{n}</span></div>
         ))}
       </div>
     </section>
 
     <section>
       <h2 class="font-semibold mb-2">최근 거래 (20)</h2>
-      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden text-sm">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden text-sm">
         {recentLedger.map((l) => (
-          <div class="border-b border-gray-100 py-2 px-3 flex items-center gap-3">
-            <div class="text-xs text-gray-500 w-20">{l.date}</div>
-            <div class={`text-xs font-medium w-10 ${l.action === 'buy' ? 'text-red-600' : 'text-blue-600'}`}>
+          <div class="border-b border-slate-800 last:border-b-0 py-2 px-3 flex items-center gap-3 text-slate-200">
+            <div class="text-xs text-slate-500 w-20">{l.date}</div>
+            <div class={`text-xs font-medium w-10 ${l.action === 'buy' ? 'text-rose-400' : 'text-sky-400'}`}>
               {l.action === 'buy' ? '매수' : '매도'}
             </div>
-            <div class="flex-1 truncate">{l.name} <span class="text-gray-500 text-xs">{l.ticker}</span></div>
+            <div class="flex-1 truncate">{l.name} <span class="text-slate-500 text-xs">{l.ticker}</span></div>
             <div class="text-right">{l.shares}주 @ {Math.round(l.price).toLocaleString()}</div>
-            <div class="text-xs text-gray-500 w-20 text-right">{l.reason}</div>
+            <div class="text-xs text-slate-500 w-20 text-right">{l.reason}</div>
           </div>
         ))}
       </div>
     </section>
 
-    <div class="text-xs text-gray-400">백테스트 기간 {win.start} → {win.end}</div>
-  </main>
+    <div class="text-xs text-slate-500">백테스트 기간 {win.start} → {win.end}</div>
+  </div>
 </Base>
