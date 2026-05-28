@@ -1,11 +1,25 @@
 {
-  "asOf": "2026-05-28T08:47:02.003Z",
+  "asOf": "2026-05-28T11:06:51.040Z",
   "lastUpdateDate": "2026-05-28",
   "initialCapital": {
     "krInitial": 10000000,
     "usInitial": 10000
   },
   "positions": [
+    {
+      "market": "KR",
+      "ticker": "360750.KS",
+      "name": "TIGER 미국S&P500",
+      "shares": 30,
+      "avgCost": 24010,
+      "peak": 28100,
+      "currentPrice": 28000,
+      "unrealizedReturn": 0.1661807580174927,
+      "firstBuyDate": "2026-03-30",
+      "lastBuyDate": "2026-03-30",
+      "dcaPlan": null,
+      "distPlan": null
+    },
     {
       "market": "KR",
       "ticker": "373220.KS",
@@ -15,20 +29,6 @@
       "peak": 442000,
       "currentPrice": 442000,
       "unrealizedReturn": 0.14954486345903772,
-      "firstBuyDate": "2026-05-20",
-      "lastBuyDate": "2026-05-20",
-      "dcaPlan": null,
-      "distPlan": null
-    },
-    {
-      "market": "KR",
-      "ticker": "068270.KS",
-      "name": "셀트리온",
-      "shares": 5,
-      "avgCost": 179400,
-      "peak": 198700,
-      "currentPrice": 190000,
-      "unrealizedReturn": 0.059085841694537344,
       "firstBuyDate": "2026-05-20",
       "lastBuyDate": "2026-05-20",
       "dcaPlan": null,
@@ -50,41 +50,27 @@
     },
     {
       "market": "US",
+      "ticker": "BRK-B",
+      "name": "Berkshire B",
+      "shares": 1,
+      "avgCost": 470.1300048828125,
+      "peak": 513.8099975585938,
+      "currentPrice": 479.9200134277344,
+      "unrealizedReturn": 0.020824045356054637,
+      "firstBuyDate": "2025-07-15",
+      "lastBuyDate": "2025-07-15",
+      "dcaPlan": null,
+      "distPlan": null
+    },
+    {
+      "market": "US",
       "ticker": "BNDX",
       "name": "Vanguard Total International Bond",
       "shares": 15,
-      "avgCost": 49.20000076293945,
-      "peak": 49.29999923706055,
+      "avgCost": 48.439998626708984,
+      "peak": 48.5099983215332,
       "currentPrice": 48.220001220703125,
-      "unrealizedReturn": -0.019918689573975083,
-      "firstBuyDate": "2025-12-08",
-      "lastBuyDate": "2025-12-08",
-      "dcaPlan": null,
-      "distPlan": null
-    },
-    {
-      "market": "US",
-      "ticker": "V",
-      "name": "Visa",
-      "shares": 3,
-      "avgCost": 314.0799865722656,
-      "peak": 334.8599853515625,
-      "currentPrice": 327.6099853515625,
-      "unrealizedReturn": 0.04307819459290445,
-      "firstBuyDate": "2026-02-13",
-      "lastBuyDate": "2026-02-13",
-      "dcaPlan": null,
-      "distPlan": null
-    },
-    {
-      "market": "US",
-      "ticker": "VWO",
-      "name": "Vanguard FTSE Emerging Markets",
-      "shares": 13,
-      "avgCost": 54.470001220703125,
-      "peak": 60.75,
-      "currentPrice": 60.290000915527344,
-      "unrealizedReturn": 0.1068477981346572,
+      "unrealizedReturn": -0.0045416476515867735,
       "firstBuyDate": "2026-03-06",
       "lastBuyDate": "2026-03-06",
       "dcaPlan": null,
@@ -94,14 +80,48 @@
       "market": "US",
       "ticker": "ABBV",
       "name": "AbbVie",
-      "shares": 4,
-      "avgCost": 197.69000244140625,
-      "peak": 215.6999969482422,
+      "shares": 6,
+      "avgCost": 207.75999450683594,
+      "peak": 217.49000549316406,
       "currentPrice": 215.39999389648438,
-      "unrealizedReturn": 0.08958465899319934,
-      "firstBuyDate": "2026-04-28",
-      "lastBuyDate": "2026-04-28",
+      "unrealizedReturn": 0.0367731978804854,
+      "firstBuyDate": "2026-03-18",
+      "lastBuyDate": "2026-03-25",
       "dcaPlan": null,
+      "distPlan": null
+    },
+    {
+      "market": "US",
+      "ticker": "WMT",
+      "name": "Walmart",
+      "shares": 9,
+      "avgCost": 120.2699966430664,
+      "peak": 120.2699966430664,
+      "currentPrice": 118.54000091552734,
+      "unrealizedReturn": -0.01438426686477169,
+      "firstBuyDate": "2026-05-22",
+      "lastBuyDate": "2026-05-22",
+      "dcaPlan": {
+        "kind": "dca",
+        "startDate": "2026-05-22",
+        "chunks": [
+          {
+            "date": "2026-05-22",
+            "shares": 9,
+            "filled": true
+          },
+          {
+            "date": "2026-05-29",
+            "shares": 9,
+            "filled": false
+          },
+          {
+            "date": "2026-06-05",
+            "shares": 10,
+            "filled": false
+          }
+        ]
+      },
       "distPlan": null
     }
   ]

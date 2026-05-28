@@ -7,7 +7,7 @@
       "price": 118.54000091552734,
       "rsi": 31.74111789535533,
       "ma200Distance": 0.0313799215139347,
-      "inPortfolio": false
+      "inPortfolio": true
     }
   ],
   "neutral": [
@@ -54,7 +54,7 @@
       "price": 190000,
       "rsi": 45.49643941583233,
       "ma200Distance": -0.012963939416765586,
-      "inPortfolio": true
+      "inPortfolio": false
     },
     {
       "ticker": "055550.KS",
@@ -198,7 +198,7 @@
       "price": 479.9200134277344,
       "rsi": 50.39769859134468,
       "ma200Distance": -0.021432439962403023,
-      "inPortfolio": false
+      "inPortfolio": true
     },
     {
       "ticker": "JPM",
@@ -216,7 +216,7 @@
       "price": 327.6099853515625,
       "rsi": 55.89574828454759,
       "ma200Distance": -0.009902225612358144,
-      "inPortfolio": true
+      "inPortfolio": false
     },
     {
       "ticker": "XOM",
@@ -450,7 +450,7 @@
       "price": 60.290000915527344,
       "rsi": 60.46062428506932,
       "ma200Distance": 0.09030804818184165,
-      "inPortfolio": true
+      "inPortfolio": false
     },
     {
       "ticker": "SQQQ",
@@ -758,7 +758,7 @@
       "price": 28000,
       "rsi": 75.63904639437342,
       "ma200Distance": 0.14321177181493028,
-      "inPortfolio": false
+      "inPortfolio": true
     },
     {
       "ticker": "VUG",
@@ -806,5 +806,5 @@
       "inPortfolio": false
     }
   ],
-  "asOf": "2026-05-28T08:46:22.716Z"
+  "asOf": "2026-05-28T11:06:23.037Z"
 }
