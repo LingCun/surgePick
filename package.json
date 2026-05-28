@@ -16,11 +16,7 @@
     "ingest:tickers": "node scripts/ingest-tickers.mjs",
     "backfill:prices": "node scripts/backfill-prices.mjs",
     "build:index": "node scripts/build-tickers-index.mjs",
-    "scan:picks": "node scripts/scan-picks.mjs",
-    "scan:themes": "node scripts/scan-themes.mjs",
     "scan": "npm run scan:regime && npm run ingest:regime && npm run ingest:prices",
-    "backtest": "node scripts/backtest.mjs",
-    "tune:vix": "node scripts/tune-vix.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
