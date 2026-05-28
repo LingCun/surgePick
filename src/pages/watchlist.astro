@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import data from '../data/watchlist.json';
+
+const sections = [
+  { key: 'cheap', label: '🟢 싸다', color: 'green' },
+  { key: 'neutral', label: '⚪ 보통', color: 'gray' },
+  { key: 'rich', label: '🔴 비싸다', color: 'red' },
+];
+---
+
+<Base title="surgePick — Watchlist">
+  <main class="space-y-6">
+    <h1 class="text-2xl font-bold">관찰목록</h1>
+    <p class="text-sm text-gray-400">200일 이동평균 위 / 지수 대비 강한 종목 중 오늘의 가격대.</p>
+
+    {sections.map((sec) => {
+      const items = data[sec.key] ?? [];
+      return (
+        <section>
+          <h2 class="font-semibold mb-2">{sec.label} ({items.length})</h2>
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            {items.length === 0 ? (
+              <div class="p-4 text-gray-500 text-sm">없음</div>
+            ) : items.map((row) => (
+              <div class="border-b border-gray-100 py-2 px-3 flex items-center gap-3 text-sm text-slate-900">
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium truncate">{row.name}</div>
+                  <div class="text-xs text-gray-500">{row.ticker} · {row.market}</div>
+                </div>
+                <div class="text-right">
+                  <div>{row.price?.toLocaleString?.() ?? row.price}</div>
+                  <div class="text-xs text-gray-500">RSI {row.rsi?.toFixed?.(0)}</div>
+                </div>
+                <div class="text-right text-xs text-gray-500">
+                  MA200 {row.ma200Distance >= 0 ? '+' : ''}{(row.ma200Distance * 100).toFixed(1)}%
+                </div>
+                {row.inPortfolio && <div class="text-xs text-blue-600 font-medium">보유</div>}
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    })}
+
+    <div class="text-xs text-gray-400">갱신 {data.asOf}</div>
+  </main>
+</Base>
