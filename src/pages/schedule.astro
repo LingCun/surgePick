@@ -7,10 +7,10 @@ import scheduleData from '../data/schedule.json';
 const { asOf: regimeAsOf, asOfKR, asOfUS } = regimeData as any;
 const { events = [], note } = scheduleData as { events: any[]; note?: string };
 
-// 오늘 이후 이벤트만 + 날짜순 정렬
+// 오늘 이후 + 중요(high) 일정만 + 날짜순 정렬
 const today = new Date().toISOString().slice(0, 10);
 const upcoming = events
-  .filter((e) => e.date >= today)
+  .filter((e) => e.date >= today && e.importance === 'high')
   .sort((a, b) => (a.date === b.date ? (a.time ?? '').localeCompare(b.time ?? '') : a.date.localeCompare(b.date)));
 
 // 날짜별 그룹
@@ -60,7 +60,7 @@ const categoryLabel = {
         <span class="bg-gradient-to-r from-cyan-300 to-sky-500 bg-clip-text text-transparent">일정</span>
       </h1>
       <p class="text-sm text-slate-400 leading-relaxed">
-        한국·미국 증시 주요 거시지표 발표와 대기업 실적 일정. {note}
+        한국·미국 증시에 영향이 큰 <span class="text-rose-300">중요 일정만</span> 추려서 보여줍니다. {note}
       </p>
     </div>
 
