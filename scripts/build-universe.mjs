@@ -7,8 +7,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // KOSPI 200 / S&P 500 / KOSDAQ scrape 외 수동 종목. 자동 빌드 후에도 살아남음.
 const EXTRAS_KR = [
-  // 핑거
+  // 사용자 요청 KOSDAQ 종목
   { ticker: '163730.KQ', name: '핑거', market: 'KOSDAQ' },
+  { ticker: '043260.KQ', name: '성호전자', market: 'KOSDAQ' },
   // KR ETFs (KOSPI 상장)
   { ticker: '069500.KS', name: 'KODEX 200',                 market: 'KOSPI' },
   { ticker: '102110.KS', name: 'TIGER 200',                 market: 'KOSPI' },
