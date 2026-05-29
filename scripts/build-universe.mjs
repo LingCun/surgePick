@@ -38,30 +38,32 @@ async function fetchSP500() {
   return list;
 }
 
-// Naver Finance "KOSPI 200" — paginated HTML (20 rows/page, ~10 pages).
+// Wikipedia "KOSPI 200" → ~200 tickers. Table format: name | symbol(6-digit) | GICS sector.
 async function fetchKospi200() {
+  const res = await fetch('https://en.wikipedia.org/wiki/KOSPI_200', {
+    headers: { 'User-Agent': 'Mozilla/5.0 surgepick-builder' },
+  });
+  if (!res.ok) throw new Error(`KOSPI 200 fetch HTTP ${res.status}`);
+  const html = await res.text();
+  // Find first wikitable containing 6-digit codes.
+  const tables = [...html.matchAll(/<table[^>]*class="[^"]*wikitable[^"]*"[^>]*>([\s\S]*?)<\/table>/g)];
   const seen = new Map();
-  for (let page = 1; page <= 12; page++) {
-    const url = `https://finance.naver.com/sise/entryJongmok.naver?sosok=KPI200&page=${page}`;
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 surgepick-builder',
-        Accept: 'text/html,application/xhtml+xml',
-      },
-    });
-    if (!res.ok) {
-      console.warn(`[kospi200] page ${page} HTTP ${res.status}`);
-      break;
-    }
-    const html = await res.text();
-    const matches = [...html.matchAll(/<a[^>]+href="\/item\/main\.naver\?code=(\d{6})"[^>]*>([^<]+)<\/a>/g)];
-    if (matches.length === 0) break;
-    for (const m of matches) {
-      const ticker = `${m[1]}.KS`;
-      const name = stripTags(m[2]);
+  for (const t of tables) {
+    const rows = [...t[1].matchAll(/<tr>([\s\S]*?)<\/tr>/g)];
+    for (const r of rows) {
+      const cells = [...r[1].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/g)];
+      if (cells.length < 2) continue;
+      const c0 = stripTags(cells[0][1]);
+      const c1 = stripTags(cells[1][1]);
+      // 표 헤더에 따라 (name, code) 또는 (code, name) 가능 — 6자리 코드 자동 인식.
+      let code = null;
+      let name = null;
+      if (/^\d{6}$/.test(c1)) { code = c1; name = c0; }
+      else if (/^\d{6}$/.test(c0)) { code = c0; name = c1; }
+      if (!code || !name) continue;
+      const ticker = `${code}.KS`;
       if (!seen.has(ticker)) seen.set(ticker, { ticker, name, market: 'KOSPI' });
     }
-    await sleep(300);
   }
   return [...seen.values()];
 }
