@@ -27,6 +27,9 @@
     role="listbox"
     class="hidden absolute z-10 mt-2 w-full max-h-80 overflow-auto rounded-xl bg-slate-900 border border-slate-700 shadow-2xl shadow-slate-950/50"
   ></ul>
+  <div id="tk-recent" class="hidden mt-2 flex flex-wrap gap-1.5">
+    <span class="text-[11px] text-slate-500 self-center mr-1">최근:</span>
+  </div>
   <button
     id="tk-go"
     type="button"
@@ -42,9 +45,42 @@
   const results = document.getElementById('tk-results') as HTMLUListElement;
   const goBtn = document.getElementById('tk-go') as HTMLButtonElement;
   const clearBtn = document.getElementById('tk-clear') as HTMLButtonElement;
+  const recentEl = document.getElementById('tk-recent') as HTMLDivElement;
+
+  const RECENT_KEY = 'surgepick:recent';
+  const RECENT_MAX = 5;
+
+  function loadRecent(): any[] {
+    try { return JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); } catch { return []; }
+  }
+  function saveRecent(list: any[]) {
+    try { localStorage.setItem(RECENT_KEY, JSON.stringify(list.slice(0, RECENT_MAX))); } catch {}
+  }
+  function pushRecent(item: any) {
+    const list = loadRecent().filter((x) => x.ticker !== item.ticker);
+    list.unshift({ ticker: item.ticker, name_kr: item.name_kr, name_en: item.name_en, market: item.market, exchange: item.exchange });
+    saveRecent(list);
+  }
+
+  function renderRecent() {
+    const list = loadRecent();
+    const showable = list.length > 0 && input.value.length === 0;
+    recentEl.classList.toggle('hidden', !showable);
+    if (!showable) return;
+    const chips = list.map((item, i) => {
+      const flag = item.market === 'KR' ? '🇰🇷' : '🇺🇸';
+      const raw = item.name_kr ?? item.name_en ?? item.ticker;
+      const name = cleanName(raw, item.ticker);
+      return `<button type="button" data-recent="${i}" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center gap-1.5 transition">
+        <span>${flag}</span><span>${name}</span>
+      </button>`;
+    });
+    recentEl.innerHTML = `<span class="text-[11px] text-slate-500 self-center mr-1">최근:</span>${chips.join('')}`;
+  }
 
   function syncClearBtn() {
     clearBtn.classList.toggle('hidden', input.value.length === 0);
+    renderRecent();
   }
 
   type Item = { ticker: string; name_kr: string | null; name_en: string | null; market: 'KR' | 'US'; exchange: string };
@@ -58,7 +94,29 @@
     return raw.split(/[\r\n]+/).map((s) => s.trim()).filter(Boolean).pop() ?? fallback;
   }
 
-  fetch('/tickers-index.json').then((r) => r.json()).then((d) => { index = d; });
+  // 인덱스 로드 + URL 파라미터 자동 적용 (?ticker=AAPL[&h=60])
+  fetch('/tickers-index.json').then((r) => r.json()).then((d) => {
+    index = d;
+    applyUrlParams();
+  });
+
+  function applyUrlParams() {
+    const p = new URLSearchParams(location.search);
+    const tk = p.get('ticker');
+    const hz = Number(p.get('h') ?? '30');
+    if (!tk) return;
+    const match = index.find((x) =>
+      x.ticker === tk ||
+      x.ticker.replace(/\.[A-Z]+$/, '') === tk ||
+      x.ticker.toLowerCase() === tk.toLowerCase(),
+    );
+    if (!match) return;
+    pick(match);
+    if ([30, 60, 90].includes(hz)) {
+      window.dispatchEvent(new CustomEvent('sim:horizon', { detail: { horizon: hz } }));
+    }
+    window.dispatchEvent(new CustomEvent('sim:run', { detail: { ticker: match } }));
+  }
 
   function render(matches: Item[]) {
     currentMatches = matches;
@@ -92,6 +150,7 @@
     input.value = cleanName(raw, m.ticker);
     results.classList.add('hidden');
     goBtn.disabled = false;
+    pushRecent(m);
     syncClearBtn();
   }
 
@@ -140,6 +199,25 @@
     if (!li) return;
     pick(currentMatches[Number((li as HTMLElement).dataset.i)]);
   });
+
+  recentEl.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-recent]');
+    if (!btn) return;
+    const idx = Number((btn as HTMLElement).dataset.recent);
+    const list = loadRecent();
+    const item = list[idx];
+    if (!item) return;
+    // 인덱스에서 최신 메타 사용 (이름 갱신 대응)
+    const match = index.find((x) => x.ticker === item.ticker) ?? item;
+    pick(match);
+    window.dispatchEvent(new CustomEvent('sim:run', { detail: { ticker: match } }));
+  });
+
+  input.addEventListener('focus', renderRecent);
+
+  // 인덱스 로드 후 최근 검색 렌더
+  document.addEventListener('DOMContentLoaded', renderRecent);
+  renderRecent();
 
   goBtn.addEventListener('click', () => {
     if (!selected) return;

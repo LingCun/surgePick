@@ -16,14 +16,24 @@
   window.addEventListener('sim:run', async (ev: Event) => {
     const { ticker } = (ev as CustomEvent).detail;
     lastSelectedTicker = ticker.ticker;
+    syncUrl();
     await runAndRender(currentHorizon);
   });
 
   window.addEventListener('sim:horizon', async (ev: Event) => {
     currentHorizon = (ev as CustomEvent).detail.horizon;
     syncHorizonButtons(currentHorizon);
+    syncUrl();
     if (lastSelectedTicker) await runAndRender(currentHorizon);
   });
+
+  function syncUrl() {
+    if (!lastSelectedTicker) return;
+    const p = new URLSearchParams();
+    p.set('ticker', lastSelectedTicker);
+    p.set('h', String(currentHorizon));
+    history.replaceState(null, '', `${location.pathname}?${p.toString()}`);
+  }
 
   function syncHorizonButtons(hz: number) {
     document.querySelectorAll('[data-hz]').forEach((btn) => {
@@ -84,6 +94,15 @@
       : d.context.label === 'bear' ? 'text-rose-400 bg-rose-950/40 border-rose-800/50'
       : 'text-slate-300 bg-slate-800/40 border-slate-700/50';
 
+    // 예측 신뢰도: case_count 30 미만은 표본 부족 워닝.
+    const lowConfidence = !noForecast && d.context.case_count < 30;
+    const warningBanner = lowConfidence
+      ? `<div class="bg-amber-950/30 border border-amber-700/40 rounded-xl px-4 py-2.5 text-xs text-amber-300 flex items-start gap-2">
+           <span class="text-base leading-none mt-0.5">⚠</span>
+           <span><span class="font-semibold">신뢰도 낮음</span> — 유사 사례 ${d.context.case_count}건. 표본이 작아 예측이 한쪽으로 치우칠 수 있어요.</span>
+         </div>`
+      : '';
+
     return `
       <section class="forecast-chart space-y-3">
         <header class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex items-center justify-between gap-3">
@@ -94,9 +113,14 @@
               <div class="text-xs text-slate-500 font-mono">${shortTicker} · ${d.ticker.exchange}</div>
             </div>
           </div>
-          <div class="text-right">
-            <div class="text-xl font-bold tabular-nums">${currency}${fmt(d.today_close)}</div>
-            <div class="text-[10px] text-slate-500 uppercase tracking-wide">현재가</div>
+          <div class="flex items-center gap-2">
+            <div class="text-right">
+              <div class="text-xl font-bold tabular-nums">${currency}${fmt(d.today_close)}</div>
+              <div class="text-[10px] text-slate-500 uppercase tracking-wide">현재가</div>
+            </div>
+            <button id="sim-share" type="button" aria-label="공유" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition" title="공유 링크 복사">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
           </div>
         </header>
 
@@ -106,6 +130,8 @@
           <span class="px-2 py-1 rounded-full border border-slate-700/50 text-slate-400 bg-slate-800/40">유사사례 ${d.context.case_count}건</span>
           ${d.context.fallback ? '<span class="px-2 py-1 rounded-full border border-amber-700/40 text-amber-400 bg-amber-950/30">폴백 매칭</span>' : ''}
         </div>
+
+        ${warningBanner}
 
         <div class="relative h-72 md:h-96 bg-gradient-to-br from-slate-900 to-slate-950 rounded-xl border border-slate-800 p-3">
           <canvas id="forecast-canvas"></canvas>
@@ -170,10 +196,29 @@
 
   // horizon 토글 (sim.astro 의 #horizon-picker 버튼이 트리거)
   document.body.addEventListener('click', (e) => {
-    const btn = (e.target as HTMLElement).closest('[data-hz]');
-    if (!btn) return;
-    const hz = Number((btn as HTMLElement).dataset.hz);
-    window.dispatchEvent(new CustomEvent('sim:horizon', { detail: { horizon: hz } }));
+    const target = e.target as HTMLElement;
+    const btn = target.closest('[data-hz]');
+    if (btn) {
+      const hz = Number((btn as HTMLElement).dataset.hz);
+      window.dispatchEvent(new CustomEvent('sim:horizon', { detail: { horizon: hz } }));
+      return;
+    }
+    if (target.closest('#sim-share')) {
+      const url = location.href;
+      const shareBtn = target.closest('#sim-share') as HTMLButtonElement;
+      const reset = (txt: string) => {
+        const original = shareBtn.getAttribute('aria-label') ?? '공유';
+        shareBtn.setAttribute('aria-label', txt);
+        shareBtn.title = txt;
+        setTimeout(() => { shareBtn.setAttribute('aria-label', original); shareBtn.title = '공유 링크 복사'; }, 1500);
+      };
+      // Web Share API 우선
+      if (navigator.share) {
+        navigator.share({ url }).catch(() => navigator.clipboard?.writeText(url).then(() => reset('링크 복사됨')));
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => reset('링크 복사됨')).catch(() => reset('복사 실패'));
+      }
+    }
   });
 
   // ---- ForecastChart ----
