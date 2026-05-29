@@ -60,14 +60,17 @@ const categoryLabel = {
         <span class="bg-gradient-to-r from-cyan-300 to-sky-500 bg-clip-text text-transparent">일정</span>
       </h1>
       <p class="text-sm text-slate-400 leading-relaxed">
-        한국·미국 증시에 영향이 큰 <span class="text-rose-300">중요 일정만</span> 추려서 보여줍니다. {note}
+        한국·미국 증시에 영향이 큰 <span class="text-rose-300">중요 일정만</span> 추려서 보여줍니다. 모든 시각은 <span class="text-slate-200 font-medium">한국시간(KST)</span> 기준이에요. {note}
       </p>
     </div>
 
-    <div id="schedule-filter" class="flex gap-2">
+    <div id="schedule-filter" class="flex gap-2 items-center">
       <button data-mkt="all" class="sched-btn sched-active">전체</button>
       <button data-mkt="KR" class="sched-btn">🇰🇷 한국</button>
       <button data-mkt="US" class="sched-btn">🇺🇸 미국</button>
+      <span class="ml-auto text-[11px] text-slate-400 flex items-center gap-1 shrink-0">
+        <span aria-hidden="true">🕘</span>한국시간(KST)
+      </span>
     </div>
 
     {upcoming.length === 0 && (
