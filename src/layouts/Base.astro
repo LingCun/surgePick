@@ -4,11 +4,27 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   asOf?: string;
+  asOfKR?: string;
+  asOfUS?: string;
 }
-const { title = 'surgePick', asOf } = Astro.props;
-const asOfText = asOf
-  ? new Date(asOf).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Seoul' })
-  : null;
+const { title = 'surgePick', asOf, asOfKR, asOfUS } = Astro.props;
+function fmt(iso?: string) {
+  if (!iso) return null;
+  const d = new Date(iso);
+  const opts = { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Seoul', hour12: false } as const;
+  return d.toLocaleString('ko-KR', opts);
+}
+const krText = fmt(asOfKR);
+const usText = fmt(asOfUS);
+const fallbackText = !krText && !usText ? fmt(asOf) : null;
+
+const path = Astro.url.pathname;
+const activeHome = path === '/' || path === '';
+const activeSim = path.startsWith('/sim');
+const activeAbout = path.startsWith('/about');
+const navBase = 'pb-3 px-1 border-b-2 transition text-base';
+const navIdle = 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-500';
+const navActive = 'border-cyan-400 text-cyan-300 font-semibold';
 ---
 <!doctype html>
 <html lang="ko">
@@ -22,14 +38,22 @@ const asOfText = asOf
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
     <header class="px-4 pt-6 pb-2 max-w-screen-md mx-auto">
-      <div class="flex items-baseline justify-between">
+      <div class="flex items-start justify-between gap-3">
         <a href="/" class="text-2xl font-bold tracking-tight">surgePick</a>
-        {asOfText && <span class="text-xs text-slate-400">{asOfText} 기준</span>}
+        {(krText || usText) && (
+          <div class="text-[11px] text-slate-400 text-right leading-snug">
+            {krText && <div><span class="text-slate-500 mr-1">KR</span>{krText}</div>}
+            {usText && <div><span class="text-slate-500 mr-1">US</span>{usText}</div>}
+          </div>
+        )}
+        {!krText && !usText && fallbackText && (
+          <span class="text-xs text-slate-400">{fallbackText} 기준</span>
+        )}
       </div>
-      <nav class="mt-3 flex gap-4 text-sm border-b border-slate-800">
-        <a href="/" class="pb-2 border-b-2 border-transparent hover:border-slate-500" data-nav="home">시장</a>
-        <a href="/sim" class="pb-2 border-b-2 border-transparent hover:border-slate-500" data-nav="sim">시뮬레이션</a>
-        <a href="/about" class="pb-2 border-b-2 border-transparent hover:border-slate-500 ml-auto text-slate-400" data-nav="about">방법</a>
+      <nav class="mt-4 flex gap-6 border-b border-slate-800">
+        <a href="/" class={`${navBase} ${activeHome ? navActive : navIdle}`} data-nav="home">시장</a>
+        <a href="/sim" class={`${navBase} ${activeSim ? navActive : navIdle}`} data-nav="sim">시뮬레이션</a>
+        <a href="/about" class={`${navBase} ${activeAbout ? navActive : navIdle} ml-auto`} data-nav="about">방법</a>
       </nav>
     </header>
     <main class="px-4 pb-12 max-w-screen-md mx-auto">

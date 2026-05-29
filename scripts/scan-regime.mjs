@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { fetchChart } from './fetch-yahoo.mjs';
@@ -9,12 +9,18 @@ import { marketComment, overallComment } from './lib/market-comment.mjs';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT = resolve(__dirname, '../src/data/regime.json');
 
-const INDICES = [
+// MARKET env: 'kr' / 'us' / 'all' (default). 부분 갱신 모드에서는 미해당 region 의 이전 데이터를 보존.
+const MARKET = (process.env.MARKET ?? 'all').toLowerCase();
+
+const ALL_INDICES = [
   { code: 'KOSPI',  index: '^KS11',  emoji: '🇰🇷', region: 'KR' },
   { code: 'KOSDAQ', index: '^KQ11',  emoji: '🇰🇷', region: 'KR' },
   { code: 'SP500',  index: '^GSPC',  emoji: '🇺🇸', region: 'US' },
   { code: 'NASDAQ', index: '^IXIC',  emoji: '🇺🇸', region: 'US' },
 ];
+const INDICES = MARKET === 'kr' ? ALL_INDICES.filter((i) => i.region === 'KR')
+  : MARKET === 'us' ? ALL_INDICES.filter((i) => i.region === 'US')
+  : ALL_INDICES;
 
 async function main() {
   console.log('[scan-regime] fetching indices + VIX...');
@@ -65,18 +71,47 @@ async function main() {
   const gauge = vix != null
     ? fearGauge(vix)
     : { vix: null, level: '데이터 없음', step: 3, color: 'neutral', comment: '' };
-  const overall = overallComment(markets);
+
+  const now = new Date().toISOString();
+
+  // 부분 갱신: 기존 regime.json 의 미해당 region markets 와 timestamps 를 보존.
+  let prev = {};
+  if (existsSync(OUTPUT)) {
+    try { prev = JSON.parse(readFileSync(OUTPUT, 'utf8')); } catch {}
+  }
+  const prevMarkets = Array.isArray(prev.markets) ? prev.markets : [];
+  let mergedMarkets;
+  let asOfKR = prev.asOfKR ?? null;
+  let asOfUS = prev.asOfUS ?? null;
+
+  if (MARKET === 'kr') {
+    const us = prevMarkets.filter((m) => m.code === 'SP500' || m.code === 'NASDAQ');
+    mergedMarkets = [...markets, ...us];
+    asOfKR = now;
+  } else if (MARKET === 'us') {
+    const kr = prevMarkets.filter((m) => m.code === 'KOSPI' || m.code === 'KOSDAQ');
+    mergedMarkets = [...kr, ...markets];
+    asOfUS = now;
+  } else {
+    mergedMarkets = markets;
+    asOfKR = now;
+    asOfUS = now;
+  }
+
+  const overall = overallComment(mergedMarkets);
 
   const out = {
-    asOf: new Date().toISOString(),
+    asOf: now,
+    asOfKR,
+    asOfUS,
     fearGauge: gauge,
-    markets,
+    markets: mergedMarkets,
     overall,
   };
 
   mkdirSync(dirname(OUTPUT), { recursive: true });
   writeFileSync(OUTPUT, JSON.stringify(out, null, 2) + '\n', 'utf8');
-  console.log(`[scan-regime] wrote ${OUTPUT} — VIX ${vix?.toFixed(2)}, ${markets.length} markets`);
+  console.log(`[scan-regime market=${MARKET}] wrote ${OUTPUT} — VIX ${vix?.toFixed(2)}, ${mergedMarkets.length} markets (KR asOf=${asOfKR ?? '-'}, US asOf=${asOfUS ?? '-'})`);
 }
 
 main().catch((err) => {

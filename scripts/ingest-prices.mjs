@@ -1,11 +1,14 @@
 import { fetchChart } from './fetch-yahoo.mjs';
 import { getDb } from './lib/db.mjs';
 
+const MARKET = (process.env.MARKET ?? 'all').toLowerCase();
 const db = getDb();
-const tickers = await db.execute(`SELECT ticker FROM tickers WHERE active = 1`);
+const tickers = MARKET === 'kr' || MARKET === 'us'
+  ? await db.execute({ sql: `SELECT ticker FROM tickers WHERE active = 1 AND market = ?`, args: [MARKET.toUpperCase()] })
+  : await db.execute(`SELECT ticker FROM tickers WHERE active = 1`);
 const list = tickers.rows.map((r) => r.ticker);
 
-console.log(`incremental ingest: ${list.length} tickers (1mo, dedup)`);
+console.log(`incremental ingest [market=${MARKET}]: ${list.length} tickers (1mo, dedup)`);
 
 let ok = 0, fail = 0, inserted = 0;
 for (let i = 0; i < list.length; i++) {

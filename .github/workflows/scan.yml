@@ -29,9 +29,19 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Determine market from cron
+        id: which
+        run: |
+          case "${{ github.event.schedule }}" in
+            "30 9 * * 1-5")  echo "MARKET=kr"  >> $GITHUB_OUTPUT ;;
+            "30 1 * * 2-6")  echo "MARKET=us"  >> $GITHUB_OUTPUT ;;
+            *)               echo "MARKET=all" >> $GITHUB_OUTPUT ;;
+          esac
+
       - name: Run scan + ingest
         run: npm run scan
         env:
+          MARKET: ${{ steps.which.outputs.MARKET }}
           NODE_OPTIONS: --max-old-space-size=2048
           TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
           TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
