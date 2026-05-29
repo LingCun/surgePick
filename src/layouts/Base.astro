@@ -21,6 +21,7 @@ const fallbackText = !krText && !usText ? fmt(asOf) : null;
 const path = Astro.url.pathname;
 const activeHome = path === '/' || path === '';
 const activeSim = path.startsWith('/sim');
+const activeSchedule = path.startsWith('/schedule');
 const activeAbout = path.startsWith('/about');
 const navBase = 'pb-3 px-1 border-b-2 transition text-base';
 const navIdle = 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-500';
@@ -53,6 +54,7 @@ const navActive = 'border-cyan-400 text-cyan-300 font-semibold';
       <nav class="mt-4 flex gap-6 border-b border-slate-800">
         <a href="/" class={`${navBase} ${activeHome ? navActive : navIdle}`} data-nav="home">시장</a>
         <a href="/sim" class={`${navBase} ${activeSim ? navActive : navIdle}`} data-nav="sim">시뮬레이션</a>
+        <a href="/schedule" class={`${navBase} ${activeSchedule ? navActive : navIdle}`} data-nav="schedule">일정</a>
         <a href="/about" class={`${navBase} ${activeAbout ? navActive : navIdle} ml-auto`} data-nav="about">방법</a>
       </nav>
     </header>

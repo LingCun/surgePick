@@ -1,0 +1,36 @@
+{
+  "asOf": "2026-05-29",
+  "note": "공식 발표 일정 기준 추정. 정확한 시각·일자는 공식 사이트(Fed/BOK/KOSTAT/IR) 확인.",
+  "events": [
+    { "date": "2026-05-30", "time": "21:30", "market": "US", "category": "macro", "title": "4월 PCE 물가지수", "importance": "high" },
+
+    { "date": "2026-06-02", "time": "08:00", "market": "KR", "category": "macro", "title": "5월 소비자물가지수 (KOSTAT)", "importance": "high" },
+    { "date": "2026-06-03", "time": "23:00", "market": "US", "category": "macro", "title": "5월 ISM 제조업 PMI", "importance": "mid" },
+    { "date": "2026-06-06", "time": "21:30", "market": "US", "category": "macro", "title": "5월 비농업고용지수 (NFP)", "importance": "high" },
+    { "date": "2026-06-11", "time": "21:30", "market": "US", "category": "macro", "title": "5월 소비자물가지수 (CPI)", "importance": "high" },
+    { "date": "2026-06-12", "time": "10:00", "market": "KR", "category": "bok", "title": "한국은행 금융통화위원회", "importance": "high" },
+    { "date": "2026-06-17", "time": "03:00", "market": "US", "category": "fed", "title": "FOMC 결과 + 점도표 + 경제전망", "importance": "high" },
+    { "date": "2026-06-26", "time": "21:30", "market": "US", "category": "macro", "title": "5월 PCE 물가지수", "importance": "high" },
+
+    { "date": "2026-07-01", "time": "08:00", "market": "KR", "category": "macro", "title": "6월 무역수지·수출입동향", "importance": "mid" },
+    { "date": "2026-07-02", "time": "08:00", "market": "KR", "category": "macro", "title": "6월 소비자물가지수", "importance": "high" },
+    { "date": "2026-07-03", "time": "21:30", "market": "US", "category": "macro", "title": "6월 비농업고용지수 (NFP)", "importance": "high" },
+    { "date": "2026-07-07", "time": "08:00", "market": "KR", "category": "earnings", "title": "삼성전자 2Q 잠정실적", "importance": "high", "ticker": "005930.KS" },
+    { "date": "2026-07-10", "time": "10:00", "market": "KR", "category": "bok", "title": "한국은행 금융통화위원회", "importance": "high" },
+    { "date": "2026-07-15", "time": "21:30", "market": "US", "category": "macro", "title": "6월 소비자물가지수 (CPI)", "importance": "high" },
+    { "date": "2026-07-22", "time": "06:00", "market": "US", "category": "earnings", "title": "테슬라 2Q 실적", "importance": "high", "ticker": "TSLA" },
+    { "date": "2026-07-24", "time": "08:00", "market": "KR", "category": "earnings", "title": "SK하이닉스 2Q 실적", "importance": "high", "ticker": "000660.KS" },
+    { "date": "2026-07-29", "time": "03:00", "market": "US", "category": "fed", "title": "FOMC 결과", "importance": "high" },
+    { "date": "2026-07-30", "time": "06:00", "market": "US", "category": "earnings", "title": "Microsoft / Alphabet 2Q 실적", "importance": "high", "ticker": "MSFT" },
+    { "date": "2026-07-31", "time": "08:00", "market": "KR", "category": "earnings", "title": "삼성전자 2Q 확정실적", "importance": "high", "ticker": "005930.KS" },
+    { "date": "2026-07-31", "time": "06:00", "market": "US", "category": "earnings", "title": "Apple / Amazon 2Q 실적", "importance": "high", "ticker": "AAPL" },
+    { "date": "2026-07-31", "time": "21:30", "market": "US", "category": "macro", "title": "6월 PCE 물가지수", "importance": "high" },
+
+    { "date": "2026-08-01", "time": "08:00", "market": "KR", "category": "macro", "title": "7월 무역수지", "importance": "mid" },
+    { "date": "2026-08-04", "time": "08:00", "market": "KR", "category": "macro", "title": "7월 소비자물가지수", "importance": "high" },
+    { "date": "2026-08-07", "time": "21:30", "market": "US", "category": "macro", "title": "7월 NFP", "importance": "high" },
+    { "date": "2026-08-12", "time": "21:30", "market": "US", "category": "macro", "title": "7월 CPI", "importance": "high" },
+    { "date": "2026-08-21", "time": "06:00", "market": "US", "category": "earnings", "title": "엔비디아 2Q 실적", "importance": "high", "ticker": "NVDA" },
+    { "date": "2026-08-28", "time": "21:30", "market": "US", "category": "macro", "title": "7월 PCE", "importance": "high" }
+  ]
+}
