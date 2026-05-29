@@ -9,11 +9,15 @@ import regimeData from '../data/regime.json';
 const { fearGauge, markets = [], overall, asOf: regimeAsOf } = regimeData;
 ---
 <Base title="surgePick — 시장" asOf={regimeAsOf}>
-  <section class="space-y-4">
-    <h1 class="text-xl font-bold flex items-center gap-2"><span aria-hidden="true">🌡️</span>오늘의 시장 분위기</h1>
-    <p class="text-sm text-slate-400">
-      국내·미국 지수의 추세와 변동성을 한눈에. 개별 종목 차트·예측선은 상단 <a href="/sim" class="text-cyan-400 hover:text-cyan-300">시뮬레이션</a> 탭에서.
-    </p>
+  <section class="space-y-6">
+    <div class="space-y-2">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight">
+        <span class="bg-gradient-to-r from-cyan-300 to-sky-500 bg-clip-text text-transparent">시장 분위기</span>
+      </h1>
+      <p class="text-sm text-slate-400 leading-relaxed">
+        한국·미국 주요 지수의 추세·변동성과 오늘의 시장 온도. 개별 종목 차트와 예측선은 <a href="/sim" class="text-cyan-400 hover:text-cyan-300 underline-offset-2 hover:underline">시뮬레이션</a> 탭에서 확인해요.
+      </p>
+    </div>
     <FearGaugeCard {...fearGauge} />
     {markets.map((m) => <MarketMoodCard {...m} />)}
     <OverallCard {...overall} />
