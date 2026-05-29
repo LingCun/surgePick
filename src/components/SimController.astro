@@ -145,6 +145,7 @@
   declare const Chart: any;
 
   let chart: any = null;
+  let drawId = 0;
 
   window.addEventListener('sim:rendered', (ev: Event) => {
     const { data } = (ev as CustomEvent).detail;
@@ -187,6 +188,7 @@
   function drawChart(data: ApiResp) {
     const canvas = document.getElementById('forecast-canvas') as HTMLCanvasElement;
     if (!canvas) return;
+    const myId = ++drawId;   // 이전 draw 의 in-flight tick 무효화
     if (chart) chart.destroy();
 
     const ctx = canvas.getContext('2d')!;
@@ -266,6 +268,7 @@
     let lastTs = performance.now();
 
     function tick(now: number) {
+      if (myId !== drawId) return;   // 새 draw 호출돼서 무효 — 점 추가 중단
       while (now - lastTs >= msPerPoint && i < allPoints.length) {
         pushPoint(allPoints[i]);
         i++;
