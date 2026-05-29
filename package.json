@@ -16,6 +16,7 @@
     "ingest:tickers": "node scripts/ingest-tickers.mjs",
     "backfill:prices": "node scripts/backfill-prices.mjs",
     "backfill:regime": "node scripts/backfill-regime.mjs",
+    "build:universe": "node scripts/build-universe.mjs",
     "build:index": "node scripts/build-tickers-index.mjs",
     "scan": "npm run scan:regime && npm run ingest:regime && npm run ingest:prices",
     "test": "vitest run",

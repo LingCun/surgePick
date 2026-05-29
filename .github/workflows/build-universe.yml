@@ -1,0 +1,60 @@
+name: Rebuild universe + reingest (manual)
+
+# universe-us.json (S&P 500, Wikipedia) + universe-kr.json (KOSPI 200, Naver) 재구성.
+# 그 결과로 ticker DB + 가격 5y backfill + index 모두 갱신.
+# Actions 탭 → Run workflow.
+on:
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build universe JSON (Wikipedia + Naver)
+        run: node scripts/build-universe.mjs
+
+      - name: Ingest tickers
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+        run: npm run ingest:tickers
+
+      - name: Backfill 5y prices (Yahoo)
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+          NODE_OPTIONS: --max-old-space-size=2048
+        run: npm run backfill:prices
+
+      - name: Rebuild autocomplete index
+        env:
+          TURSO_DATABASE_URL: ${{ secrets.TURSO_DATABASE_URL }}
+          TURSO_AUTH_TOKEN: ${{ secrets.TURSO_AUTH_TOKEN }}
+        run: npm run build:index
+
+      - name: Commit universe JSON + index
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/universe-kr.json scripts/universe-us.json public/tickers-index.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "data: rebuild universe (KOSPI 200 + S&P 500) + re-index"
+            git push
+          fi
