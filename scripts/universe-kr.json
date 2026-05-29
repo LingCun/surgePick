@@ -993,5 +993,10 @@
     "ticker": "093370.KS",
     "name": "후성",
     "market": "KOSPI"
+  },
+  {
+    "ticker": "163730.KQ",
+    "name": "핑거",
+    "market": "KOSDAQ"
   }
 ]
