@@ -11,8 +11,16 @@
       autocomplete="off"
       spellcheck="false"
       placeholder="종목명 또는 코드 검색 (예: 삼성전자, AAPL, QQQ)"
-      class="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-900/60 text-slate-100 border border-slate-800 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 placeholder:text-slate-500 transition"
+      class="w-full pl-11 pr-11 py-3.5 rounded-xl bg-slate-900/60 text-slate-100 border border-slate-800 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 placeholder:text-slate-500 transition"
     />
+    <button
+      id="tk-clear"
+      type="button"
+      aria-label="입력 지우기"
+      class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
   </div>
   <ul
     id="tk-results"
@@ -33,6 +41,11 @@
   const input = document.getElementById('tk-input') as HTMLInputElement;
   const results = document.getElementById('tk-results') as HTMLUListElement;
   const goBtn = document.getElementById('tk-go') as HTMLButtonElement;
+  const clearBtn = document.getElementById('tk-clear') as HTMLButtonElement;
+
+  function syncClearBtn() {
+    clearBtn.classList.toggle('hidden', input.value.length === 0);
+  }
 
   type Item = { ticker: string; name_kr: string | null; name_en: string | null; market: 'KR' | 'US'; exchange: string };
 
@@ -79,12 +92,23 @@
     input.value = cleanName(raw, m.ticker);
     results.classList.add('hidden');
     goBtn.disabled = false;
+    syncClearBtn();
   }
 
   input.addEventListener('input', () => {
     selected = null;
     goBtn.disabled = true;
     render(search(index, input.value, 8));
+    syncClearBtn();
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    selected = null;
+    goBtn.disabled = true;
+    results.classList.add('hidden');
+    syncClearBtn();
+    input.focus();
   });
 
   input.addEventListener('keydown', (e) => {
